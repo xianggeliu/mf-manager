@@ -1,0 +1,751 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>学生信息管理</title>
+    <link rel="stylesheet" href="/static/dist/css/bootstrap.min.css">
+    <link rel="author" href="humans.txt">
+    <script src="/static/dist/jquery/jquery-1.9.1.min.js"></script>
+    <script src="/static/dist/js/bootstrap.min.js"></script>
+    <script src="/static/dist/js/bootstrap-paginator.min.js"></script>
+    <style type="text/css" media="screen">
+        .container {
+            /* background:red;
+            height:200px; */
+        }
+
+        .table th, .table td {
+            text-align: center;
+            height: 38px;
+        }
+
+        .modal-content {
+            background: #53A7F0;
+        }
+
+        .row {
+            margin: 15px 15px;
+            display: none;
+        }
+
+        body {
+            background: url(/static/login/img/bj.jpg) no-repeat center fixed;
+            background-size: cover;
+        }
+
+        .table tbody tr td {
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body style="">
+<div class="container">
+    <div style="height:60px; margin-top: -20px; ">
+        <h1 class=" text-center" style="background: #328DDC;  padding-top: 10px; height:60px"><p class="text">沐风管理系统</p>
+        </h1>
+    </div>
+
+    <nav class="navbar navbar-default">
+
+        <div class="navber-header">
+
+            <a href="#" class="navbar-brand"><img src="wind.png" height="100%" alt=""></a>
+            <button type="button" class="navbar-toggle collapsed" data-toggle='collapse' data-target='#myNavbar'
+                    aria-expanded="false">
+
+                <span class="sr-only"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+
+            </button>
+        </div>
+        <div id="myNavbar" class="collapse navbar-collapse" style="top: 100px;">
+            <ul class="nav navbar-nav">
+                <li><a href="http://127.0.0.1:8080/login/loginView">首页</a></li>
+                <li class="active"><a href="studentListView.html">学生管理</a></li>
+                <li><a href="setStudentInfo">学生信息录入</a></li>
+
+                <li><a href="updateStudenInfo">学生信息展示</a></li>
+
+
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#" class="">班级信息</a></li>
+
+            </ul>
+            <form action="导航栏_submit" class="navbar-form navbar-right" method="get" accept-charset="utf-8">
+                <div class="form-group">
+                    <input type="text" name="" class="form-control" value="" placeholder="">
+                </div>
+                <div class="form-group">
+                    <button type="" class="btn btn-default">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </nav>
+    <form class="form-inline">
+        <div class="form-group">
+            <label for="exampleInputName2">姓名：</label>
+            <input type="text" class="form-control" id="exampleInputName2" placeholder="请输入姓名">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail2">年龄：</label>
+            <input type="email" class="form-control" id="exampleInputEmail2" placeholder="请输入年龄">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail2">性别：</label>
+            <input type="email" class="form-control" id="exampleInputEmail2" placeholder="请输入性别">
+        </div>
+        <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-search"></span></button>
+        <div class="pull-right">
+            <a href="#addStudent" class="btn btn-primary " data-toggle='modal'><span
+                    class="glyphicon glyphicon-plus">新增</span></a>
+            <a href="#myPoi" class="btn btn-primary " data-toggle='modal'>导出学生记录</a>
+        </div>
+    </form>
+
+    <div class="table-responsive" style="margin-top: 15px; background: #F5F5F5;">
+        <table class="table table-bordered table-hover halign-center text-center">
+
+            <tbody>
+            <tr style="halign:center;">
+                <th>学号</th>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>年龄</th>
+                <th>操作</th>
+            </tr>
+            <tr>
+                <td>001</td>
+                <td>黎明明</td>
+                <td>男</td>
+                <td>6</td>
+                <td style="width:200px;">
+                    <a href="#myModal" class="btn btn-primary btn-sm" data-toggle='modal'>详细信息</a>
+                    <a href="#myModal4" class="btn btn-warning btn-sm" data-toggle='modal'>编辑</a>
+
+                </td>
+            </tr>
+            <tr>
+                <td>002</td>
+                <td>张友友</td>
+                <td>男</td>
+                <td>8</td>
+                <td style="width:200px;">
+                    <a href="#myModal2" class="btn btn-primary btn-sm " data-toggle='modal'>详细信息</a>
+                    <a href="studentEdit.html" class="btn btn-warning btn-sm">编辑</a>
+
+                </td>
+            </tr>
+            <tr>
+                <td>003</td>
+                <td>郭城城</td>
+                <td>女</td>
+                <td>2</td>
+                <td style="width:200px;">
+                    <a href="#myModal3" class="btn btn-primary btn-sm" data-toggle='modal'>详细信息</a>
+                    <a href="studentEdit.html" class="btn btn-warning btn-sm">编辑</a>
+
+                </td>
+            </tr>
+            <tr>
+                <td>004</td>
+                <td>刘华华</td>
+                <td>女</td>
+                <td>7</td>
+                <td style="width:200px;">
+                    <a href="MfStudentManagerView.html" class="btn btn-primary btn-sm">详细信息</a>
+                    <a href="studentEdit.html" class="btn btn-warning btn-sm">编辑</a>
+
+                </td>
+            </tr>
+            <tr>
+                <td>005</td>
+                <td>牛5</td>
+                <td>男</td>
+                <td>123</td>
+                <td style="width:200px;">
+                    <a href="MfStudentManagerView.html" class="btn btn-primary btn-sm">详细信息</a>
+                    <a href="" class="btn btn-warning btn-sm">编辑</a>
+
+                </td>
+            </tr>
+            <tr>
+                <td>006</td>
+                <td>牛6</td>
+                <td>男</td>
+                <td>16</td>
+                <td style="width:200px;">
+                    <a href="MfStudentManagerView.html" class="btn btn-primary btn-sm">详细信息</a>
+                    <a href="" class="btn btn-warning btn-sm">编辑</a>
+
+                </td>
+            </tr>
+            <tr>
+                <td>007</td>
+                <td>牛7</td>
+                <td>男</td>
+                <td>17</td>
+                <td style="width:200px;">
+                    <a href="MfStudentManagerView.html" class="btn btn-primary btn-sm">详细信息</a>
+                    <a href="" class="btn btn-warning btn-sm">编辑</a>
+
+                </td>
+            </tr>
+            <tr>
+                <td>008</td>
+                <td>牛8</td>
+                <td>男</td>
+                <td>123</td>
+                <td style="width:200px;">
+                    <a href="MfStudentManagerView.html" class="btn btn-primary btn-sm">详细信息</a>
+                    <a href="" class="btn btn-warning btn-sm">编辑</a>
+
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content text-center">
+                <div class="modal-header">
+                    <div class="close" data-dismiss='modal'>&times;
+                    </div>
+                    <h3>学生信息</h3>
+                </div>
+
+                <div class="modal-body " style="height:250px;">
+                    <div class="col-md-8">
+
+                        <div class="form-group has-warning ">
+                            <label class="col-md-6 control-label text-right" for="">学生姓名:</label>
+                            <div class="col-md-6">
+                                <p class="text-left">黎明明</p>
+                            </div>
+                        </div>
+                        <div class="form-group has-warning">
+                            <label class="col-md-6 control-label text-right" for="">年龄:</label>
+                            <div class="col-md-6 text-left">
+                                <p class="">6岁</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group has-warning ">
+                            <label class="col-md-6 control-label text-right" for="">性别:</label>
+                            <div class="col-md-6 text-left">
+                                <p class="">男</p>
+                            </div>
+                        </div>
+                        <div class="form-group has-warning">
+                            <label for="" class="col-md-6 control-label text-right">监护人姓名:</label>
+                            <div class="col-md-6 text-left">
+                                <p class="">黎明</p>
+
+                            </div>
+                        </div>
+                        <div class="form-group has-warning">
+                            <label for="" class="col-md-6 control-label text-right">家庭住址:</label>
+                            <div class="col-md-6 text-left">
+                                <p class="">北街村107号</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group has-warning">
+                            <label class="col-md-6 control-label text-right" for="">联系电话:</label>
+                            <div class="col-md-6 text-left">
+                                <p class="">13300000330</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-4 ">
+
+                        <img alt="暂无图片" id="myImg" src="img/6.jpg" class="img-thumbnail" height="150px">
+                    </div>
+                </div>
+
+                <div class="modal-footer ">
+                    <div class="col-md-6 col-md-offset-2">
+                        <button type="buttone" onclick="hideDiv();" class="btn btn-success btn-lg">确定</button>
+
+                        <button type="" class="btn btn-warning btn-lg" data-dismiss='modal'>取消</button>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="modal fade" id="myModal2">
+        <div class="modal-dialog">
+            <div class="modal-content text-center">
+                <div class="modal-header">
+                    <div class="close" data-dismiss='modal'>&times;
+                    </div>
+                    <h3>学生信息</h3>
+                </div>
+
+                <div class="modal-body " style="height:250px;">
+                    <div class="col-md-8">
+
+                        <div class="form-group has-warning ">
+                            <label class="col-md-6 control-label text-right" for="">学生姓名:</label>
+                            <div class="col-md-6">
+                                <p class="text-left">张友友</p>
+                            </div>
+                        </div>
+                        <div class="form-group has-warning">
+                            <label class="col-md-6 control-label text-right" for="">年龄:</label>
+                            <div class="col-md-6 text-left">
+                                <p class="">8岁</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group has-warning ">
+                            <label class="col-md-6 control-label text-right" for="">性别:</label>
+                            <div class="col-md-6 text-left">
+                                <p class="">男</p>
+                            </div>
+                        </div>
+                        <div class="form-group has-warning">
+                            <label for="" class="col-md-6 control-label text-right">监护人姓名:</label>
+                            <div class="col-md-6 text-left">
+                                <p class="">张友</p>
+
+                            </div>
+                        </div>
+                        <div class="form-group has-warning">
+                            <label for="" class="col-md-6 control-label text-right">家庭住址:</label>
+                            <div class="col-md-6 text-left">
+                                <p class="">东街村11号</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group has-warning">
+                            <label class="col-md-6 control-label text-right" for="">联系电话:</label>
+                            <div class="col-md-6 text-left">
+                                <p class="">13300000330</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-4 ">
+
+                        <img alt="暂无图片" id="myImg" src="img/7.jpg" class="img-thumbnail" height="150px">
+                    </div>
+                </div>
+
+                <div class="modal-footer ">
+                    <div class="col-md-6 col-md-offset-2">
+                        <button type="buttone" onclick="hideDiv();" class="btn btn-success btn-lg">确定</button>
+
+                        <button type="" class="btn btn-warning btn-lg" data-dismiss='modal'>取消</button>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="modal fade" id="myModal3">
+        <div class="modal-dialog">
+            <div class="modal-content text-center">
+                <div class="modal-header">
+                    <div class="close" data-dismiss='modal'>&times;
+                    </div>
+                    <h3>学生信息</h3>
+                </div>
+
+                <div class="modal-body " style="height:250px;">
+                    <div class="col-md-8">
+
+                        <div class="form-group has-warning ">
+                            <label class="col-md-6 control-label text-right" for="">学生姓名:</label>
+                            <div class="col-md-6">
+                                <p class="text-left">郭城城</p>
+                            </div>
+                        </div>
+                        <div class="form-group has-warning">
+                            <label class="col-md-6 control-label text-right" for="">年龄:</label>
+                            <div class="col-md-6 text-left">
+                                <p class="">2岁</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group has-warning ">
+                            <label class="col-md-6 control-label text-right" for="">性别:</label>
+                            <div class="col-md-6 text-left">
+                                <p class="">女</p>
+                            </div>
+                        </div>
+                        <div class="form-group has-warning">
+                            <label for="" class="col-md-6 control-label text-right">监护人姓名:</label>
+                            <div class="col-md-6 text-left">
+                                <p class="">郭城</p>
+
+                            </div>
+                        </div>
+                        <div class="form-group has-warning">
+                            <label for="" class="col-md-6 control-label text-right">家庭住址:</label>
+                            <div class="col-md-6 text-left">
+                                <p class="">南街村17号</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group has-warning">
+                            <label class="col-md-6 control-label text-right" for="">联系电话:</label>
+                            <div class="col-md-6 text-left">
+                                <p class="">13300000330</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-4 ">
+
+                        <img alt="暂无图片" id="myImg" src="img/8.jpg" class="img-thumbnail" height="150px">
+                    </div>
+                </div>
+
+                <div class="modal-footer ">
+                    <div class="col-md-6 col-md-offset-2">
+                        <button type="buttone" onclick="hideDiv();" class="btn btn-success btn-lg">确定</button>
+
+                        <button type="" class="btn btn-warning btn-lg" data-dismiss='modal'>取消</button>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="modal fade" id="myModal4">
+        <div class="modal-dialog">
+            <div class="modal-content text-center" style=" background:#53A7F0;">
+                <div class="modal-header">
+                    <div class="close" data-dismiss='modal'>&times;
+                    </div>
+                    <h3>学生信息</h3>
+                </div>
+
+                <div class="modal-body " style="height:480px;">
+                    <form class="form-horizontal" accept-charset="utf-8">
+                        <div class="form-group has-warning">
+
+                            <label class="col-sm-3 control-label" for="">学生照片:</label>
+
+                            <div class="col-md-9 col-md-offset-1" style="height:150px;width:150px;">
+                                <label for="upfiles"><img class="img-thumbnail" id="editImg" src="img/6.jpg"
+                                                          height="150px"></label>
+
+                                <input type="file" id="upfiles" style="display: none;"
+                                       onchange="changImg(event ,'editImg')" width="140px" name="img" accept="image/*"
+                                       o>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-10">
+                            <div class="form-group has-warning ">
+                                <label class="col-sm-3 control-label" for="">学生姓名:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="" class="form-control" value="黎明明" placeholder="如:黎明">
+                                    <!-- <p class="form-control-static">英雄</p> -->
+                                </div>
+                            </div>
+                            <div class="form-group has-warning">
+                                <label class="col-sm-3 control-label" for="">年龄:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="" class="form-control" value="6岁" placeholder="如:6岁">
+                                </div>
+                            </div>
+
+                            <div class="form-group has-warning ">
+                                <label class="col-sm-3 control-label" for="">性别:</label>
+                                <div class="col-sm-9">
+                                    <select name="" class="form-control">
+                                        <option value="">男</option>
+                                        <option value="">女</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group has-warning">
+                                <label for="" class="col-xs-3 control-label ">监护人姓名:</label>
+                                <div class="col-xs-9">
+                                    <input type="text" class="form-control has-warning" placeholder="来玩呀~!" value="黎明">
+                                </div>
+                            </div>
+
+
+                            <div class="form-group has-warning">
+                                <label for="" class="col-xs-3 control-label ">家庭住址:</label>
+                                <div class="col-xs-9">
+                                    <input type="text" class="form-control has-warning" value="北街村107号"
+                                           placeholder="北街村107号">
+                                </div>
+                            </div>
+
+                            <div class="form-group has-warning">
+                                <label class="col-sm-3 control-label" for="">联系电话:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="" class="form-control" value="13300000330"
+                                           placeholder="13300000330">
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
+                    </form>
+                </div>
+
+                <div class="modal-footer ">
+                    <div class="col-md-6 col-md-offset-2">
+                        <button type="buttone" onclick="hideDiv();" class="btn btn-success btn-lg">确定</button>
+
+                        <button type="" class="btn btn-warning btn-lg" data-dismiss='modal'>取消</button>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+    <div id="Paginator" style="text-align: center">
+        <ul id="pageLimit"></ul>
+    </div>
+
+</div>
+
+<div class="modal fade" id="addStudent">
+    <div class="modal-dialog">
+        <div class="modal-content text-center">
+            <div class="modal-header">
+                <div class="close" data-dismiss='modal'>&times;
+                </div>
+                <h3>学生信息</h3>
+            </div>
+
+            <div class="modal-body " style="height:480px;">
+                <form class="form-horizontal" action="setStudentInfo" method="post" enctype="multipart/form-data"
+                      accept-charset="utf-8">
+                    <div class="form-group has-warning">
+
+                        <label class="col-sm-3 control-label" for="">学生照片:</label>
+
+                        <div class="col-md-9 col-md-offset-2" style="height:150px;width:150px;">
+                            <label for="upfile"><img class="img-thumbnail" id="addImg" src="/static/dist/img/11.png"
+                                                     height="150px"></label>
+
+                            <input type="file" id="upfile" style="display: none;" onchange="changImg(event ,'addImg')"
+                                   width="140px" name="upImg" accept="image/*" o>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-10">
+                        <div class="form-group has-warning ">
+                            <label class="col-sm-3 control-label" for="">学生姓名:</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="" class="form-control" value="" placeholder="如:黎明">
+                                <!-- <p class="form-control-static">英雄</p> -->
+                            </div>
+                        </div>
+                        <div class="form-group has-warning">
+                            <label class="col-sm-3 control-label" for="">年龄:</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="" class="form-control" value="" placeholder="如:6岁">
+                            </div>
+                        </div>
+
+                        <div class="form-group has-warning ">
+                            <label class="col-sm-3 control-label" for="">性别:</label>
+                            <div class="col-sm-9">
+                                <select name="" class="form-control">
+                                    <option value="">男</option>
+                                    <option value="">女</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group has-warning">
+                            <label for="" class="col-xs-3 control-label ">监护人姓名:</label>
+                            <div class="col-xs-9">
+                                <input type="text" class="form-control has-warning" placeholder="来玩呀~!" value="">
+                            </div>
+                        </div>
+
+
+                        <div class="form-group has-warning">
+                            <label for="" class="col-xs-3 control-label ">家庭住址:</label>
+                            <div class="col-xs-9">
+                                <input type="text" class="form-control has-warning" value="" placeholder="北街村107号">
+                            </div>
+                        </div>
+
+                        <div class="form-group has-warning">
+                            <label class="col-sm-3 control-label" for="">联系电话:</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="" class="form-control" value="" placeholder="13300000330">
+                            </div>
+                        </div>
+
+
+                        <button type="submit" class="btn btn-success btn-lg">确定</button>
+
+                        <button type="" class="btn btn-warning btn-lg" data-dismiss='modal'>取消</button>
+
+                    </div>
+
+                </form>
+            </div>
+
+            <div class="modal-footer ">
+                <div class="col-md-6 col-md-offset-2">
+                    <!--<button type="buttone" onclick="hideDiv();" class="btn btn-success btn-lg">确定</button>-->
+
+                    <!--<button type="" class="btn btn-warning btn-lg" data-dismiss='modal'>取消</button>-->
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
+<!--<div id="Paginator" style="text-align: center"> <ul id="pageLimit"></ul> </div>-->
+
+</div>
+
+<div class="modal fade" id="myPoi">
+    <div class="modal-dialog">
+        <div class="modal-content text-center">
+            <div class="modal-header">
+                <div class="close" data-dismiss='modal'>&times;
+                </div>
+                <h3>导出学生记录选择</h3>
+            </div>
+
+            <div class="modal-body " style="height:200px; padding-top: 55px;">
+                <a href="" class="btn btn-primary btn-lg">导出当前页学生信息</a>
+                <a href="" class="btn btn-primary btn-lg">导出所有学生信息</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+</body>
+<script>
+    s = 0;
+    v = 2;
+    sobj = setInterval(function () {
+        s += v;
+        if (s >= 100) {
+
+            clearInterval(sobj);
+        }
+        ;
+        $("#prgressBar").html(s + '%').css({
+            'width': s + '%'
+        });
+    }, 100)
+
+    $('#imgs').mouseenter(function () {
+        $(this).addClass('active');
+        $('#imgs').not($(this)).removeClass("active");
+        idx = $(this).index('li');
+        $('.navs').eq(idx).stop().show(100);
+        $('.navs').not($('.navs').eq(idx)).stop().hide(100);
+    });
+
+    $('.navs').eq(0).show(100);
+
+
+    function changImg(e, id) {
+        var IDD = id;
+        for (var i = 0; i < e.target.files.length; i++) {
+            var file = e.target.files.item(i);
+            if (!(/^image\/.*$/i.test(file.type))) {
+                continue; //不是图片 就跳出这一次循环
+            }
+            //实例化FileReader API
+            var freader = new FileReader();
+            freader.readAsDataURL(file);
+            freader.onload = function (e) {
+                $("#" + id + "").attr("src", e.target.result);
+            };
+        }
+    }
+
+    $('#pageLimit').bootstrapPaginator({
+        currentPage: 1,
+        totalPages: 10,
+        size: "normal",
+        bootstrapMajorVersion: 3,
+        alignment: "right",
+        numberOfPages: 5,
+        itemTexts: function (type, page, current) {
+            switch (type) {
+                case "first":
+                    return "首页";
+                case "prev":
+                    return "上一页";
+                case "next":
+                    return "下一页";
+                case "last":
+                    return "末页";
+                case "page":
+                    return page;
+            }
+        }
+    });
+
+    function checkForm() {
+        var formData = new FormData($("#studentAddForm")[0]);
+        $.ajax({
+            url: "/saveStudentInfo",
+            type: 'POST',
+            data: formData,
+            cache: false,
+            async: false,
+            processData: false,  //必须false才会避开jQuery对 formdata 的默认处理
+            contentType: false,  //必须false才会自动加上正确的Content-Type
+
+            success: function (data) {
+                console.log("成功");
+                /*
+                layer.alert("增加成功", {icon: 6}, function () {
+                            window.parent.location.reload(); //刷新父页面
+                            // 获得frame索引
+                            var index = parent.layer.getFrameIndex(window.name);
+                            //关闭当前frame
+                            parent.layer.close(index);
+                        });
+                */
+            },
+            error: function (data) {
+                console.log("失败");
+                /*
+                layer.msg(data.message, {time: 2000});
+                */
+            }
+        });
+    }
+</script>
+</html>

@@ -1,0 +1,139 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="">
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <title>首页Index</title>
+        <link rel="stylesheet" href="dist/css/bootstrap.min.css">
+        <link rel="author" href="humans.txt">
+        <script src="jquery/jquery-1.9.1.min.js"></script>
+        <script src="dist/js/bootstrap.min.js"></script>
+        <script src="dist/js/docs.min.js"></script>
+        <style type="text/css" media="screen">
+            .container{
+                /* background:red;
+                height:200px; */
+            }
+
+            .table th, .table td {
+                text-align: center;
+                height:38px;
+                }
+
+            .row{
+                margin:15px 15px;
+                display:none;
+            }
+
+            .navbar-inverse{
+                background:#337AB7;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div  class="page-header" style="background:#337AB7; " >
+                <h1 class="page-header text-center" style="height:150px;padding-top: 50px;" > <p class="text">沐风管理系统</p></h1>
+            </div>
+            <nav class="navbar navbar-default">
+
+                <div class="navber-header">
+
+                    <a href="#" class="navbar-brand"><img src="wind.png" height="100%"alt=""></a>
+                    <button type="button" class="navbar-toggle collapsed" data-toggle='collapse' data-target='#myNavbar' aria-expanded="false">
+
+                        <span class="sr-only"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+
+                    </button>
+                </div>
+                <div id="myNavbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active" ><a href="">首页</a></li>
+                    <li><a href="">传说</a></li>
+                    <li><a href="">希望</a></li>
+                    <li class="dropdown">
+                        <a href="" class="dropdown-toggle" data-toggle="dropdown">
+                           <span>history <span class="caret"></span></span>
+                        </a>
+
+                        <ul class="dropdown-menu">
+                            <li class=""><a href="">英雄的故事</a></li>
+                             <li class=""><a href="">小妞的故事</a></li>
+                              <li class=""><a href="">大牛的故事</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="">呵呵呵</a></li>
+                    <button type="" class="btn btn-primary navbar-btn">升级</button>
+
+                </ul>
+
+                 <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#" class="">英雄攻略</a></li>
+
+                </ul>
+                <form action="导航栏_submit" class="navbar-form navbar-right" method="get" accept-charset="utf-8">
+                    <div class="form-group">
+                        <input type="text" name="" class="form-control" value="" placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <button type="" class="btn btn-default">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+            </nav>
+
+            <div class="table-bordered">
+
+
+            </div>
+        </div>
+
+    </body>
+    <script >
+    s = 0;
+    v = 2;
+    sobj = setInterval(function(){
+        s += v;
+        if (s >= 100) {
+
+            clearInterval(sobj);
+        };
+        $("#prgressBar").html(s + '%').css({
+            'width' :s + '%'
+        });
+    },100)
+
+        $('#imgs').mouseenter(function() {
+            $(this).addClass('active');
+            $('#imgs').not($(this)).removeClass("active");
+            idx = $(this).index('li');
+            $('.navs').eq(idx).stop().show(100);
+            $('.navs').not($('.navs').eq(idx)).stop().hide(100);
+        });
+
+        $('.navs').eq(0).show(100);
+
+
+        function changImg(e){
+        for (var i = 0; i < e.target.files.length; i++) {
+            var file = e.target.files.item(i);
+            if (!(/^image\/.*$/i.test(file.type))) {
+                continue; //不是图片 就跳出这一次循环
+            }
+            //实例化FileReader API
+            var freader = new FileReader();
+            freader.readAsDataURL(file);
+            freader.onload = function(e) {
+                $("#myImg").attr("src",e.target.result);
+            };
+        }
+    }
+    </script>
+</html>

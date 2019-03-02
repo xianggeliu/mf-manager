@@ -1,0 +1,202 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="">
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <title>学生信息录入</title>
+        <link rel="stylesheet" href="/static/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/static/login/css/reg.css">
+        <link rel="author" href="humans.txt">
+        <script src="/static/dist/jquery/jquery-1.9.1.min.js"></script>
+        <script src="/static/dist/js/bootstrap.min.js"></script>
+        <style type="text/css" media="screen">
+            .container{
+                /* background:red;
+                height:200px; */
+            }
+
+            .table th, .table td {
+                text-align: center;
+                height:38px;
+                }
+
+            .row{
+                margin:15px 15px;
+                display:none;
+            }
+
+            .navbar-inverse{
+                background:#337AB7;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div  class="page-header" style="background:#337AB7;height:60px; " >
+                <h1 class="page-header text-center" style="padding-top: 10px;" > <p class="text">沐风管理系统</p></h1>
+            </div>
+
+            <nav class="navbar navbar-default">
+
+                <div class="navber-header">
+
+                    <a href="#" class="navbar-brand"><img src="wind.png" height="100%"alt=""></a>
+                    <button type="button" class="navbar-toggle collapsed" data-toggle='collapse' data-target='#myNavbar' aria-expanded="false">
+
+                        <span class="sr-only"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+
+                    </button>
+                </div>
+                <div id="myNavbar" class="collapse navbar-collapse" style="top: 100px;">
+                <ul class="nav navbar-nav">
+                    <li><a href="MFIndex.html">首页</a></li>
+                    <li><a href="studentListView.html">学生管理</a></li>
+                    <li class="active"><a href="studentListView1.html">学生信息录入</a></li>
+
+                    <li  ><a href="MfStudentManagerView.html">学生信息展示</a></li>
+
+
+                </ul>
+
+                 <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#" class="">英雄攻略</a></li>
+
+                </ul>
+                <form action="导航栏_submit" class="navbar-form navbar-right" method="get" accept-charset="utf-8">
+                    <div class="form-group">
+                        <input type="text" name="" class="form-control" value="" placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <button type="" class="btn btn-default">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+            </nav>
+
+            <div class="table-bordered">
+            <form  class="form-horizontal" style="margin-top: 15px;padding-left: 30%;"  accept-charset="utf-8">
+                <div class="col-md-12">
+                    <div class="col-md-3">
+                        <label for="upfiles" ><img src="logo.png" disabled="disabled" style=";cursor:pointer; height: 60px; width: 210px;" alt=""/></label>
+                      <input type="file" id="upfiles" style="display: none;"onchange="changImg(event)"  width="140px" name="img" accept="image/*" o>
+                    </div>
+                    <div class="col-md-9 col-md-offset-1" style="height:150px;width:150px;">
+                        <img alt="暂无图片" id="myImg" src="img/5.jpg" style="padding-left:0px;" height="150px"  >
+                    </div>
+                </div>
+
+
+                    <div class="col-md-6" style="padding-top:15px;">
+                    <div class="form-group has-warning ">
+                        <label class="col-sm-3 control-label" for="">学生姓名:</label>
+                        <div class="col-sm-9">
+                        <input type="text" name="" class="form-control" value="" placeholder="如:黎明">
+                             <!-- <p class="form-control-static">英雄</p> -->
+                        </div>
+                    </div>
+                    <div class="form-group has-warning">
+                        <label class="col-sm-3 control-label" for="">年龄:</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="" class="form-control" value="" placeholder="如:6岁">
+                        </div>
+                    </div>
+
+                    <div class="form-group has-warning ">
+                        <label class="col-sm-3 control-label" for="">性别:</label>
+                        <div class="col-sm-9">
+                             <select name="" class="form-control">
+                                <option value="">男</option>
+                                <option value="">女</option>
+                            </select>
+                        </div>
+                    </div>
+                     <div class="form-group has-warning">
+                        <label for="" class="col-xs-3 control-label ">监护人姓名:</label>
+                        <div class="col-xs-9">
+                             <input type="text" class="form-control has-warning" placeholder="来玩呀~!">
+                        </div>
+                    </div>
+
+
+                   <div class="form-group has-warning">
+                        <label for="" class="col-xs-3 control-label ">家庭住址:</label>
+                        <div class="col-xs-9">
+                             <input type="text" class="form-control has-warning" placeholder="北街村107号">
+                        </div>
+                    </div>
+
+                    <div class="form-group has-warning">
+                        <label class="col-sm-3 control-label" for="">联系电话:</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="" class="form-control" value="" placeholder="13300000330">
+                        </div>
+                    </div>
+
+
+
+                </div>
+                <div class="col-md-6" style="padding-top:15px;">
+
+
+                </div>
+                <div class="form-group ">
+                    <div class="col-xs-12 col-xs-offset-2">
+                         <input type="button" class="btn btn-success btn-lg" name="" value="提交" >
+                        <input type="button" class="btn btn-danger btn-lg" name="" value="取消" >
+                    </div>
+
+                </div>
+            </form>
+
+            </div>
+
+        </div>
+
+    </body>
+    <script >
+    s = 0;
+    v = 2;
+    sobj = setInterval(function(){
+        s += v;
+        if (s >= 100) {
+
+            clearInterval(sobj);
+        };
+        $("#prgressBar").html(s + '%').css({
+            'width' :s + '%'
+        });
+    },100)
+
+        $('#imgs').mouseenter(function() {
+            $(this).addClass('active');
+            $('#imgs').not($(this)).removeClass("active");
+            idx = $(this).index('li');
+            $('.navs').eq(idx).stop().show(100);
+            $('.navs').not($('.navs').eq(idx)).stop().hide(100);
+        });
+
+        $('.navs').eq(0).show(100);
+
+
+        function changImg(e){
+        for (var i = 0; i < e.target.files.length; i++) {
+            var file = e.target.files.item(i);
+            if (!(/^image\/.*$/i.test(file.type))) {
+                continue; //不是图片 就跳出这一次循环
+            }
+            //实例化FileReader API
+            var freader = new FileReader();
+            freader.readAsDataURL(file);
+            freader.onload = function(e) {
+                $("#myImg").attr("src",e.target.result);
+            };
+        }
+    }
+    </script>
+</html>
