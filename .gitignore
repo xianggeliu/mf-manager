@@ -1,0 +1,10 @@
+/target/
+/logs/
+/.idea/
+*.iml
+/.externalToolBuilders/
+/.myeclipse/
+/.settings/
+/.classpath
+/.project
+/WEB-INF
