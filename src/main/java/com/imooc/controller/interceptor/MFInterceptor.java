@@ -6,6 +6,7 @@ import java.io.UnsupportedEncodingException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -13,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.imooc.pojo.IMoocJSONResult;
 import com.imooc.utils.JsonUtils;
 
-public class OneInterceptor implements HandlerInterceptor  {
+public class MFInterceptor implements HandlerInterceptor  {
 
 	/**
 	 * 在请求处理之前进行调用（Controller方法调用之前）
@@ -21,15 +22,17 @@ public class OneInterceptor implements HandlerInterceptor  {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, 
 			Object object) throws Exception {
-		
-		System.out.println("被one拦截，放行...");
-		return true;
-		
-		/*if (true) {
-			returnErrorResponse(response, IMoocJSONResult.errorMsg("被one拦截..."));
+
+		HttpSession session=request.getSession();
+		Object ob=session.getAttribute("name");
+		if (ob!=null) {
+			return true;
 		}
-		
-		return false;*/
+		session.setAttribute("preurl",request.getRequestURI());
+		StringBuffer url = request.getRequestURL();
+		String tempContextUrl = url.delete(url.length() - request.getRequestURI().length(), url.length()).append(request.getServletContext().getContextPath()).append("/login/index").toString() ;
+		response.sendRedirect(tempContextUrl);
+		return false;
 	}
 	
 	/**
@@ -40,6 +43,7 @@ public class OneInterceptor implements HandlerInterceptor  {
 			Object object, ModelAndView mv)
 			throws Exception {
 		// TODO Auto-generated method stub
+		System.out.println("dayn");
 		
 	}
 	
