@@ -18,11 +18,11 @@
             <a href=""><img src="/static/login/img/logo.png" class="head-logo"></a>
             <div class="change-login">
                 <p class="account_number on">账号登录</p>
-                <p class="message">短信登录</p>
+                <!--<p class="message">短信登录</p>-->
             </div>
             <div class="form1">
                 <p class="p-input pos">
-                    <label for="num">手机号/用户名/UID/邮箱</label>
+                    <label for="num">账户</label>
                     <input type="text" id="num">
                     <span class="tel-warn num-err hide"><em>账号或密码错误，请重新输入</em><i class="icon-warn"></i></span>
                 </p>
@@ -54,22 +54,50 @@
                     <span class="tel-warn error hide">验证码错误</span>
                 </p>
             </div>
-            <div class="r-forget cl">
-                <a href="reg" class="z">账号注册</a>
-                <a href="getpass" class="y">忘记密码</a>
-            </div>
-            <button class="lang-btn off log-btn"><a href="loginView">马上登录</a></button>
+            <!--<div class="r-forget cl">-->
+                <!--<a href="reg" class="z">账号注册</a>-->
+                <!--<a href="getpass" class="y">忘记密码</a>-->
+            <!--</div>-->
+            <!--<button class="lang-btn off log-btn"><a href="" onclick="logincheck()">马上登录</a></button>-->
+            <button class="lang-btn "><a href="" onclick="logincheck()">马上登录</a></button>
            <!-- <div class="third-party">
                 <a href="#" class="log-qq icon-qq-round"></a>
                 <a href="#" class="log-qq icon-weixin"></a>
                 <a href="#" class="log-qq icon-sina1"></a>
             </div>-->
-            <p class="right">沐风管理系统 © 2018</p>
+            <p class="right" style="font-size: 17px">沐风管理系统 © 2018</p>
         </div>
     </div>
 </div>
 <script th:src="@{/static/login/js/jquery.js}" ></script>
 <script th:src="@{/static/login/js/agree.js}" ></script>
 <script th:src="@{/static/login/js/login.js}" ></script>
+
+<script>
+    function logincheck() {
+        var num = $("#num").val();
+        var pass = $("#pass").val();
+        if(num == "" || num == undefined){
+            alert("账户不能为空！");
+            return;
+        }
+        if(pass == "" || pass == undefined){
+            alert("密码不能为空！");
+            return ;
+        }
+        //
+        $.ajax({
+            type: "POST",
+            url: "dologin",
+            data: {username:num, password:pass},
+            dataType: "json",
+            success: function(data){
+                if (data.status == 200)
+                alert(data + "登录成功~！")
+            }
+        });
+    }
+
+</script>
 </body>
 </html>
