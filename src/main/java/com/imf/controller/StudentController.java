@@ -24,6 +24,11 @@ public class StudentController {
         return "thymeleaf/mf/studentListView";
     }
 
+    @RequestMapping("/studentMananger")
+    public String getStudentMananger(){
+        return "thymeleaf/mf/MfStudentManagerView";
+    }
+
 
     @RequestMapping("/updateStudenInfo")
     public String updateStudenInfo(){

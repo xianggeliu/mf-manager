@@ -15,6 +15,6 @@ public class LoginServiceImpl implements LoginService {
     public boolean doLogin(String userName, String pasword) {
         System.out.println("用户姓名 = " + userName);
         System.out.println("密码 = " + pasword);
-        return false;
+        return true;
     }
 }

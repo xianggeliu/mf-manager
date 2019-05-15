@@ -31,7 +31,7 @@ public class MFJSONResult {
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
     // 响应业务状态
-    private Integer status;
+    private Integer status = 200;
 
     // 响应消息
     private String msg;

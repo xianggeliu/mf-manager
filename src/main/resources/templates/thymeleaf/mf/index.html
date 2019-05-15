@@ -85,6 +85,7 @@
             alert("密码不能为空！");
             return ;
         }
+        debugger;
         //
         $.ajax({
             type: "POST",
@@ -92,12 +93,12 @@
             data: {username:num, password:pass},
             dataType: "json",
             success: function(data){
+                alert(data.status);
+                window.location.href= location.protocol  + "/student/studentMananger";
                 if (data.status == 200){
-
-                    alert(data.msg + "登录成功~！");
+                    alert(data.msg );
                 }else{
-                    alert(data + "登录成功~！");
-
+                    alert(data.msg );
                 }
             }
         });
