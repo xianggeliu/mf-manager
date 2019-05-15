@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/login")
@@ -30,8 +31,9 @@ public class LoginController {
     }
 
     @RequestMapping("/dologin")
-    public MFJSONResult loginView(@RequestParam("userName") String userName ,@RequestParam("pasword") String pasword){
-        boolean doStatus  = loginService.doLogin(userName,pasword);
+    @ResponseBody
+    public MFJSONResult loginView(String username , String password){
+        boolean doStatus  = loginService.doLogin(username,password);
         if (doStatus){
             return MFJSONResult.ok("成功了");
         }else{

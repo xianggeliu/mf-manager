@@ -12,7 +12,7 @@ import tk.mybatis.spring.annotation.MapperScan;
 
 @SpringBootApplication
 //扫描 mybatis mapper 包路径
-@MapperScan(basePackages = "com.imooc.mapper")
+@MapperScan(basePackages = "com.imf.mapper")
 //扫描 所有需要的包, 包含一些自用的工具类包 所在的路径
 @ComponentScan(basePackages= {"com.imf", "org.n3r.idworker"})
 //开启定时任务

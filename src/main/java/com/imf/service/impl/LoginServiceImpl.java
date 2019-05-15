@@ -1,6 +1,7 @@
 package com.imf.service.impl;
 
 import com.imf.service.LoginService;
+import org.springframework.stereotype.Service;
 
 /**
  * Created by JiXiang on 2019/5/14 22:16
@@ -8,6 +9,7 @@ import com.imf.service.LoginService;
  * @author : 祥哥
  * QQ :　２５２６３２３３０
  */
+@Service
 public class LoginServiceImpl implements LoginService {
     @Override
     public boolean doLogin(String userName, String pasword) {

@@ -92,8 +92,13 @@
             data: {username:num, password:pass},
             dataType: "json",
             success: function(data){
-                if (data.status == 200)
-                alert(data + "登录成功~！")
+                if (data.status == 200){
+
+                    alert(data.msg + "登录成功~！");
+                }else{
+                    alert(data + "登录成功~！");
+
+                }
             }
         });
     }
