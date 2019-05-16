@@ -25,32 +25,32 @@ public class CommonUtil {
      * @param request
      * @return
      */
-    public static UserInfo getUserInfo(HttpServletRequest request, JedisClient jedisClient) {
-        UserInfo userInfo = null;
-        String userJson = "";
-        try {
-            //如果是Android登录则使用Token
-            String tokenUUID = request.getParameter(configProperties.token_name);
-//        tokenUUID = URLDecoder.decode(tokenUUID,"UTF-8");
-            if (StringUtils.isNotBlank(tokenUUID) && StringUtils.isNotBlank(jedisClient.get(tokenUUID))) {
-                userJson = jedisClient.get(tokenUUID);
-            } else {
-                //存放Cookie信息情况下
-                CookieUtil cookieUtil = new CookieUtil();
-                //cookieValue是cookie的值，也是Redis的Name
-                String cookieValue = cookieUtil.findCookie(request, configProperties.cookie_Name);
-                if (StringUtils.isNotBlank(cookieValue) && jedisClient.exists(cookieValue)) {
-                    userJson = jedisClient.get(cookieValue);
-                }
-            }
-        } catch (Exception e) {
-            logger.error("Redis信息获取失败：" + e.getMessage());
-            return null;
-        } finally {
-        }
-        Gson gson = new Gson();
-        userInfo = gson.fromJson(userJson, UserInfo.class);
-        return userInfo;
+    public static void getUserInfo(HttpServletRequest request) {
+//        UserInfo userInfo = null;
+//        String userJson = "";
+//        try {
+//            //如果是Android登录则使用Token
+//            String tokenUUID = request.getParameter(configProperties.token_name);
+////        tokenUUID = URLDecoder.decode(tokenUUID,"UTF-8");
+//            if (StringUtils.isNotBlank(tokenUUID) && StringUtils.isNotBlank(jedisClient.get(tokenUUID))) {
+//                userJson = jedisClient.get(tokenUUID);
+//            } else {
+//                //存放Cookie信息情况下
+//                CookieUtil cookieUtil = new CookieUtil();
+//                //cookieValue是cookie的值，也是Redis的Name
+//                String cookieValue = cookieUtil.findCookie(request, configProperties.cookie_Name);
+//                if (StringUtils.isNotBlank(cookieValue) && jedisClient.exists(cookieValue)) {
+//                    userJson = jedisClient.get(cookieValue);
+//                }
+//            }
+//        } catch (Exception e) {
+//            logger.error("Redis信息获取失败：" + e.getMessage());
+//            return null;
+//        } finally {
+//        }
+//        Gson gson = new Gson();
+//        userInfo = gson.fromJson(userJson, UserInfo.class);
+//        return userInfo;
     }
 
     /**
