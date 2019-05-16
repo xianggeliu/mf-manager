@@ -89,7 +89,7 @@
     select 
     <include refid="Base_Column_List" />
     from user_login
-    where username = #{username,jdbcType=String}
+    where username = #{username,jdbcType=VARCHAR}
   </select>
 
 
