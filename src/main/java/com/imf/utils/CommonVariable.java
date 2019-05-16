@@ -2,7 +2,9 @@ package com.imf.utils;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by JiXiang on 2019/5/14 22:16
@@ -10,12 +12,38 @@ import org.springframework.core.env.Environment;
  * @author : 祥哥
  * QQ :　２５２６３２３３０
  */
+
+@Component
 public class CommonVariable {
-    @Autowired
-    private static Environment evn;
 
 
-    public static String COOKIE_TOKEN = evn.getProperty("com.imf.token");
-    public static String  REDIS_LOGIN= evn.getProperty("com.imf.redisToken");
 
+    @Value("${com.imf.token}")
+    private String cookieToken;
+
+    @Value("${com.imf.redisToken}")
+    private String redisToken;
+
+//    @Value("${com.blog.value}")
+//    private String bValue;
+
+//    @Value("${com.blog.number}")
+//    private String bNumber;
+
+
+    public String getCookieToken() {
+        return cookieToken;
+    }
+
+    public void setCookieToken(String cookieToken) {
+        this.cookieToken = cookieToken;
+    }
+
+    public String getRedisToken() {
+        return redisToken;
+    }
+
+    public void setRedisToken(String redisToken) {
+        this.redisToken = redisToken;
+    }
 }

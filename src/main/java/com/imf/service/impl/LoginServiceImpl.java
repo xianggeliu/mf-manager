@@ -28,11 +28,13 @@ public class LoginServiceImpl implements LoginService {
 
     @Autowired
     private RedisOperator redis;
+    private static final Logger logger = Logger.getLogger(LoginServiceImpl.class);
 
     @Autowired
     private UserLoginMapper userLoginMapper;
 
-    private static final Logger logger = Logger.getLogger(LoginServiceImpl.class);
+    @Autowired
+    private CommonVariable cv;
 
 
     @Override
@@ -45,8 +47,8 @@ public class LoginServiceImpl implements LoginService {
             String userPassword = userLogin.getPassword();
             if (userPassword.equals(md5Password)){
                 //把用户信息存入到redis 跟cookie中
-                String cookieToken = CommonVariable.COOKIE_TOKEN + System.currentTimeMillis();
-                String redisToken = CommonVariable.REDIS_LOGIN + System.currentTimeMillis();
+                String cookieToken = cv.getCookieToken() + System.currentTimeMillis();
+                String redisToken = cv.getRedisToken() + System.currentTimeMillis();
                 String userJson = JsonUtils.objectToJson(userLogin);
                 //把用户信息存入redis中
                 redis.set(redisToken,userJson);
