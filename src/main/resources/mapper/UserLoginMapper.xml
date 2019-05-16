@@ -84,8 +84,17 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <!--通过username 跟password 查询当前用户登录账户密码是否正确-->
+  <select id="selectByUserName" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
+    <include refid="Base_Column_List" />
+    from user_login
+    where username = #{username,jdbcType=String}
+  </select>
+
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
     <include refid="Base_Column_List" />
     from user_login
     where id = #{id,jdbcType=INTEGER}

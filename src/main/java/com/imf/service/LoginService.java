@@ -1,5 +1,10 @@
 package com.imf.service;
 
+import com.imf.pojo.MFJSONResult;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
+
 /**
  * Created by JiXiang on 2019/5/14 22:15
  *
@@ -8,5 +13,5 @@ package com.imf.service;
  * QQ :　２５２６３２３３０
  */
 public interface LoginService {
-    boolean doLogin(String userName, String pasword);
+    MFJSONResult doLogin(String userName, String pasword, HttpServletResponse response) throws UnsupportedEncodingException;
 }
