@@ -8,6 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.imf.utils.CommonVariable;
+import com.imf.utils.CookieUtil;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -15,18 +19,19 @@ import com.imf.pojo.MFJSONResult;
 import com.imf.utils.JsonUtils;
 
 public class MFInterceptor implements HandlerInterceptor  {
+	@Autowired
+	private CommonVariable cv;
 
 	/**
 	 * 在请求处理之前进行调用（Controller方法调用之前）
 	 */
 	@Override
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, 
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
 			Object object) throws Exception {
-		String contextPath = request.getContextPath();
 		HttpSession session=request.getSession();
-		Object ob=session.getAttribute("name");
-		if (ob!=null) {
-			return true;
+		String cookie = CookieUtil.findCookie(request, cv.getCookieToken());
+		if (StringUtils.isNotEmpty(cookie)){
+			return  true;
 		}
 		session.setAttribute("preurl",request.getRequestURI());
 		StringBuffer url = request.getRequestURL();

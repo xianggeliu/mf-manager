@@ -47,13 +47,13 @@ public class LoginServiceImpl implements LoginService {
             String userPassword = userLogin.getPassword();
             if (userPassword.equals(md5Password)){
                 //把用户信息存入到redis 跟cookie中
-                String cookieToken = cv.getCookieToken() + System.currentTimeMillis();
                 String redisToken = cv.getRedisToken() + System.currentTimeMillis();
                 String userJson = JsonUtils.objectToJson(userLogin);
                 //把用户信息存入redis中
                 redis.set(redisToken,userJson);
+                redis.expire(redisToken,1800);
                 //放入cookie中
-                CookieUtil.addCookie(cookieToken,redisToken,response);
+                CookieUtil.addCookie(cv.getCookieToken(),redisToken,response);
                 //更新用户表，记录登录时间
                 userLogin.setLastLoginTime(new Date());
                 userLoginMapper.updateByPrimaryKey(userLogin);
