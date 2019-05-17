@@ -69,20 +69,20 @@
         </div>
     </div>
 </div>
-<script th:src="@{/static/login/js/jquery.js}" ></script>
-<script th:src="@{/static/login/js/agree.js}" ></script>
-<script th:src="@{/static/login/js/login.js}" ></script>
+<script src="/static/login/js/jquery.js"></script>
+<script src="/static/login/js/agree.js"></script>
+<script src="/static/login/js/login.js"></script>
 
 <script>
     function logincheck() {
         var num = $("#num").val();
         var pass = $("#pass").val();
         if(num == "" || num == undefined){
-            alert("账户不能为空！");
+            swal("账户不能为空！");
             return;
         }
         if(pass == "" || pass == undefined){
-            alert("密码不能为空！");
+            swal("密码不能为空！");
             return ;
         }
         debugger;
@@ -94,12 +94,12 @@
             dataType: "json",
             success: function(data){
                 debugger;
-                alert(data.status);
+                swal(data.status);
                 window.location.href= "/mf/view";
                 if (data.status == 200){
-                    alert(data.msg );
+                    swal(data.msg );
                 }else{
-                    alert(data.msg );
+                    swal(data.msg );
                 }
             }
         });

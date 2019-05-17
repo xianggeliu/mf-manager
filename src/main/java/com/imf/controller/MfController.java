@@ -19,4 +19,9 @@ public class MfController {
         return "thymeleaf/mf/MfIndex";
     }
 
+    @RequestMapping("/studentManagerView")
+    public String getStudentList(){
+        return "thymeleaf/mf/MfIndex";
+    }
+
 }

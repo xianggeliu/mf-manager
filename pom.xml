@@ -91,11 +91,11 @@
 			<version>2.4.0beta1-201201161630</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/javax.media/jai_codec -->
-		<dependency>
-			<groupId>javax.media</groupId>
-			<artifactId>jai_codec</artifactId>
-			<scope>test</scope>
-		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>javax.media</groupId>-->
+			<!--<artifactId>jai_codec</artifactId>-->
+			<!--<scope>test</scope>-->
+		<!--</dependency>-->
 
 		<!-- https://mvnrepository.com/artifact/net.coobird/thumbnailator -->
 
@@ -109,10 +109,10 @@
 
 
 		<!-- https://mvnrepository.com/artifact/com.sun.media/jai-codec -->
-		<dependency>
-			<groupId>com.sun.media</groupId>
-			<artifactId>jai-codec</artifactId>
-		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>com.sun.media</groupId>-->
+			<!--<artifactId>jai-codec</artifactId>-->
+		<!--</dependency>-->
 
 
 		<!-- 热部署 -->
