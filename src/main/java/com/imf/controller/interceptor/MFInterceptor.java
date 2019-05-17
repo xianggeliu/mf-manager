@@ -10,17 +10,23 @@ import javax.servlet.http.HttpSession;
 
 import com.imf.utils.CommonVariable;
 import com.imf.utils.CookieUtil;
+import com.imf.utils.RedisOperator;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.imf.pojo.MFJSONResult;
 import com.imf.utils.JsonUtils;
 
+@Component
 public class MFInterceptor implements HandlerInterceptor  {
 	@Autowired
 	private CommonVariable cv;
+
+	@Autowired
+	private RedisOperator redis;
 
 	/**
 	 * 在请求处理之前进行调用（Controller方法调用之前）
@@ -29,8 +35,12 @@ public class MFInterceptor implements HandlerInterceptor  {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
 			Object object) throws Exception {
 		HttpSession session=request.getSession();
-		String cookie = CookieUtil.findCookie(request, cv.getCookieToken());
+//		String token = "MFTOKEN";
+		String token = cv.getCookieToken();
+		String cookie = CookieUtil.findCookie(request, token);
 		if (StringUtils.isNotEmpty(cookie)){
+			CookieUtil.addCookie(token,cookie,response);
+			redis.expire(cookie,1800);
 			return  true;
 		}
 		session.setAttribute("preurl",request.getRequestURI());

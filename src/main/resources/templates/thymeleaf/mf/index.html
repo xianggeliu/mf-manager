@@ -93,8 +93,9 @@
             data: {username:num, password:pass},
             dataType: "json",
             success: function(data){
+                debugger;
                 alert(data.status);
-                window.location.href= location.protocol  + "/student/studentMananger";
+                window.location.href= "/mf/view";
                 if (data.status == 200){
                     alert(data.msg );
                 }else{

@@ -22,13 +22,13 @@ import java.util.Date;
  */
 @Service
 public class LoginServiceImpl implements LoginService {
+    private static final Logger logger = Logger.getLogger(LoginServiceImpl.class);
 
     @Autowired
     private StringRedisTemplate strRedis;
 
     @Autowired
     private RedisOperator redis;
-    private static final Logger logger = Logger.getLogger(LoginServiceImpl.class);
 
     @Autowired
     private UserLoginMapper userLoginMapper;
@@ -67,7 +67,8 @@ public class LoginServiceImpl implements LoginService {
         System.out.println("密码 = " + password);
         //不存在 返回false
         return MFJSONResult.errorMsg("账户不存在！");
-
-
     }
+
+
+
 }
