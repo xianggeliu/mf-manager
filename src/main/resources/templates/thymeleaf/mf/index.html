@@ -9,6 +9,10 @@
     <link rel="stylesheet" href="/static/login/css/base.css">
     <link rel="stylesheet" href="/static/login/css/iconfont.css">
     <link rel="stylesheet" href="/static/login/css/reg.css">
+    <link rel="stylesheet" type="text/css" href="/static/plugins/sweetalert2/sweet-alert.css">
+    <script src="/static/plugins/sweetalert2/sweet-alert.js" type="text/javascript" charset="UTF-8"></script>
+    <script src="/static/plugins/sweetalert2/es6-promise.min.js"></script>
+
 </head>
 <body>
 <div id="ajax-hook"></div>
@@ -87,20 +91,21 @@
         }
         debugger;
         //
+
         $.ajax({
-            type: "POST",
-            url: "dologin",
-            data: {username:num, password:pass},
-            dataType: "json",
-            success: function(data){
-                debugger;
-                swal(data.status);
-                window.location.href= "/mf/view";
-                if (data.status == 200){
-                    swal(data.msg );
-                }else{
-                    swal(data.msg );
+             async: false,
+            type: "GET",
+            data:{username:num , password:pass},
+            url: "/login/dologin",
+            complete: function () {
+            },
+            success: function (result) {
+                swal(result.msg );
+                if(result.status == 200){
+                    window.location.href= "/mf/view";
                 }
+            },
+            error: function () {
             }
         });
     }

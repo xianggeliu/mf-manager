@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.imf.mapper.MfStudentMapper" >
+  <resultMap id="BaseResultMap" type="com.imf.pojo.MfStudent" >
+    <id column="stu_uuid" property="stuUuid" jdbcType="INTEGER" />
+    <result column="stu_name" property="stuName" jdbcType="VARCHAR" />
+    <result column="stu_age" property="stuAge" jdbcType="TINYINT" />
+    <result column="stu_gender" property="stuGender" jdbcType="TINYINT" />
+    <result column="stu_parent_name" property="stuParentName" jdbcType="VARCHAR" />
+    <result column="stu_address" property="stuAddress" jdbcType="VARCHAR" />
+    <result column="stu_phone_num" property="stuPhoneNum" jdbcType="INTEGER" />
+    <result column="stu_img_url" property="stuImgUrl" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    stu_uuid, stu_name, stu_age, stu_gender, stu_parent_name, stu_address, stu_phone_num, 
+    stu_img_url
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.imf.pojo.MfStudentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from mf_student
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from mf_student
+    where stu_uuid = #{stuUuid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from mf_student
+    where stu_uuid = #{stuUuid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.imf.pojo.MfStudentExample" >
+    delete from mf_student
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.imf.pojo.MfStudent" >
+    insert into mf_student (stu_uuid, stu_name, stu_age, 
+      stu_gender, stu_parent_name, stu_address, 
+      stu_phone_num, stu_img_url)
+    values (#{stuUuid,jdbcType=INTEGER}, #{stuName,jdbcType=VARCHAR}, #{stuAge,jdbcType=TINYINT}, 
+      #{stuGender,jdbcType=TINYINT}, #{stuParentName,jdbcType=VARCHAR}, #{stuAddress,jdbcType=VARCHAR}, 
+      #{stuPhoneNum,jdbcType=INTEGER}, #{stuImgUrl,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.imf.pojo.MfStudent" >
+    insert into mf_student
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="stuUuid != null" >
+        stu_uuid,
+      </if>
+      <if test="stuName != null" >
+        stu_name,
+      </if>
+      <if test="stuAge != null" >
+        stu_age,
+      </if>
+      <if test="stuGender != null" >
+        stu_gender,
+      </if>
+      <if test="stuParentName != null" >
+        stu_parent_name,
+      </if>
+      <if test="stuAddress != null" >
+        stu_address,
+      </if>
+      <if test="stuPhoneNum != null" >
+        stu_phone_num,
+      </if>
+      <if test="stuImgUrl != null" >
+        stu_img_url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="stuUuid != null" >
+        #{stuUuid,jdbcType=INTEGER},
+      </if>
+      <if test="stuName != null" >
+        #{stuName,jdbcType=VARCHAR},
+      </if>
+      <if test="stuAge != null" >
+        #{stuAge,jdbcType=TINYINT},
+      </if>
+      <if test="stuGender != null" >
+        #{stuGender,jdbcType=TINYINT},
+      </if>
+      <if test="stuParentName != null" >
+        #{stuParentName,jdbcType=VARCHAR},
+      </if>
+      <if test="stuAddress != null" >
+        #{stuAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="stuPhoneNum != null" >
+        #{stuPhoneNum,jdbcType=INTEGER},
+      </if>
+      <if test="stuImgUrl != null" >
+        #{stuImgUrl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.imf.pojo.MfStudentExample" resultType="java.lang.Integer" >
+    select count(*) from mf_student
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update mf_student
+    <set >
+      <if test="record.stuUuid != null" >
+        stu_uuid = #{record.stuUuid,jdbcType=INTEGER},
+      </if>
+      <if test="record.stuName != null" >
+        stu_name = #{record.stuName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stuAge != null" >
+        stu_age = #{record.stuAge,jdbcType=TINYINT},
+      </if>
+      <if test="record.stuGender != null" >
+        stu_gender = #{record.stuGender,jdbcType=TINYINT},
+      </if>
+      <if test="record.stuParentName != null" >
+        stu_parent_name = #{record.stuParentName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stuAddress != null" >
+        stu_address = #{record.stuAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stuPhoneNum != null" >
+        stu_phone_num = #{record.stuPhoneNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.stuImgUrl != null" >
+        stu_img_url = #{record.stuImgUrl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update mf_student
+    set stu_uuid = #{record.stuUuid,jdbcType=INTEGER},
+      stu_name = #{record.stuName,jdbcType=VARCHAR},
+      stu_age = #{record.stuAge,jdbcType=TINYINT},
+      stu_gender = #{record.stuGender,jdbcType=TINYINT},
+      stu_parent_name = #{record.stuParentName,jdbcType=VARCHAR},
+      stu_address = #{record.stuAddress,jdbcType=VARCHAR},
+      stu_phone_num = #{record.stuPhoneNum,jdbcType=INTEGER},
+      stu_img_url = #{record.stuImgUrl,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.imf.pojo.MfStudent" >
+    update mf_student
+    <set >
+      <if test="stuName != null" >
+        stu_name = #{stuName,jdbcType=VARCHAR},
+      </if>
+      <if test="stuAge != null" >
+        stu_age = #{stuAge,jdbcType=TINYINT},
+      </if>
+      <if test="stuGender != null" >
+        stu_gender = #{stuGender,jdbcType=TINYINT},
+      </if>
+      <if test="stuParentName != null" >
+        stu_parent_name = #{stuParentName,jdbcType=VARCHAR},
+      </if>
+      <if test="stuAddress != null" >
+        stu_address = #{stuAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="stuPhoneNum != null" >
+        stu_phone_num = #{stuPhoneNum,jdbcType=INTEGER},
+      </if>
+      <if test="stuImgUrl != null" >
+        stu_img_url = #{stuImgUrl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where stu_uuid = #{stuUuid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.imf.pojo.MfStudent" >
+    update mf_student
+    set stu_name = #{stuName,jdbcType=VARCHAR},
+      stu_age = #{stuAge,jdbcType=TINYINT},
+      stu_gender = #{stuGender,jdbcType=TINYINT},
+      stu_parent_name = #{stuParentName,jdbcType=VARCHAR},
+      stu_address = #{stuAddress,jdbcType=VARCHAR},
+      stu_phone_num = #{stuPhoneNum,jdbcType=INTEGER},
+      stu_img_url = #{stuImgUrl,jdbcType=VARCHAR}
+    where stu_uuid = #{stuUuid,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -38,7 +38,7 @@ public class StudentController {
 
     @RequestMapping("/setStudentInfo")
     @ResponseBody
-    public void upload(@RequestParam("file") MultipartFile data ,final HttpServletResponse response) {
+    public void upload(@RequestParam MultipartFile data ,final HttpServletResponse response) {
         String fileName = data.getOriginalFilename();
         String lastName = fileName.substring(fileName.lastIndexOf(".")); // 获取文件的后缀
         String filePath = "test" + "/3"+ lastName;

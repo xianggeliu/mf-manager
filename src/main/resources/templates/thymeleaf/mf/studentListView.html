@@ -11,7 +11,7 @@
     <script src="/static/dist/jquery/jquery-1.9.1.min.js"></script>
     <script src="/static/dist/js/bootstrap.min.js"></script>
     <script src="/static/dist/js/bootstrap-paginator.min.js"></script>
-
+    <meta http-equiv="Content-Type" content="multipart/form-data;charset=utf-8" />
     <script src="/static/plugins/sweetalert2/sweet-alert.js" type="text/javascript" charset="UTF-8"></script>
     <script src="/static/plugins/sweetalert2/es6-promise.min.js"></script>
     <style type="text/css" media="screen">
@@ -547,17 +547,17 @@
             </div>
 
             <div class="modal-body " style="height:450px;">
-                <form class="form-horizontal" action="setStudentInfo" method="post" enctype="multipart/form-data"
+                <form class="form-horizontal" action="setStudentInfo" id="studentAddForm" method="post" enctype="multipart/form-data"
                       accept-charset="utf-8">
                     <div class="form-group has-warning">
 
                         <label class="col-sm-3 control-label" for="">学生照片:</label>
 
                         <div class="col-md-9 col-md-offset-2" style="height:130px;width:130px;">
-                            <label for="upfile"><img class="img-thumbnail" id="addImg" src="/static/dist/img/11.png"
+                            <label for="file"><img class="img-thumbnail" id="addImg" src="/static/dist/img/11.png"
                                                      height="130px"></label>
 
-                            <input type="file" id="upfile" style="display: none;" onchange="changImg(event ,'addImg')"
+                            <input type="file" id="file" style="display: none;" onchange="changImg(event ,'addImg')"
                                    width="130px" name="upImg" accept="image/*" o>
                         </div>
                     </div>
@@ -716,35 +716,7 @@
     });
 
     function checkForm() {
-        var formData = new FormData($("#studentAddForm")[0]);
-        $.ajax({
-            url: "/saveStudentInfo",
-            type: 'POST',
-            data: formData,
-            cache: false,
-            async: false,
-            processData: false,  //必须false才会避开jQuery对 formdata 的默认处理
-            contentType: false,  //必须false才会自动加上正确的Content-Type
 
-            success: function (data) {
-                console.log("成功");
-                /*
-                layer.alert("增加成功", {icon: 6}, function () {
-                            window.parent.location.reload(); //刷新父页面
-                            // 获得frame索引
-                            var index = parent.layer.getFrameIndex(window.name);
-                            //关闭当前frame
-                            parent.layer.close(index);
-                        });
-                */
-            },
-            error: function (data) {
-                console.log("失败");
-                /*
-                layer.msg(data.message, {time: 2000});
-                */
-            }
-        });
     }
 
     /*表单提交方法
@@ -758,10 +730,6 @@
         var phone = $('#fPhone').val();
         var address = $('#fAddress').val();
         var options=$("#genderOption option:selected");
-        if (options != ''){
-            swal('选择的性别是 ： ' + options.val());
-            return ;
-        }
         if (stuName == ''){
             swal('姓名不能为空');
             return;
@@ -786,6 +754,58 @@
             swal('联系电话不能为空');
             return;
         }
+
+
+        var formData = new FormData($("#studentAddForm")[0]);
+        var docObj=document.getElementById("file");
+        var fileObj = docObj.files[0];
+        var form = new FormData();//form 对象
+        form.append("data",fileObj);// 文件对象
+        form.append("age",fage);
+        $.ajax({
+            url: "/student/setStudentInfo",
+            type: 'POST',
+            data: form,
+            cache: false,
+            async: false,
+            processData: false,  //必须false才会避开jQuery对 formdata 的默认处理
+            contentType: false,
+            success: function (data) {
+                console.log("成功");
+                /*
+                layer.alert("增加成功", {icon: 6}, function () {
+                            window.parent.location.reload(); //刷新父页面
+                            // 获得frame索引
+                            var index = parent.layer.getFrameIndex(window.name);
+                            //关闭当前frame
+                            parent.layer.close(index);
+                        });
+                */
+            },
+            error: function (data) {
+                console.log("失败");
+                /*
+                layer.msg(data.message, {time: 2000});
+                */
+            }
+        });
+
+//        var formData = new FormData($("#form1")[0]);
+//        $.ajax({
+//            url: '',
+//            type: 'POST',
+//            data: formData,
+//            async: false,
+//            cache: false,
+//            contentType: false,
+//            processData: false,
+//            success: function(data) {
+//            },
+//            error: function(data) {
+//            }
+//        });
+
+
 
     }
 </script>
