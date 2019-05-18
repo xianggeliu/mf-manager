@@ -729,7 +729,8 @@
         var guardian = $('#fguardian').val();
         var phone = $('#fPhone').val();
         var address = $('#fAddress').val();
-        var options=$("#genderOption option:selected");
+        var options =$("#genderOption option:selected");
+        var gender = options.val();
         if (stuName == ''){
             swal('姓名不能为空');
             return;
@@ -755,13 +756,20 @@
             return;
         }
 
-
+        var mfStudent = {};
+        mfStudent.stuName = stuName;
+        mfStudent.stuAge = age;
+        mfStudent.stuGender = gender;
+        mfStudent.stuParentName = guardian;
+        mfStudent.stuAddress = address;
+        mfStudent.stuPhoneNum = phone;
         var formData = new FormData($("#studentAddForm")[0]);
         var docObj=document.getElementById("file");
         var fileObj = docObj.files[0];
         var form = new FormData();//form 对象
         form.append("data",fileObj);// 文件对象
-        form.append("age",fage);
+        var stringify = JSON.stringify(mfStudent);
+        form.append("mfStudent",stringify);
         $.ajax({
             url: "/student/setStudentInfo",
             type: 'POST',
@@ -772,21 +780,9 @@
             contentType: false,
             success: function (data) {
                 console.log("成功");
-                /*
-                layer.alert("增加成功", {icon: 6}, function () {
-                            window.parent.location.reload(); //刷新父页面
-                            // 获得frame索引
-                            var index = parent.layer.getFrameIndex(window.name);
-                            //关闭当前frame
-                            parent.layer.close(index);
-                        });
-                */
             },
             error: function (data) {
                 console.log("失败");
-                /*
-                layer.msg(data.message, {time: 2000});
-                */
             }
         });
 

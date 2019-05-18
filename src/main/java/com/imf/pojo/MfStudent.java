@@ -1,13 +1,16 @@
 package com.imf.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties
 public class MfStudent {
     private Integer stuUuid;
 
     private String stuName;
 
-    private Byte stuAge;
+    private Integer stuAge;
 
-    private Byte stuGender;
+    private Integer stuGender;
 
     private String stuParentName;
 
@@ -33,19 +36,19 @@ public class MfStudent {
         this.stuName = stuName == null ? null : stuName.trim();
     }
 
-    public Byte getStuAge() {
+    public Integer getStuAge() {
         return stuAge;
     }
 
-    public void setStuAge(Byte stuAge) {
+    public void setStuAge(Integer stuAge) {
         this.stuAge = stuAge;
     }
 
-    public Byte getStuGender() {
+    public Integer getStuGender() {
         return stuGender;
     }
 
-    public void setStuGender(Byte stuGender) {
+    public void setStuGender(Integer stuGender) {
         this.stuGender = stuGender;
     }
 

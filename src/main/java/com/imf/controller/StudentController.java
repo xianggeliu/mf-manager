@@ -1,10 +1,13 @@
 package com.imf.controller;
 
+import com.imf.pojo.MfStudent;
+import com.imf.utils.JsonUtils;
 import com.imf.utils.MinioUtil;
 import org.apache.commons.io.IOUtils;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -38,11 +41,13 @@ public class StudentController {
 
     @RequestMapping("/setStudentInfo")
     @ResponseBody
-    public void upload(@RequestParam MultipartFile data ,final HttpServletResponse response) {
+    public void upload(@RequestParam MultipartFile data , String mfStudent , final HttpServletResponse response) {
         String fileName = data.getOriginalFilename();
         String lastName = fileName.substring(fileName.lastIndexOf(".")); // 获取文件的后缀
         String filePath = "test" + "/3"+ lastName;
         String contentType = data.getContentType();
+        MfStudent ms = JsonUtils.jsonToPojo(mfStudent , MfStudent.class);
+
         try {
             InputStream inputStram = data.getInputStream();
             JSONObject jsonObject = MinioUtil.uploadImage(inputStram, filePath);

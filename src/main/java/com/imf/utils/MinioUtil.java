@@ -1,28 +1,30 @@
 package com.imf.utils;
 
 import com.alibaba.druid.util.StringUtils;
+import com.google.api.client.util.Value;
 import io.minio.MinioClient;
 import io.minio.Result;
 import io.minio.messages.Item;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
+import org.springframework.stereotype.Component;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
+@Component
 public class MinioUtil {
 
-
+    @Value("com.imf.minioUrl")
     private static String minio_url;
 
-
+    @Value("com.imf.minioName")
     private static String minio_name;
 
-
+    @Value("com.imf.minioPass")
     private static String minio_pass;
 
-
+    @Value("com.imf.minioBucketName")
     private static String minio_bucketName;
 
 
