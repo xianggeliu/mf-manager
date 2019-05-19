@@ -50,7 +50,7 @@ public class StudentController {
 
         try {
             InputStream inputStram = data.getInputStream();
-            JSONObject jsonObject = MinioUtil.uploadImage(inputStram, filePath);
+//            JSONObject jsonObject = MinioUtil.uploadImage(inputStram, filePath);
 //            InputStream img = (InputStream) jsonObject.get("img");
 //            byte[] datas = new byte[img.available()];
 //            response.addHeader("Content-Disposition","attachment;filename=" + filePath);
