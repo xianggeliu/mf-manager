@@ -3,7 +3,6 @@ package com.imf.utils;
 import com.alibaba.druid.util.StringUtils;
 import com.alibaba.fastjson.JSONObject;
 import com.google.api.client.util.Value;
-import com.sun.imageio.plugins.common.ImageUtil;
 import io.minio.MinioClient;
 import org.springframework.stereotype.Component;
 
@@ -14,9 +13,7 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Component
 public class MinioUtil {
@@ -32,6 +29,12 @@ public class MinioUtil {
 
     @Value("com.imf.minioBucketName")
     private static String minio_bucketName;
+
+    @Value("com.imf.imgWidth")
+    private static Integer imgWidth;
+
+    @Value("com.imf.imgheight")
+    private static Integer imgheight;
 
     /**
      * @param inputStream
@@ -51,8 +54,8 @@ public class MinioUtil {
      * @Title: uploadImage
      * @Description:上传图片
      */
-    public static JSONObject uploadImages(String imgs, String userId, String type, String path) throws Exception {
-        return uploadImgs(imgs, userId, type, path);
+    public static JSONObject uploadImages(String imgs, String path) throws Exception {
+        return uploadImgs(imgs, path);
     }
 
 
@@ -182,7 +185,7 @@ public class MinioUtil {
      * @return
      */
 
-    private static JSONObject uploadImgs(String imgs, String userId, String type, String path) throws Exception {
+    private static JSONObject uploadImgs(String imgurl, String folder) throws Exception {
         JSONObject map = new JSONObject();
         //获取配置文件
         //添加minio相关信息
@@ -192,78 +195,39 @@ public class MinioUtil {
         if (!found) {
             minioClient.makeBucket(minio_bucketName);
         }
-        StringBuilder imgUrl = new StringBuilder();
-        StringBuilder imgUrlz = new StringBuilder();
-        int index = 1;
-        File file = new File(path);
-        if (!file.exists()) {
-            boolean mkdir = file.mkdirs();
-        }
+//        File file = new File(path);
+//        if (!file.exists()) {
+//            boolean mkdir = file.mkdirs();
+//        }
         //图片缩略图尺寸
-//        int img_s_width = p.getInteger("Img_s_width");
-//        int img_s_height = p.getInteger("Img_s_height");
-//        //图片裁剪尺寸
-//        int img_c_width = p.getInteger("Img_c_width");
-//        int img_c_height = p.getInteger("Img_c_height");
-//        //裁剪起始位置
-//        int img_c_x = p.getInteger("Img_c_x");
-//        int img_c_y = p.getInteger("Img_c_y");
-        String[] split = imgs.split(",");
-        for (String imgurl : split) {
-            File tempFile = new File(imgurl);
-            //获取图片类型
-            String contentType = Files.probeContentType(Paths.get(imgurl));
-            //获取图片名称 和后缀名
-            String fileName = tempFile.getName();
-            String lastName = imgurl.substring(imgurl.lastIndexOf(".")); // 获取文件的后缀
-            //把图片上传到服务器
-            InputStream is = new FileInputStream(imgurl);
-            minioClient.putObject(minio_bucketName, fileName, is, contentType);
-            is.close();
-            //压缩处理图片
-            //把上传的文件转换成file 在本地创建临时文件
-            ImageUtil iul = new ImageUtil();
-            // 压缩后的文件名称
-            //在临时文件里创建缩略图
-//            int i = iul.thumbnailImage(tempFile, img_s_width, img_s_height, imgurl, false, lastName);
-            // i = 1 是图片处理成功，i= 0 是图片处理不成功 不成功直接使用原图
-//            if (i == 0){
-//                if (index == 1) {
-//                    imgUrl.append(fileName);
-//                    imgUrlz.append(fileName);
-//                } else {
-//                    imgUrl.append(",").append(fileName);
-//                    imgUrlz.append(",").append(fileName);
-//                }
-//                index++;
-//                continue;
-//            }
-            // i = 1 是图片处理成功，i= 0 是图片处理不成功 不成功直接使用原图
-            String tempFileName = imgurl.replace(lastName, "z" + lastName);
-            //将图片 裁剪 放到项目路径下
-            File file2 = new File(file + "/" + 2 + lastName);
-//            iul.cutImage(file2, tempFileName, img_c_x, img_c_y, img_c_width, img_c_height);
-            //创建临时文件夹
-            File z_file = new File(tempFileName);
-            //裁剪过的图片 变成输入流
-            InputStream fileInputStream = new FileInputStream(tempFileName);
-            //压缩图片上传到服务器
-            String contentType2 = Files.probeContentType(Paths.get(tempFileName));
-            String zFileName = fileName.replace(lastName, "z" + lastName);
-            minioClient.putObject(minio_bucketName, zFileName, fileInputStream, contentType2);
-            fileInputStream.close();
-            if (index == 1) {
-                imgUrlz.append(zFileName);
-                imgUrl.append(fileName);
-            } else {
-                imgUrl.append(",").append(fileName);
-                imgUrlz.append(",").append(zFileName);
-            }
-            index++;
-        }
-        map.put("imgUrl", imgUrl.toString());
-        map.put("imgUrlz", imgUrlz.toString());
+        File tempFile = new File(imgurl);
+        //获取图片类型
+        String contentType = Files.probeContentType(Paths.get(imgurl));
+        //获取图片名称 和后缀名
+        String fileName = tempFile.getName();
+        String lastName = imgurl.substring(imgurl.lastIndexOf(".")); // 获取文件的后缀
+        //把图片上传到服务器
+        InputStream is = new FileInputStream(imgurl);
+        minioClient.putObject(minio_bucketName, folder + fileName, is, contentType);
+        is.close();
+        //压缩处理图片
+        //把上传的文件转换成file 在本地创建临时文件
+        ImageUtil iul = new ImageUtil();
+        // 压缩后的文件名称
+        //在临时文件里创建缩略图
+        int i = iul.thumbnailImage(tempFile, imgWidth, imgheight, imgurl, false, lastName);
+        // i = 1 是图片处理成功，i= 0 是图片处理不成功 不成功直接使用原图
+        // i = 1 是图片处理成功，i= 0 是图片处理不成功 不成功直接使用原图
+        String tempFileName = imgurl.replace(lastName, "z" + lastName);
+        //将图片 裁剪 放到项目路径下
+        InputStream fileInputStream = new FileInputStream(tempFileName);
+        //压缩图片上传到服务器
+        String contentType2 = Files.probeContentType(Paths.get(tempFileName));
+        minioClient.putObject(minio_bucketName, folder + tempFileName, fileInputStream, contentType2);
+        fileInputStream.close();
         //返回上传图片的url地址
+        map.put("imgUrl", fileName);
+        map.put("imgUrlz", tempFileName);
         return map;
     }
 
@@ -279,7 +243,6 @@ public class MinioUtil {
         InputStream inputStream = minioClient.getObject(minio_bucketName, objectName);
         return inputStream;
     }
-
 
 
 }

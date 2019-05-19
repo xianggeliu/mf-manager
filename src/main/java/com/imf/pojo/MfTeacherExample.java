@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class MfStudentExample {
+public class MfTeacherExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public MfStudentExample() {
+    public MfTeacherExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -165,333 +165,333 @@ public class MfStudentExample {
             return (Criteria) this;
         }
 
-        public Criteria andStuUuidIsNull() {
-            addCriterion("stu_uuid is null");
+        public Criteria andTeachIdIsNull() {
+            addCriterion("teach_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andStuUuidIsNotNull() {
-            addCriterion("stu_uuid is not null");
+        public Criteria andTeachIdIsNotNull() {
+            addCriterion("teach_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andStuUuidEqualTo(String value) {
-            addCriterion("stu_uuid =", value, "stuUuid");
+        public Criteria andTeachIdEqualTo(String value) {
+            addCriterion("teach_id =", value, "teachId");
             return (Criteria) this;
         }
 
-        public Criteria andStuUuidNotEqualTo(String value) {
-            addCriterion("stu_uuid <>", value, "stuUuid");
+        public Criteria andTeachIdNotEqualTo(String value) {
+            addCriterion("teach_id <>", value, "teachId");
             return (Criteria) this;
         }
 
-        public Criteria andStuUuidGreaterThan(String value) {
-            addCriterion("stu_uuid >", value, "stuUuid");
+        public Criteria andTeachIdGreaterThan(String value) {
+            addCriterion("teach_id >", value, "teachId");
             return (Criteria) this;
         }
 
-        public Criteria andStuUuidGreaterThanOrEqualTo(String value) {
-            addCriterion("stu_uuid >=", value, "stuUuid");
+        public Criteria andTeachIdGreaterThanOrEqualTo(String value) {
+            addCriterion("teach_id >=", value, "teachId");
             return (Criteria) this;
         }
 
-        public Criteria andStuUuidLessThan(String value) {
-            addCriterion("stu_uuid <", value, "stuUuid");
+        public Criteria andTeachIdLessThan(String value) {
+            addCriterion("teach_id <", value, "teachId");
             return (Criteria) this;
         }
 
-        public Criteria andStuUuidLessThanOrEqualTo(String value) {
-            addCriterion("stu_uuid <=", value, "stuUuid");
+        public Criteria andTeachIdLessThanOrEqualTo(String value) {
+            addCriterion("teach_id <=", value, "teachId");
             return (Criteria) this;
         }
 
-        public Criteria andStuUuidLike(String value) {
-            addCriterion("stu_uuid like", value, "stuUuid");
+        public Criteria andTeachIdLike(String value) {
+            addCriterion("teach_id like", value, "teachId");
             return (Criteria) this;
         }
 
-        public Criteria andStuUuidNotLike(String value) {
-            addCriterion("stu_uuid not like", value, "stuUuid");
+        public Criteria andTeachIdNotLike(String value) {
+            addCriterion("teach_id not like", value, "teachId");
             return (Criteria) this;
         }
 
-        public Criteria andStuUuidIn(List<String> values) {
-            addCriterion("stu_uuid in", values, "stuUuid");
+        public Criteria andTeachIdIn(List<String> values) {
+            addCriterion("teach_id in", values, "teachId");
             return (Criteria) this;
         }
 
-        public Criteria andStuUuidNotIn(List<String> values) {
-            addCriterion("stu_uuid not in", values, "stuUuid");
+        public Criteria andTeachIdNotIn(List<String> values) {
+            addCriterion("teach_id not in", values, "teachId");
             return (Criteria) this;
         }
 
-        public Criteria andStuUuidBetween(String value1, String value2) {
-            addCriterion("stu_uuid between", value1, value2, "stuUuid");
+        public Criteria andTeachIdBetween(String value1, String value2) {
+            addCriterion("teach_id between", value1, value2, "teachId");
             return (Criteria) this;
         }
 
-        public Criteria andStuUuidNotBetween(String value1, String value2) {
-            addCriterion("stu_uuid not between", value1, value2, "stuUuid");
+        public Criteria andTeachIdNotBetween(String value1, String value2) {
+            addCriterion("teach_id not between", value1, value2, "teachId");
             return (Criteria) this;
         }
 
-        public Criteria andStuNameIsNull() {
-            addCriterion("stu_name is null");
+        public Criteria andTeachNameIsNull() {
+            addCriterion("teach_name is null");
             return (Criteria) this;
         }
 
-        public Criteria andStuNameIsNotNull() {
-            addCriterion("stu_name is not null");
+        public Criteria andTeachNameIsNotNull() {
+            addCriterion("teach_name is not null");
             return (Criteria) this;
         }
 
-        public Criteria andStuNameEqualTo(String value) {
-            addCriterion("stu_name =", value, "stuName");
+        public Criteria andTeachNameEqualTo(String value) {
+            addCriterion("teach_name =", value, "teachName");
             return (Criteria) this;
         }
 
-        public Criteria andStuNameNotEqualTo(String value) {
-            addCriterion("stu_name <>", value, "stuName");
+        public Criteria andTeachNameNotEqualTo(String value) {
+            addCriterion("teach_name <>", value, "teachName");
             return (Criteria) this;
         }
 
-        public Criteria andStuNameGreaterThan(String value) {
-            addCriterion("stu_name >", value, "stuName");
+        public Criteria andTeachNameGreaterThan(String value) {
+            addCriterion("teach_name >", value, "teachName");
             return (Criteria) this;
         }
 
-        public Criteria andStuNameGreaterThanOrEqualTo(String value) {
-            addCriterion("stu_name >=", value, "stuName");
+        public Criteria andTeachNameGreaterThanOrEqualTo(String value) {
+            addCriterion("teach_name >=", value, "teachName");
             return (Criteria) this;
         }
 
-        public Criteria andStuNameLessThan(String value) {
-            addCriterion("stu_name <", value, "stuName");
+        public Criteria andTeachNameLessThan(String value) {
+            addCriterion("teach_name <", value, "teachName");
             return (Criteria) this;
         }
 
-        public Criteria andStuNameLessThanOrEqualTo(String value) {
-            addCriterion("stu_name <=", value, "stuName");
+        public Criteria andTeachNameLessThanOrEqualTo(String value) {
+            addCriterion("teach_name <=", value, "teachName");
             return (Criteria) this;
         }
 
-        public Criteria andStuNameLike(String value) {
-            addCriterion("stu_name like", value, "stuName");
+        public Criteria andTeachNameLike(String value) {
+            addCriterion("teach_name like", value, "teachName");
             return (Criteria) this;
         }
 
-        public Criteria andStuNameNotLike(String value) {
-            addCriterion("stu_name not like", value, "stuName");
+        public Criteria andTeachNameNotLike(String value) {
+            addCriterion("teach_name not like", value, "teachName");
             return (Criteria) this;
         }
 
-        public Criteria andStuNameIn(List<String> values) {
-            addCriterion("stu_name in", values, "stuName");
+        public Criteria andTeachNameIn(List<String> values) {
+            addCriterion("teach_name in", values, "teachName");
             return (Criteria) this;
         }
 
-        public Criteria andStuNameNotIn(List<String> values) {
-            addCriterion("stu_name not in", values, "stuName");
+        public Criteria andTeachNameNotIn(List<String> values) {
+            addCriterion("teach_name not in", values, "teachName");
             return (Criteria) this;
         }
 
-        public Criteria andStuNameBetween(String value1, String value2) {
-            addCriterion("stu_name between", value1, value2, "stuName");
+        public Criteria andTeachNameBetween(String value1, String value2) {
+            addCriterion("teach_name between", value1, value2, "teachName");
             return (Criteria) this;
         }
 
-        public Criteria andStuNameNotBetween(String value1, String value2) {
-            addCriterion("stu_name not between", value1, value2, "stuName");
+        public Criteria andTeachNameNotBetween(String value1, String value2) {
+            addCriterion("teach_name not between", value1, value2, "teachName");
             return (Criteria) this;
         }
 
-        public Criteria andStuAgeIsNull() {
-            addCriterion("stu_age is null");
+        public Criteria andTeachGenderIsNull() {
+            addCriterion("teach_gender is null");
             return (Criteria) this;
         }
 
-        public Criteria andStuAgeIsNotNull() {
-            addCriterion("stu_age is not null");
+        public Criteria andTeachGenderIsNotNull() {
+            addCriterion("teach_gender is not null");
             return (Criteria) this;
         }
 
-        public Criteria andStuAgeEqualTo(Byte value) {
-            addCriterion("stu_age =", value, "stuAge");
+        public Criteria andTeachGenderEqualTo(Boolean value) {
+            addCriterion("teach_gender =", value, "teachGender");
             return (Criteria) this;
         }
 
-        public Criteria andStuAgeNotEqualTo(Byte value) {
-            addCriterion("stu_age <>", value, "stuAge");
+        public Criteria andTeachGenderNotEqualTo(Boolean value) {
+            addCriterion("teach_gender <>", value, "teachGender");
             return (Criteria) this;
         }
 
-        public Criteria andStuAgeGreaterThan(Byte value) {
-            addCriterion("stu_age >", value, "stuAge");
+        public Criteria andTeachGenderGreaterThan(Boolean value) {
+            addCriterion("teach_gender >", value, "teachGender");
             return (Criteria) this;
         }
 
-        public Criteria andStuAgeGreaterThanOrEqualTo(Byte value) {
-            addCriterion("stu_age >=", value, "stuAge");
+        public Criteria andTeachGenderGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("teach_gender >=", value, "teachGender");
             return (Criteria) this;
         }
 
-        public Criteria andStuAgeLessThan(Byte value) {
-            addCriterion("stu_age <", value, "stuAge");
+        public Criteria andTeachGenderLessThan(Boolean value) {
+            addCriterion("teach_gender <", value, "teachGender");
             return (Criteria) this;
         }
 
-        public Criteria andStuAgeLessThanOrEqualTo(Byte value) {
-            addCriterion("stu_age <=", value, "stuAge");
+        public Criteria andTeachGenderLessThanOrEqualTo(Boolean value) {
+            addCriterion("teach_gender <=", value, "teachGender");
             return (Criteria) this;
         }
 
-        public Criteria andStuAgeIn(List<Byte> values) {
-            addCriterion("stu_age in", values, "stuAge");
+        public Criteria andTeachGenderIn(List<Boolean> values) {
+            addCriterion("teach_gender in", values, "teachGender");
             return (Criteria) this;
         }
 
-        public Criteria andStuAgeNotIn(List<Byte> values) {
-            addCriterion("stu_age not in", values, "stuAge");
+        public Criteria andTeachGenderNotIn(List<Boolean> values) {
+            addCriterion("teach_gender not in", values, "teachGender");
             return (Criteria) this;
         }
 
-        public Criteria andStuAgeBetween(Byte value1, Byte value2) {
-            addCriterion("stu_age between", value1, value2, "stuAge");
+        public Criteria andTeachGenderBetween(Boolean value1, Boolean value2) {
+            addCriterion("teach_gender between", value1, value2, "teachGender");
             return (Criteria) this;
         }
 
-        public Criteria andStuAgeNotBetween(Byte value1, Byte value2) {
-            addCriterion("stu_age not between", value1, value2, "stuAge");
+        public Criteria andTeachGenderNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("teach_gender not between", value1, value2, "teachGender");
             return (Criteria) this;
         }
 
-        public Criteria andStuGenderIsNull() {
-            addCriterion("stu_gender is null");
+        public Criteria andTeachImgUrlIsNull() {
+            addCriterion("teach_img_url is null");
             return (Criteria) this;
         }
 
-        public Criteria andStuGenderIsNotNull() {
-            addCriterion("stu_gender is not null");
+        public Criteria andTeachImgUrlIsNotNull() {
+            addCriterion("teach_img_url is not null");
             return (Criteria) this;
         }
 
-        public Criteria andStuGenderEqualTo(Byte value) {
-            addCriterion("stu_gender =", value, "stuGender");
+        public Criteria andTeachImgUrlEqualTo(String value) {
+            addCriterion("teach_img_url =", value, "teachImgUrl");
             return (Criteria) this;
         }
 
-        public Criteria andStuGenderNotEqualTo(Byte value) {
-            addCriterion("stu_gender <>", value, "stuGender");
+        public Criteria andTeachImgUrlNotEqualTo(String value) {
+            addCriterion("teach_img_url <>", value, "teachImgUrl");
             return (Criteria) this;
         }
 
-        public Criteria andStuGenderGreaterThan(Byte value) {
-            addCriterion("stu_gender >", value, "stuGender");
+        public Criteria andTeachImgUrlGreaterThan(String value) {
+            addCriterion("teach_img_url >", value, "teachImgUrl");
             return (Criteria) this;
         }
 
-        public Criteria andStuGenderGreaterThanOrEqualTo(Byte value) {
-            addCriterion("stu_gender >=", value, "stuGender");
+        public Criteria andTeachImgUrlGreaterThanOrEqualTo(String value) {
+            addCriterion("teach_img_url >=", value, "teachImgUrl");
             return (Criteria) this;
         }
 
-        public Criteria andStuGenderLessThan(Byte value) {
-            addCriterion("stu_gender <", value, "stuGender");
+        public Criteria andTeachImgUrlLessThan(String value) {
+            addCriterion("teach_img_url <", value, "teachImgUrl");
             return (Criteria) this;
         }
 
-        public Criteria andStuGenderLessThanOrEqualTo(Byte value) {
-            addCriterion("stu_gender <=", value, "stuGender");
+        public Criteria andTeachImgUrlLessThanOrEqualTo(String value) {
+            addCriterion("teach_img_url <=", value, "teachImgUrl");
             return (Criteria) this;
         }
 
-        public Criteria andStuGenderIn(List<Byte> values) {
-            addCriterion("stu_gender in", values, "stuGender");
+        public Criteria andTeachImgUrlLike(String value) {
+            addCriterion("teach_img_url like", value, "teachImgUrl");
             return (Criteria) this;
         }
 
-        public Criteria andStuGenderNotIn(List<Byte> values) {
-            addCriterion("stu_gender not in", values, "stuGender");
+        public Criteria andTeachImgUrlNotLike(String value) {
+            addCriterion("teach_img_url not like", value, "teachImgUrl");
             return (Criteria) this;
         }
 
-        public Criteria andStuGenderBetween(Byte value1, Byte value2) {
-            addCriterion("stu_gender between", value1, value2, "stuGender");
+        public Criteria andTeachImgUrlIn(List<String> values) {
+            addCriterion("teach_img_url in", values, "teachImgUrl");
             return (Criteria) this;
         }
 
-        public Criteria andStuGenderNotBetween(Byte value1, Byte value2) {
-            addCriterion("stu_gender not between", value1, value2, "stuGender");
+        public Criteria andTeachImgUrlNotIn(List<String> values) {
+            addCriterion("teach_img_url not in", values, "teachImgUrl");
             return (Criteria) this;
         }
 
-        public Criteria andStuImgUrlIsNull() {
-            addCriterion("stu_img_url is null");
+        public Criteria andTeachImgUrlBetween(String value1, String value2) {
+            addCriterion("teach_img_url between", value1, value2, "teachImgUrl");
             return (Criteria) this;
         }
 
-        public Criteria andStuImgUrlIsNotNull() {
-            addCriterion("stu_img_url is not null");
+        public Criteria andTeachImgUrlNotBetween(String value1, String value2) {
+            addCriterion("teach_img_url not between", value1, value2, "teachImgUrl");
             return (Criteria) this;
         }
 
-        public Criteria andStuImgUrlEqualTo(String value) {
-            addCriterion("stu_img_url =", value, "stuImgUrl");
+        public Criteria andTeachAgeIsNull() {
+            addCriterion("teach_age is null");
             return (Criteria) this;
         }
 
-        public Criteria andStuImgUrlNotEqualTo(String value) {
-            addCriterion("stu_img_url <>", value, "stuImgUrl");
+        public Criteria andTeachAgeIsNotNull() {
+            addCriterion("teach_age is not null");
             return (Criteria) this;
         }
 
-        public Criteria andStuImgUrlGreaterThan(String value) {
-            addCriterion("stu_img_url >", value, "stuImgUrl");
+        public Criteria andTeachAgeEqualTo(Byte value) {
+            addCriterion("teach_age =", value, "teachAge");
             return (Criteria) this;
         }
 
-        public Criteria andStuImgUrlGreaterThanOrEqualTo(String value) {
-            addCriterion("stu_img_url >=", value, "stuImgUrl");
+        public Criteria andTeachAgeNotEqualTo(Byte value) {
+            addCriterion("teach_age <>", value, "teachAge");
             return (Criteria) this;
         }
 
-        public Criteria andStuImgUrlLessThan(String value) {
-            addCriterion("stu_img_url <", value, "stuImgUrl");
+        public Criteria andTeachAgeGreaterThan(Byte value) {
+            addCriterion("teach_age >", value, "teachAge");
             return (Criteria) this;
         }
 
-        public Criteria andStuImgUrlLessThanOrEqualTo(String value) {
-            addCriterion("stu_img_url <=", value, "stuImgUrl");
+        public Criteria andTeachAgeGreaterThanOrEqualTo(Byte value) {
+            addCriterion("teach_age >=", value, "teachAge");
             return (Criteria) this;
         }
 
-        public Criteria andStuImgUrlLike(String value) {
-            addCriterion("stu_img_url like", value, "stuImgUrl");
+        public Criteria andTeachAgeLessThan(Byte value) {
+            addCriterion("teach_age <", value, "teachAge");
             return (Criteria) this;
         }
 
-        public Criteria andStuImgUrlNotLike(String value) {
-            addCriterion("stu_img_url not like", value, "stuImgUrl");
+        public Criteria andTeachAgeLessThanOrEqualTo(Byte value) {
+            addCriterion("teach_age <=", value, "teachAge");
             return (Criteria) this;
         }
 
-        public Criteria andStuImgUrlIn(List<String> values) {
-            addCriterion("stu_img_url in", values, "stuImgUrl");
+        public Criteria andTeachAgeIn(List<Byte> values) {
+            addCriterion("teach_age in", values, "teachAge");
             return (Criteria) this;
         }
 
-        public Criteria andStuImgUrlNotIn(List<String> values) {
-            addCriterion("stu_img_url not in", values, "stuImgUrl");
+        public Criteria andTeachAgeNotIn(List<Byte> values) {
+            addCriterion("teach_age not in", values, "teachAge");
             return (Criteria) this;
         }
 
-        public Criteria andStuImgUrlBetween(String value1, String value2) {
-            addCriterion("stu_img_url between", value1, value2, "stuImgUrl");
+        public Criteria andTeachAgeBetween(Byte value1, Byte value2) {
+            addCriterion("teach_age between", value1, value2, "teachAge");
             return (Criteria) this;
         }
 
-        public Criteria andStuImgUrlNotBetween(String value1, String value2) {
-            addCriterion("stu_img_url not between", value1, value2, "stuImgUrl");
+        public Criteria andTeachAgeNotBetween(Byte value1, Byte value2) {
+            addCriterion("teach_age not between", value1, value2, "teachAge");
             return (Criteria) this;
         }
 
@@ -615,63 +615,63 @@ public class MfStudentExample {
             return (Criteria) this;
         }
 
-        public Criteria andStuStateIsNull() {
-            addCriterion("stu_state is null");
+        public Criteria andTeachStateIsNull() {
+            addCriterion("teach_state is null");
             return (Criteria) this;
         }
 
-        public Criteria andStuStateIsNotNull() {
-            addCriterion("stu_state is not null");
+        public Criteria andTeachStateIsNotNull() {
+            addCriterion("teach_state is not null");
             return (Criteria) this;
         }
 
-        public Criteria andStuStateEqualTo(Boolean value) {
-            addCriterion("stu_state =", value, "stuState");
+        public Criteria andTeachStateEqualTo(Boolean value) {
+            addCriterion("teach_state =", value, "teachState");
             return (Criteria) this;
         }
 
-        public Criteria andStuStateNotEqualTo(Boolean value) {
-            addCriterion("stu_state <>", value, "stuState");
+        public Criteria andTeachStateNotEqualTo(Boolean value) {
+            addCriterion("teach_state <>", value, "teachState");
             return (Criteria) this;
         }
 
-        public Criteria andStuStateGreaterThan(Boolean value) {
-            addCriterion("stu_state >", value, "stuState");
+        public Criteria andTeachStateGreaterThan(Boolean value) {
+            addCriterion("teach_state >", value, "teachState");
             return (Criteria) this;
         }
 
-        public Criteria andStuStateGreaterThanOrEqualTo(Boolean value) {
-            addCriterion("stu_state >=", value, "stuState");
+        public Criteria andTeachStateGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("teach_state >=", value, "teachState");
             return (Criteria) this;
         }
 
-        public Criteria andStuStateLessThan(Boolean value) {
-            addCriterion("stu_state <", value, "stuState");
+        public Criteria andTeachStateLessThan(Boolean value) {
+            addCriterion("teach_state <", value, "teachState");
             return (Criteria) this;
         }
 
-        public Criteria andStuStateLessThanOrEqualTo(Boolean value) {
-            addCriterion("stu_state <=", value, "stuState");
+        public Criteria andTeachStateLessThanOrEqualTo(Boolean value) {
+            addCriterion("teach_state <=", value, "teachState");
             return (Criteria) this;
         }
 
-        public Criteria andStuStateIn(List<Boolean> values) {
-            addCriterion("stu_state in", values, "stuState");
+        public Criteria andTeachStateIn(List<Boolean> values) {
+            addCriterion("teach_state in", values, "teachState");
             return (Criteria) this;
         }
 
-        public Criteria andStuStateNotIn(List<Boolean> values) {
-            addCriterion("stu_state not in", values, "stuState");
+        public Criteria andTeachStateNotIn(List<Boolean> values) {
+            addCriterion("teach_state not in", values, "teachState");
             return (Criteria) this;
         }
 
-        public Criteria andStuStateBetween(Boolean value1, Boolean value2) {
-            addCriterion("stu_state between", value1, value2, "stuState");
+        public Criteria andTeachStateBetween(Boolean value1, Boolean value2) {
+            addCriterion("teach_state between", value1, value2, "teachState");
             return (Criteria) this;
         }
 
-        public Criteria andStuStateNotBetween(Boolean value1, Boolean value2) {
-            addCriterion("stu_state not between", value1, value2, "stuState");
+        public Criteria andTeachStateNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("teach_state not between", value1, value2, "teachState");
             return (Criteria) this;
         }
     }

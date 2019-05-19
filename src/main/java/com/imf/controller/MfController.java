@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.InputStream;
 
@@ -56,10 +57,11 @@ public class MfController {
 
     @RequestMapping("/saveInformation")
     @ResponseBody
-    public MFJSONResult upload(@RequestParam MultipartFile data , String info , Integer type , final HttpServletResponse response) {
-        String fileName = data.getOriginalFilename();
-        String lastName = fileName.substring(fileName.lastIndexOf(".")); // 获取文件的后缀
-        String filePath = "test" + "/3"+ lastName;
+    public MFJSONResult upload(@RequestParam MultipartFile data , String info , Integer type ,  HttpServletRequest request ) {
+
+        long start = System.currentTimeMillis();
+        String path = request.getSession().getServletContext().getRealPath(start + "");
+
         String contentType = data.getContentType();
 //        MfStudent ms = JsonUtils.jsonToPojo(mfStudent , MfStudent.class);
         String typeName = "";
@@ -67,7 +69,7 @@ public class MfController {
             //上传图片到图片服务器
             //
             //
-            String imgUrl = mfService.uploadImg(data);
+            String imgUrl = mfService.uploadImg(data , path , type);
             if (StringUtils.isEmpty(imgUrl)){
                 return MFJSONResult.errorMsg("上传图片失败，请重试或者联系管理员！");
             }

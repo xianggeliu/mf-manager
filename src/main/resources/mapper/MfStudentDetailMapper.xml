@@ -2,12 +2,195 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.imf.mapper.MfStudentDetailMapper" >
   <resultMap id="BaseResultMap" type="com.imf.pojo.MfStudentDetail" >
-    <!--
-      WARNING - @mbg.generated
-    -->
     <id column="stu_uuid" property="stuUuid" jdbcType="VARCHAR" />
     <result column="stu_parent_name" property="stuParentName" jdbcType="VARCHAR" />
     <result column="stu_address" property="stuAddress" jdbcType="VARCHAR" />
     <result column="stu_phone_num" property="stuPhoneNum" jdbcType="INTEGER" />
   </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    stu_uuid, stu_parent_name, stu_address, stu_phone_num
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.imf.pojo.MfStudentDetailExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from mf_student_detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from mf_student_detail
+    where stu_uuid = #{stuUuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from mf_student_detail
+    where stu_uuid = #{stuUuid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.imf.pojo.MfStudentDetailExample" >
+    delete from mf_student_detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.imf.pojo.MfStudentDetail" >
+    insert into mf_student_detail (stu_uuid, stu_parent_name, stu_address, 
+      stu_phone_num)
+    values (#{stuUuid,jdbcType=VARCHAR}, #{stuParentName,jdbcType=VARCHAR}, #{stuAddress,jdbcType=VARCHAR}, 
+      #{stuPhoneNum,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.imf.pojo.MfStudentDetail" >
+    insert into mf_student_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="stuUuid != null" >
+        stu_uuid,
+      </if>
+      <if test="stuParentName != null" >
+        stu_parent_name,
+      </if>
+      <if test="stuAddress != null" >
+        stu_address,
+      </if>
+      <if test="stuPhoneNum != null" >
+        stu_phone_num,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="stuUuid != null" >
+        #{stuUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="stuParentName != null" >
+        #{stuParentName,jdbcType=VARCHAR},
+      </if>
+      <if test="stuAddress != null" >
+        #{stuAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="stuPhoneNum != null" >
+        #{stuPhoneNum,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.imf.pojo.MfStudentDetailExample" resultType="java.lang.Integer" >
+    select count(*) from mf_student_detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update mf_student_detail
+    <set >
+      <if test="record.stuUuid != null" >
+        stu_uuid = #{record.stuUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stuParentName != null" >
+        stu_parent_name = #{record.stuParentName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stuAddress != null" >
+        stu_address = #{record.stuAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stuPhoneNum != null" >
+        stu_phone_num = #{record.stuPhoneNum,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update mf_student_detail
+    set stu_uuid = #{record.stuUuid,jdbcType=VARCHAR},
+      stu_parent_name = #{record.stuParentName,jdbcType=VARCHAR},
+      stu_address = #{record.stuAddress,jdbcType=VARCHAR},
+      stu_phone_num = #{record.stuPhoneNum,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.imf.pojo.MfStudentDetail" >
+    update mf_student_detail
+    <set >
+      <if test="stuParentName != null" >
+        stu_parent_name = #{stuParentName,jdbcType=VARCHAR},
+      </if>
+      <if test="stuAddress != null" >
+        stu_address = #{stuAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="stuPhoneNum != null" >
+        stu_phone_num = #{stuPhoneNum,jdbcType=INTEGER},
+      </if>
+    </set>
+    where stu_uuid = #{stuUuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.imf.pojo.MfStudentDetail" >
+    update mf_student_detail
+    set stu_parent_name = #{stuParentName,jdbcType=VARCHAR},
+      stu_address = #{stuAddress,jdbcType=VARCHAR},
+      stu_phone_num = #{stuPhoneNum,jdbcType=INTEGER}
+    where stu_uuid = #{stuUuid,jdbcType=VARCHAR}
+  </update>
 </mapper>

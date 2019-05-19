@@ -205,7 +205,7 @@ public class ImageUtil {
 
     public static void main(String[] args) throws IOException {
 //        iul.thumbnailImage(f, new java.io.FileOutputStream(z_file), 300, 200, z_name, false);
-//        new ImageUtil().thumbnailImage(new File("D:\\Totls\\test/94610364.png"), new FileOutputStream("D:\\Totls\\test/11.png"), 300, 200, "D:\\Totls\\test/94610364.png", false, ".png");
+        new ImageUtil().thumbnailImage(new File("D:\\Totls\\test/94610364.png"), new FileOutputStream("D:\\Totls\\test/11.png"), 300, 200, "D:\\Totls\\test/94610364.png", false, ".png");
 //        new ImageUtil().thumbnailImage(new File("D:\\Totls\\test/11.gif"), 300, 200, "D:\\Totls\\test/11.gif", false);
 //        new ImageUtil().thumbnailImage(new File("D:\\Totls\\test/t018bf88cc1862a53ea.jpg"),new java.io.FileOutputStream(new File("D:\\Totls\\test/2.jpg")), 300, 200,"2.jpg",false);
 
