@@ -6,21 +6,17 @@ import com.imf.pojo.MfStudent;
 import com.imf.service.MfService;
 import com.imf.service.StudentService;
 import com.imf.service.TeacherService;
-import com.imf.utils.JsonUtils;
-import com.imf.utils.MinioUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.InputStream;
 
 /**
  * Created by JiXiang on 2019/5/17 17:16
@@ -59,17 +55,12 @@ public class MfController {
     @ResponseBody
     public MFJSONResult upload(@RequestParam MultipartFile data , String info , Integer type ,  HttpServletRequest request ) {
 
-        long start = System.currentTimeMillis();
-        String path = request.getSession().getServletContext().getRealPath(start + "");
-
-        String contentType = data.getContentType();
-//        MfStudent ms = JsonUtils.jsonToPojo(mfStudent , MfStudent.class);
         String typeName = "";
         try {
+            long start = System.currentTimeMillis();
+            String uploadDir=ResourceUtils.getURL("classpath:").getPath()+"/static/" + start;
             //上传图片到图片服务器
-            //
-            //
-            String imgUrl = mfService.uploadImg(data , path , type);
+            String imgUrl = mfService.uploadImg(data , uploadDir , type);
             if (StringUtils.isEmpty(imgUrl)){
                 return MFJSONResult.errorMsg("上传图片失败，请重试或者联系管理员！");
             }

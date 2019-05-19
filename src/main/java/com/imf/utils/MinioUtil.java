@@ -2,39 +2,65 @@ package com.imf.utils;
 
 import com.alibaba.druid.util.StringUtils;
 import com.alibaba.fastjson.JSONObject;
-import com.google.api.client.util.Value;
 import io.minio.MinioClient;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Component
 public class MinioUtil {
+    @Autowired
+    private static CommonVariable commonVariable;
 
-    @Value("com.imf.minioUrl")
-    private static String minio_url;
+    private static String minioUrl;
 
-    @Value("com.imf.minioName")
-    private static String minio_name;
+    private static String minioName;
 
-    @Value("com.imf.minioPass")
-    private static String minio_pass;
+    private static String minioPass;
 
-    @Value("com.imf.minioBucketName")
-    private static String minio_bucketName;
+    private static String minioBucketName;
 
-    @Value("com.imf.imgWidth")
     private static Integer imgWidth;
 
-    @Value("com.imf.imgheight")
     private static Integer imgheight;
+
+    @Value("${com.imf.minio.url}")
+    public void setMinioUrl(String minioUrl) {
+        MinioUtil.minioUrl = minioUrl;
+    }
+
+    @Value("${com.imf.minio.name}")
+    public void setMinioName(String minioName) {
+        MinioUtil.minioName = minioName;
+    }
+
+    @Value("${com.imf.minio.pass}")
+    public void setMinioPass(String minioPass) {
+        MinioUtil.minioPass = minioPass;
+    }
+
+    @Value("${com.imf.minio.bucketName}")
+    public void setMinioBucketName(String minioBucketName) {
+        MinioUtil.minioBucketName = minioBucketName;
+    }
+
+    @Value("${com.imf.imgWidth}")
+    public void setImgWidth(Integer imgWidth) {
+        MinioUtil.imgWidth = imgWidth;
+    }
+
+    @Value("${com.imf.imgheight}")
+    public void setImgheight(Integer imgheight) {
+        MinioUtil.imgheight = imgheight;
+    }
+
 
     /**
      * @param inputStream
@@ -54,8 +80,8 @@ public class MinioUtil {
      * @Title: uploadImage
      * @Description:上传图片
      */
-    public static JSONObject uploadImages(String imgs, String path) throws Exception {
-        return uploadImgs(imgs, path);
+    public static JSONObject uploadImages(String imgUrl, String contentType, String path, Integer type) throws Exception {
+        return uploadImgs(imgUrl, contentType, path, type);
     }
 
 
@@ -122,8 +148,8 @@ public class MinioUtil {
      */
     public static void deleteImg(String objectName) throws Exception {
         //获取相关minio 相关配置信息
-        MinioClient minioClient = new MinioClient(minio_url, minio_name, minio_pass);
-        minioClient.removeObject(minio_bucketName, objectName);
+        MinioClient minioClient = new MinioClient(minioUrl, minioName, minioPass);
+        minioClient.removeObject(minioBucketName, objectName);
     }
 
 
@@ -135,23 +161,23 @@ public class MinioUtil {
      */
     private static JSONObject upload(InputStream inputStream, String suffix, String contentType) throws Exception {
         JSONObject map = new JSONObject();
-        MinioClient minioClient = new MinioClient(minio_url, minio_name, minio_pass);
+        MinioClient minioClient = new MinioClient(minioUrl, minioName, minioPass);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
         String ymd = sdf.format(new Date());
         String objectName = ymd + "/" + (suffix != null ? suffix : "");
-        minioClient.putObject(minio_bucketName, objectName, inputStream, contentType);
-//        String bucketPolicy = minioClient.getBucketPolicy(minio_bucketName);
-        String url = minioClient.getObjectUrl(minio_bucketName, objectName);
-        String urls = minioClient.presignedGetObject(minio_bucketName, objectName, 60 * 60 * 24);
+        minioClient.putObject(minioBucketName, objectName, inputStream, contentType);
+//        String bucketPolicy = minioClient.getBucketPolicy(minioBucketName);
+        String url = minioClient.getObjectUrl(minioBucketName, objectName);
+        String urls = minioClient.presignedGetObject(minioBucketName, objectName, 60 * 60 * 24);
 //            System.out.println(url);
-//        Iterable<Result<Item>> results = minioClient.listObjects(minio_bucketName, "20189/test/");
+//        Iterable<Result<Item>> results = minioClient.listObjects(minioBucketName, "20189/test/");
         map.put("img", urls);
         map.put("flag", "0");
         map.put("mess", "上传成功");
         map.put("url", url);
         map.put("objectName", objectName);
         map.put("urlval", url);
-        map.put("path", minio_bucketName + "/" + objectName);
+        map.put("path", minioBucketName + "/" + objectName);
         return map;
     }
 
@@ -164,17 +190,17 @@ public class MinioUtil {
 
     private static String uploadImg(InputStream inputStream, String objectName, String contentType) throws Exception {
         JSONObject map = new JSONObject();
-        MinioClient minioClient = new MinioClient(minio_url, minio_name, minio_pass);
-        boolean found = minioClient.bucketExists(minio_bucketName);
+        MinioClient minioClient = new MinioClient(minioUrl, minioName, minioPass);
+        boolean found = minioClient.bucketExists(minioBucketName);
         //判断当前的bucketName 是否存在，比存在就创建一个
         if (!found) {
             // Create bucket 'my-bucketname'.
-            minioClient.makeBucket(minio_bucketName);
+            minioClient.makeBucket(minioBucketName);
         }
         //把图片上传到服务器
-        minioClient.putObject(minio_bucketName, objectName, inputStream, contentType);
+        minioClient.putObject(minioBucketName, objectName, inputStream, contentType);
         //返回上传图片的url地址
-//        return  minioClient.presignedGetObject(minio_bucketName, objectName, 60 * 60 * 24);
+//        return  minioClient.presignedGetObject(minioBucketName, objectName, 60 * 60 * 24);
         return "";
     }
 
@@ -185,30 +211,33 @@ public class MinioUtil {
      * @return
      */
 
-    private static JSONObject uploadImgs(String imgurl, String folder) throws Exception {
+    private static JSONObject uploadImgs(String imgurl, String contentType, String path, Integer type) throws Exception {
         JSONObject map = new JSONObject();
         //获取配置文件
         //添加minio相关信息
-        MinioClient minioClient = new MinioClient(minio_url, minio_name, minio_pass);
-        boolean found = minioClient.bucketExists(minio_bucketName);
+        MinioClient minioClient = new MinioClient(minioUrl, minioName, minioPass);
+        boolean found = minioClient.bucketExists(minioBucketName);
         //判断当前的bucketName 是否存在，比存在就创建一个
         if (!found) {
-            minioClient.makeBucket(minio_bucketName);
+            minioClient.makeBucket(minioBucketName);
         }
-//        File file = new File(path);
-//        if (!file.exists()) {
-//            boolean mkdir = file.mkdirs();
-//        }
         //图片缩略图尺寸
         File tempFile = new File(imgurl);
         //获取图片类型
-        String contentType = Files.probeContentType(Paths.get(imgurl));
+//        String contentType = Files.probeContentType(Paths.get(imgurl));
         //获取图片名称 和后缀名
-        String fileName = tempFile.getName();
+        String fileName = "";
+        if (type == 1) {
+            fileName = "teacher/" + tempFile.getName();
+        } else if (type == 2) {
+            fileName = "student/" + tempFile.getName();
+        } else {
+            fileName = "temp/" + tempFile.getName();
+        }
         String lastName = imgurl.substring(imgurl.lastIndexOf(".")); // 获取文件的后缀
         //把图片上传到服务器
         InputStream is = new FileInputStream(imgurl);
-        minioClient.putObject(minio_bucketName, folder + fileName, is, contentType);
+        minioClient.putObject(minioBucketName, fileName, is, contentType);
         is.close();
         //压缩处理图片
         //把上传的文件转换成file 在本地创建临时文件
@@ -218,19 +247,21 @@ public class MinioUtil {
         int i = iul.thumbnailImage(tempFile, imgWidth, imgheight, imgurl, false, lastName);
         // i = 1 是图片处理成功，i= 0 是图片处理不成功 不成功直接使用原图
         // i = 1 是图片处理成功，i= 0 是图片处理不成功 不成功直接使用原图
-        String tempFileName = imgurl.replace(lastName, "z" + lastName);
+        String tempFileName = fileName.replace(lastName, "z" + lastName);
         //将图片 裁剪 放到项目路径下
-        InputStream fileInputStream = new FileInputStream(tempFileName);
-        //压缩图片上传到服务器
-        String contentType2 = Files.probeContentType(Paths.get(tempFileName));
-        minioClient.putObject(minio_bucketName, folder + tempFileName, fileInputStream, contentType2);
-        fileInputStream.close();
+        File newFIle = new File(path + "/" + 2 + lastName);
+        if (newFIle.exists()) {
+            InputStream fileInputStream = new FileInputStream(path + "/" + 2 + lastName);
+            //压缩图片上传到服务器
+            minioClient.putObject(minioBucketName, tempFileName, fileInputStream, contentType);
+            fileInputStream.close();
+        }
+
         //返回上传图片的url地址
         map.put("imgUrl", fileName);
         map.put("imgUrlz", tempFileName);
         return map;
     }
-
 
     /**
      * @return
@@ -239,8 +270,8 @@ public class MinioUtil {
      * @Description:上传主功能
      */
     private static InputStream download(String objectName) throws Exception {
-        MinioClient minioClient = new MinioClient(minio_url, minio_name, minio_pass);
-        InputStream inputStream = minioClient.getObject(minio_bucketName, objectName);
+        MinioClient minioClient = new MinioClient(minioUrl, minioName, minioPass);
+        InputStream inputStream = minioClient.getObject(minioBucketName, objectName);
         return inputStream;
     }
 
