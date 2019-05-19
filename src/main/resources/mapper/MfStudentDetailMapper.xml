@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.imf.mapper.MfStudentDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.imf.pojo.MfStudentDetail" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="stu_uuid" property="stuUuid" jdbcType="VARCHAR" />
+    <result column="stu_parent_name" property="stuParentName" jdbcType="VARCHAR" />
+    <result column="stu_address" property="stuAddress" jdbcType="VARCHAR" />
+    <result column="stu_phone_num" property="stuPhoneNum" jdbcType="INTEGER" />
+  </resultMap>
+</mapper>

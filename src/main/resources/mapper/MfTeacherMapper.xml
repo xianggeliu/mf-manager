@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.imf.mapper.MfTeacherMapper" >
+  <resultMap id="BaseResultMap" type="com.imf.pojo.MfTeacher" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="teach_id" property="teachId" jdbcType="VARCHAR" />
+    <result column="teach_name" property="teachName" jdbcType="VARCHAR" />
+    <result column="teach_gender" property="teachGender" jdbcType="BIT" />
+    <result column="teach_img_url" property="teachImgUrl" jdbcType="VARCHAR" />
+    <result column="teach_age" property="teachAge" jdbcType="TINYINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="edit_time" property="editTime" jdbcType="TIMESTAMP" />
+    <result column="teach_state" property="teachState" jdbcType="BIT" />
+  </resultMap>
+</mapper>

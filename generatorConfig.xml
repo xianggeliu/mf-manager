@@ -29,7 +29,7 @@
                              type="XMLMAPPER"/>
 
 
-		<table tableName="work_record"></table>
+		<table tableName="mf_student"></table>
 		 
     </context>
 </generatorConfiguration>

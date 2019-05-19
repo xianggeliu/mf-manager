@@ -770,8 +770,9 @@
         form.append("data",fileObj);// 文件对象
         var stringify = JSON.stringify(mfStudent);
         form.append("mfStudent",stringify);
+        form.append("type",2);
         $.ajax({
-            url: "/student/setStudentInfo",
+            url: "/mf/saveInformation",
             type: 'POST',
             data: form,
             cache: false,
