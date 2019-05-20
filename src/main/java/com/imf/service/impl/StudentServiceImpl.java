@@ -38,7 +38,7 @@ public class StudentServiceImpl implements StudentService {
     private UserLoginMapper userLoginMapper;
 
     @Override
-    public MFJSONResult saveStudentInfo(String imgUrl, String info) throws JSONException {
+    public MFJSONResult saveStudentInfo(String imgUrl, String info) throws Exception {
         //把json转换成map
         MfStudentView mfStudentView = JsonUtils.jsonToPojo(info , MfStudentView.class);
         //获取学生ID

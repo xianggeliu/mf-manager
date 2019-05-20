@@ -10,5 +10,5 @@ import org.springframework.boot.configurationprocessor.json.JSONException;
  * QQ :　２５２６３２３３０
  */
 public interface StudentService {
-    MFJSONResult saveStudentInfo(String imgUrl, String info) throws JSONException;
+    MFJSONResult saveStudentInfo(String imgUrl, String info) throws Exception;
 }

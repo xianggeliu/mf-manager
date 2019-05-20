@@ -77,10 +77,8 @@
     <orderEntry type="library" name="Maven: commons-io:commons-io:2.4" level="project" />
     <orderEntry type="library" name="Maven: com.kenai.nbpwr:com-drew-metadata:2.4.0beta1-201201161630" level="project" />
     <orderEntry type="library" name="Maven: com.drewnoakes:metadata-extractor:2.4.0-beta-1" level="project" />
-    <orderEntry type="library" name="Maven: javax.media:jai_codec:unknown" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.8.8.1" level="project" />
     <orderEntry type="library" name="Maven: net.coobird:thumbnailator:0.4.8" level="project" />
-    <orderEntry type="library" name="Maven: com.sun.media:jai-codec:unknown" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-devtools:2.0.0.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-configuration-processor:2.0.0.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-freemarker:2.0.0.RELEASE" level="project" />
@@ -147,5 +145,6 @@
     <orderEntry type="library" name="Maven: io.netty:netty-codec:4.1.22.Final" level="project" />
     <orderEntry type="library" name="Maven: org.testng:testng:7.0.0-beta4" level="project" />
     <orderEntry type="library" name="Maven: com.beust:jcommander:1.72" level="project" />
+    <orderEntry type="library" name="lib" level="project" />
   </component>
 </module>
