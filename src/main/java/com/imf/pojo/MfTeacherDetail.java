@@ -15,7 +15,7 @@ public class MfTeacherDetail {
 
     private Integer teachPhone;
 
-    private Boolean teachMaritalState;
+    private Integer teachMaritalState;
 
     public String getTeachId() {
         return teachId;
@@ -73,11 +73,11 @@ public class MfTeacherDetail {
         this.teachPhone = teachPhone;
     }
 
-    public Boolean getTeachMaritalState() {
+    public Integer getTeachMaritalState() {
         return teachMaritalState;
     }
 
-    public void setTeachMaritalState(Boolean teachMaritalState) {
+    public void setTeachMaritalState(Integer teachMaritalState) {
         this.teachMaritalState = teachMaritalState;
     }
 }

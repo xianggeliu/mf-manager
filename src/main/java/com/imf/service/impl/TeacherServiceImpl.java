@@ -11,6 +11,7 @@ import com.imf.utils.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.HashMap;
 
 
@@ -40,14 +41,30 @@ public class TeacherServiceImpl implements TeacherService {
         String teacherId = "T" + userLoginMapper.selectSequence("teacher");
         //封装其他相关信息 封装teacher表的数据，
         MfTeacher mfTeacher = new MfTeacher();
-        MfTeacherDetail mfTeacherDetail = new MfTeacherDetail();
         //封装基本信息
         mfTeacher.setTeachId(teacherId);
         mfTeacher.setTeachName(map.get("tName"));
         mfTeacher.setTeachAge(Integer.parseInt(map.get("tAge")));
         mfTeacher.setTeachGender(Integer.parseInt(map.get("tGender")));
-        //全部保存成功后返回数据添加成功；
-
-        return null;
+        mfTeacher.setTeachImgUrl(imgUrl);
+        mfTeacher.setCreateTime(new Date());
+        mfTeacher.setTeachState(1);
+        int state = mfTeacherMapper.insert(mfTeacher);
+        if (state == 1){
+            MfTeacherDetail mfTeacherDetail = new MfTeacherDetail();
+            mfTeacherDetail.setTeachId(teacherId);
+            mfTeacherDetail.setTeachAddress(map.get("tAddress"));
+            mfTeacherDetail.setTeachEdu(map.get("tEdu"));
+            mfTeacherDetail.setTeachEduSchool("tEduSchool");
+            mfTeacherDetail.setTeachIdnum(map.get("tIdnum"));
+            mfTeacherDetail.setTeachEduTime(map.get("tEduTime"));
+            mfTeacherDetail.setTeachPhone(Integer.parseInt(map.get("tPhone")));
+            mfTeacherDetail.setTeachMaritalState(Integer.parseInt(map.get("tMaritalState")));
+            int insertState = mfTeacherDetailMapper.insert(mfTeacherDetail);
+            if (insertState == 1){
+                return MFJSONResult.ok();
+            }
+        }
+        return MFJSONResult.errorMsg("添加老师记录错误！");
     }
 }

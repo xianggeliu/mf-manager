@@ -1,10 +1,10 @@
 package com.imf.service.impl;
 
-import com.alibaba.fastjson.JSONObject;
 import com.imf.service.MfService;
 import com.imf.utils.CommonUtil;
 import com.imf.utils.MinioUtil;
 import org.apache.log4j.Logger;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
