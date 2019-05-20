@@ -9,17 +9,17 @@ public class MfTeacher {
 
     private String teachName;
 
-    private Boolean teachGender;
+    private Integer teachGender;
 
     private String teachImgUrl;
 
-    private Byte teachAge;
+    private Integer teachAge;
 
     private Date createTime;
 
     private Date editTime;
 
-    private Boolean teachState;
+    private Integer teachState;
 
     public Integer getId() {
         return id;
@@ -45,11 +45,11 @@ public class MfTeacher {
         this.teachName = teachName == null ? null : teachName.trim();
     }
 
-    public Boolean getTeachGender() {
+    public Integer getTeachGender() {
         return teachGender;
     }
 
-    public void setTeachGender(Boolean teachGender) {
+    public void setTeachGender(Integer teachGender) {
         this.teachGender = teachGender;
     }
 
@@ -61,11 +61,11 @@ public class MfTeacher {
         this.teachImgUrl = teachImgUrl == null ? null : teachImgUrl.trim();
     }
 
-    public Byte getTeachAge() {
+    public Integer getTeachAge() {
         return teachAge;
     }
 
-    public void setTeachAge(Byte teachAge) {
+    public void setTeachAge(Integer teachAge) {
         this.teachAge = teachAge;
     }
 
@@ -85,11 +85,11 @@ public class MfTeacher {
         this.editTime = editTime;
     }
 
-    public Boolean getTeachState() {
+    public Integer getTeachState() {
         return teachState;
     }
 
-    public void setTeachState(Boolean teachState) {
+    public void setTeachState(Integer teachState) {
         this.teachState = teachState;
     }
 }

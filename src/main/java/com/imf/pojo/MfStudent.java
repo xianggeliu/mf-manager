@@ -9,9 +9,9 @@ public class MfStudent {
 
     private String stuName;
 
-    private Byte stuAge;
+    private Integer stuAge;
 
-    private Byte stuGender;
+    private Integer stuGender;
 
     private String stuImgUrl;
 
@@ -19,7 +19,7 @@ public class MfStudent {
 
     private Date editTime;
 
-    private Boolean stuState;
+    private Integer stuState;
 
     public Integer getId() {
         return id;
@@ -45,19 +45,19 @@ public class MfStudent {
         this.stuName = stuName == null ? null : stuName.trim();
     }
 
-    public Byte getStuAge() {
+    public Integer getStuAge() {
         return stuAge;
     }
 
-    public void setStuAge(Byte stuAge) {
+    public void setStuAge(Integer stuAge) {
         this.stuAge = stuAge;
     }
 
-    public Byte getStuGender() {
+    public Integer getStuGender() {
         return stuGender;
     }
 
-    public void setStuGender(Byte stuGender) {
+    public void setStuGender(Integer stuGender) {
         this.stuGender = stuGender;
     }
 
@@ -85,11 +85,11 @@ public class MfStudent {
         this.editTime = editTime;
     }
 
-    public Boolean getStuState() {
+    public Integer getStuState() {
         return stuState;
     }
 
-    public void setStuState(Boolean stuState) {
+    public void setStuState(Integer stuState) {
         this.stuState = stuState;
     }
 }

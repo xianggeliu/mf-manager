@@ -234,4 +234,9 @@
       regist_time = #{registTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <!--生产ID-->
+  <select id="selectSequence" parameterType="string" resultType="java.lang.Integer">
+    select nextval(#{value}) FROM dual;
+  </select>
 </mapper>

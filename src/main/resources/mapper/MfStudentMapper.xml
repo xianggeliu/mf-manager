@@ -10,7 +10,7 @@
     <result column="stu_img_url" property="stuImgUrl" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="edit_time" property="editTime" jdbcType="TIMESTAMP" />
-    <result column="stu_state" property="stuState" jdbcType="BIT" />
+    <result column="stu_state" property="stuState" jdbcType="TINYINT" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -111,7 +111,7 @@
       )
     values (#{id,jdbcType=INTEGER}, #{stuUuid,jdbcType=VARCHAR}, #{stuName,jdbcType=VARCHAR}, 
       #{stuAge,jdbcType=TINYINT}, #{stuGender,jdbcType=TINYINT}, #{stuImgUrl,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{editTime,jdbcType=TIMESTAMP}, #{stuState,jdbcType=BIT}
+      #{createTime,jdbcType=TIMESTAMP}, #{editTime,jdbcType=TIMESTAMP}, #{stuState,jdbcType=TINYINT}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.imf.pojo.MfStudent" >
@@ -171,7 +171,7 @@
         #{editTime,jdbcType=TIMESTAMP},
       </if>
       <if test="stuState != null" >
-        #{stuState,jdbcType=BIT},
+        #{stuState,jdbcType=TINYINT},
       </if>
     </trim>
   </insert>
@@ -209,7 +209,7 @@
         edit_time = #{record.editTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.stuState != null" >
-        stu_state = #{record.stuState,jdbcType=BIT},
+        stu_state = #{record.stuState,jdbcType=TINYINT},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -226,7 +226,7 @@
       stu_img_url = #{record.stuImgUrl,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       edit_time = #{record.editTime,jdbcType=TIMESTAMP},
-      stu_state = #{record.stuState,jdbcType=BIT}
+      stu_state = #{record.stuState,jdbcType=TINYINT}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -256,7 +256,7 @@
         edit_time = #{editTime,jdbcType=TIMESTAMP},
       </if>
       <if test="stuState != null" >
-        stu_state = #{stuState,jdbcType=BIT},
+        stu_state = #{stuState,jdbcType=TINYINT},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -270,7 +270,7 @@
       stu_img_url = #{stuImgUrl,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       edit_time = #{editTime,jdbcType=TIMESTAMP},
-      stu_state = #{stuState,jdbcType=BIT}
+      stu_state = #{stuState,jdbcType=TINYINT}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

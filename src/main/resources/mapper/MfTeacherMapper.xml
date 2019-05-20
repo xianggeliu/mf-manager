@@ -5,12 +5,12 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="teach_id" property="teachId" jdbcType="VARCHAR" />
     <result column="teach_name" property="teachName" jdbcType="VARCHAR" />
-    <result column="teach_gender" property="teachGender" jdbcType="BIT" />
+    <result column="teach_gender" property="teachGender" jdbcType="TINYINT" />
     <result column="teach_img_url" property="teachImgUrl" jdbcType="VARCHAR" />
     <result column="teach_age" property="teachAge" jdbcType="TINYINT" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="edit_time" property="editTime" jdbcType="TIMESTAMP" />
-    <result column="teach_state" property="teachState" jdbcType="BIT" />
+    <result column="teach_state" property="teachState" jdbcType="TINYINT" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -110,8 +110,8 @@
       create_time, edit_time, teach_state
       )
     values (#{id,jdbcType=INTEGER}, #{teachId,jdbcType=VARCHAR}, #{teachName,jdbcType=VARCHAR}, 
-      #{teachGender,jdbcType=BIT}, #{teachImgUrl,jdbcType=VARCHAR}, #{teachAge,jdbcType=TINYINT}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{editTime,jdbcType=TIMESTAMP}, #{teachState,jdbcType=BIT}
+      #{teachGender,jdbcType=TINYINT}, #{teachImgUrl,jdbcType=VARCHAR}, #{teachAge,jdbcType=TINYINT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{editTime,jdbcType=TIMESTAMP}, #{teachState,jdbcType=TINYINT}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.imf.pojo.MfTeacher" >
@@ -156,7 +156,7 @@
         #{teachName,jdbcType=VARCHAR},
       </if>
       <if test="teachGender != null" >
-        #{teachGender,jdbcType=BIT},
+        #{teachGender,jdbcType=TINYINT},
       </if>
       <if test="teachImgUrl != null" >
         #{teachImgUrl,jdbcType=VARCHAR},
@@ -171,7 +171,7 @@
         #{editTime,jdbcType=TIMESTAMP},
       </if>
       <if test="teachState != null" >
-        #{teachState,jdbcType=BIT},
+        #{teachState,jdbcType=TINYINT},
       </if>
     </trim>
   </insert>
@@ -194,7 +194,7 @@
         teach_name = #{record.teachName,jdbcType=VARCHAR},
       </if>
       <if test="record.teachGender != null" >
-        teach_gender = #{record.teachGender,jdbcType=BIT},
+        teach_gender = #{record.teachGender,jdbcType=TINYINT},
       </if>
       <if test="record.teachImgUrl != null" >
         teach_img_url = #{record.teachImgUrl,jdbcType=VARCHAR},
@@ -209,7 +209,7 @@
         edit_time = #{record.editTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.teachState != null" >
-        teach_state = #{record.teachState,jdbcType=BIT},
+        teach_state = #{record.teachState,jdbcType=TINYINT},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -221,12 +221,12 @@
     set id = #{record.id,jdbcType=INTEGER},
       teach_id = #{record.teachId,jdbcType=VARCHAR},
       teach_name = #{record.teachName,jdbcType=VARCHAR},
-      teach_gender = #{record.teachGender,jdbcType=BIT},
+      teach_gender = #{record.teachGender,jdbcType=TINYINT},
       teach_img_url = #{record.teachImgUrl,jdbcType=VARCHAR},
       teach_age = #{record.teachAge,jdbcType=TINYINT},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       edit_time = #{record.editTime,jdbcType=TIMESTAMP},
-      teach_state = #{record.teachState,jdbcType=BIT}
+      teach_state = #{record.teachState,jdbcType=TINYINT}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -241,7 +241,7 @@
         teach_name = #{teachName,jdbcType=VARCHAR},
       </if>
       <if test="teachGender != null" >
-        teach_gender = #{teachGender,jdbcType=BIT},
+        teach_gender = #{teachGender,jdbcType=TINYINT},
       </if>
       <if test="teachImgUrl != null" >
         teach_img_url = #{teachImgUrl,jdbcType=VARCHAR},
@@ -256,7 +256,7 @@
         edit_time = #{editTime,jdbcType=TIMESTAMP},
       </if>
       <if test="teachState != null" >
-        teach_state = #{teachState,jdbcType=BIT},
+        teach_state = #{teachState,jdbcType=TINYINT},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -265,12 +265,12 @@
     update mf_teacher
     set teach_id = #{teachId,jdbcType=VARCHAR},
       teach_name = #{teachName,jdbcType=VARCHAR},
-      teach_gender = #{teachGender,jdbcType=BIT},
+      teach_gender = #{teachGender,jdbcType=TINYINT},
       teach_img_url = #{teachImgUrl,jdbcType=VARCHAR},
       teach_age = #{teachAge,jdbcType=TINYINT},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       edit_time = #{editTime,jdbcType=TIMESTAMP},
-      teach_state = #{teachState,jdbcType=BIT}
+      teach_state = #{teachState,jdbcType=TINYINT}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

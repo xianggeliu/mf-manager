@@ -29,5 +29,7 @@ public interface UserLoginMapper {
 
     int updateByPrimaryKey(UserLogin record);
 
+    int selectSequence(String parm);
+
     UserLogin selectByUserName(String userName);
 }
