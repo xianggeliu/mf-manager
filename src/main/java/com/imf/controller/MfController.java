@@ -6,6 +6,7 @@ import com.imf.pojo.MfStudent;
 import com.imf.service.MfService;
 import com.imf.service.StudentService;
 import com.imf.service.TeacherService;
+import com.imf.utils.CommonUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,6 @@ public class MfController {
     private static final Logger logger = Logger.getLogger(MfController.class);
 
 
-
     @Autowired
     private StudentService studentService;
 
@@ -41,37 +41,38 @@ public class MfController {
     private MfService mfService;
 
     @RequestMapping("/view")
-    public String getStudentMananger(){
+    public String getStudentMananger() {
         return "thymeleaf/mf/MfIndex";
     }
 
     @RequestMapping("/studentManagerView")
-    public String getStudentList(){
+    public String getStudentList() {
         return "thymeleaf/mf/MfIndex";
     }
 
 
     @RequestMapping("/saveInformation")
     @ResponseBody
-    public MFJSONResult upload(@RequestParam MultipartFile data , String info , Integer type ,  HttpServletRequest request ) {
+    public MFJSONResult upload(@RequestParam MultipartFile data, String personInfo, Integer type, HttpServletRequest request) {
 
         String typeName = "";
+        String uploadDir = "";
         try {
             long start = System.currentTimeMillis();
-            String uploadDir=ResourceUtils.getURL("classpath:").getPath()+"/static/" + start;
+            uploadDir = ResourceUtils.getURL("classpath:").getPath() + "static/" + start;
             //上传图片到图片服务器
-            String imgUrl = mfService.uploadImg(data , uploadDir , type);
-            if (StringUtils.isEmpty(imgUrl)){
+            String imgUrl = mfService.uploadImg(data, uploadDir, type);
+            if (StringUtils.isEmpty(imgUrl)) {
                 return MFJSONResult.errorMsg("上传图片失败，请重试或者联系管理员！");
             }
             //判断当前是添加的什么信息 1 是老师  2是学生 3 是其他
-            if (type == 1){
+            if (type == 1) {
                 typeName = "老师";
-                return teacherService.saveTeachInfo(imgUrl ,info );
-            }else if (type == 2){
+                return teacherService.saveTeachInfo(imgUrl, personInfo);
+            } else if (type == 2) {
                 typeName = "学生";
-                return studentService.saveStudentInfo(imgUrl , info);
-            }else{
+                return studentService.saveStudentInfo(imgUrl, personInfo);
+            } else {
                 return MFJSONResult.errorMsg("上传的类型不存在！");
             }
 //            InputStream inputStram = data.getInputStream();
@@ -83,6 +84,7 @@ public class MfController {
 //        outp.write(datas);
 //        outp.flush();
         } catch (Exception e) {
+            CommonUtil.delFolder(uploadDir);
             e.printStackTrace();
             return MFJSONResult.errorMsg("添加" + typeName + "信息失败！");
         }

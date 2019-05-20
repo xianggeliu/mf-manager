@@ -4,9 +4,12 @@ import com.imf.mapper.*;
 import com.imf.pojo.MFJSONResult;
 import com.imf.pojo.MfStudent;
 import com.imf.pojo.MfStudentDetail;
+import com.imf.pojo.MfStudentView;
 import com.imf.service.StudentService;
 import com.imf.utils.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.configurationprocessor.json.JSONException;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -35,28 +38,28 @@ public class StudentServiceImpl implements StudentService {
     private UserLoginMapper userLoginMapper;
 
     @Override
-    public MFJSONResult saveStudentInfo(String imgUrl, String info) {
+    public MFJSONResult saveStudentInfo(String imgUrl, String info) throws JSONException {
         //把json转换成map
-        Map<String , String> map = JsonUtils.jsonToPojo(info , HashMap.class);
+        MfStudentView mfStudentView = JsonUtils.jsonToPojo(info , MfStudentView.class);
         //获取学生ID
         String studentId = "S" + userLoginMapper.selectSequence("student");
         //封装学生基本信息
         MfStudent student = new MfStudent();
         student.setStuUuid(studentId);
-        student.setStuAge(Integer.parseInt(map.get("sAge")));
-        student.setStuGender(Integer.parseInt(map.get("sGender")));
+        student.setStuName(mfStudentView.getStuName());
+        student.setStuAge(mfStudentView.getStuAge());
+        student.setStuGender(mfStudentView.getStuGender());
         student.setStuImgUrl(imgUrl);
-        student.setStuName(map.get("sName"));
         student.setStuState(1);
         student.setCreateTime(new Date());
         int state = studentMapper.insert(student);
         if (state == 1){
             //封装学生详细信息
             MfStudentDetail studentDetail = new MfStudentDetail();
-            studentDetail.setStuAddress(map.get("sAddress"));
-            studentDetail.setStuParentName(map.get("parentName"));
-            studentDetail.setStuPhoneNum(Integer.parseInt(map.get("sPhone")));
             studentDetail.setStuUuid(studentId);
+            studentDetail.setStuAddress(mfStudentView.getStuAddress());
+            studentDetail.setStuParentName(mfStudentView.getStuParentName());
+            studentDetail.setStuPhoneNum(mfStudentView.getStuPhoneNum());
             int insertState = studentDetailMapper.insert(studentDetail);
             if (insertState == 1){
                 return MFJSONResult.ok();

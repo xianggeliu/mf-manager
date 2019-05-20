@@ -769,7 +769,7 @@
         var form = new FormData();//form 对象
         form.append("data",fileObj);// 文件对象
         var stringify = JSON.stringify(mfStudent);
-        form.append("mfStudent",stringify);
+        form.append("personInfo",stringify);
         form.append("type",2);
         $.ajax({
             url: "/mf/saveInformation",
