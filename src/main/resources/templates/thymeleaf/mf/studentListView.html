@@ -780,6 +780,12 @@
             processData: false,  //必须false才会避开jQuery对 formdata 的默认处理
             contentType: false,
             success: function (data) {
+                if (data.status == 200){
+                    swal("学生信息保存成功！");
+                    $('#addStudent').modal("hide");
+                    return ;
+                }
+                swal(dat.msg);
                 console.log("成功");
             },
             error: function (data) {
