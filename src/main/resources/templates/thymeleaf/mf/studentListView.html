@@ -598,6 +598,10 @@
                                 <select name="" id="monthOption" class="form-control">
                                 </select>
                             </div>
+                            <div class="col-sm-2" style="padding-left: 3px">
+                                <select name="" id="dayOption" class="form-control">
+                                </select>
+                            </div>
                         </div>
                         <div class="form-group has-warning">
                             <label for="" class="col-xs-3 control-label ">家庭住址:</label>
@@ -673,34 +677,40 @@
 //加载页面的时候执行的方法
     $(function(){
         //动态加载年月日；
-        loadYear();
-        loadMonth();
+        loadBorth();
         // alert("第二种方法。");
     });
 
 
     //加载年的方法
-    function loadYear() {
+    function loadBorth() {
+        //加载年下拉窗
         var myDate = new Date();
-        var currentYear = myDate.getFullYear();
+        var currentYear = myDate.getFullYear() - 3;
         var year = "";
-        for(i = 0; i <= 20; i ++ ){
+        for(i = 0; i <= 11; i ++ ){
             year  += '<option value=' + currentYear + '>' + currentYear + '年</option>';
             currentYear --;
         }
         $('#yearOption').empty();
         $("#yearOption").append(year);
-    }
 
-    //加载月的方法
-    function loadMonth(){
+        //加载月下拉窗
         var month = '';
         for(i = 1; i <= 12; i ++ ){
             month  += '<option value=' + i + '>' + i + '月</option>';
         }
         $('#monthOption').empty();
         $("#monthOption").append(month);
+
+        var day = '';
+        for (i = 1 ; i <= 31 ; i ++){
+            day  += '<option value=' + i + '>' + i + '日</option>';
+        }
+        $('#dayOption').empty();
+        $("#dayOption").append(day);
     }
+
     $('#imgs').mouseenter(function () {
         $(this).addClass('active');
         $('#imgs').not($(this)).removeClass("active");
