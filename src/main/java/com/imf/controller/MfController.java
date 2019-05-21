@@ -46,8 +46,13 @@ public class MfController {
     }
 
     @RequestMapping("/studentManagerView")
-    public String getStudentList() {
+    public String getStudentView() {
         return "thymeleaf/mf/MfIndex";
+    }
+
+    @RequestMapping("/getStudentList")
+    public String getStudentList(){
+        return "thymeleaf/mf/studentListView";
     }
 
 

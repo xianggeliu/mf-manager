@@ -1,5 +1,6 @@
 package com.imf.controller;
 
+import com.imf.pojo.MFJSONResult;
 import com.imf.pojo.MfStudent;
 import com.imf.utils.JsonUtils;
 import com.imf.utils.MinioUtil;
@@ -18,13 +19,17 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 
-@Controller
+@ResponseBody
 @RequestMapping("/student")
 public class StudentController {
- 
+
+
     @RequestMapping("/getStudentList")
-    public String getStudentList(){
-        return "thymeleaf/mf/studentListView";
+    public MFJSONResult getStudentList(@RequestParam(value="pageNum", defaultValue="1")Integer pageNum ,
+                                       @RequestParam(value="pageSize", defaultValue="10")Integer pageSize , String param){
+        //从数据库查询出所有学生的信息，展示到前台页面
+
+        return null;
     }
 
     @RequestMapping("/studentMananger")
@@ -40,7 +45,6 @@ public class StudentController {
     }
 
     @RequestMapping("/setStudentInfo")
-    @ResponseBody
     public void upload(@RequestParam MultipartFile data , String mfStudent , final HttpServletResponse response) {
         String fileName = data.getOriginalFilename();
         String lastName = fileName.substring(fileName.lastIndexOf(".")); // 获取文件的后缀

@@ -7,7 +7,13 @@ public class MfStudentDetail {
 
     private String stuAddress;
 
-    private Integer stuPhoneNum;
+    private String stuPhoneNum;
+
+    private Integer stuYear;
+
+    private Integer stuMonth;
+
+    private Integer stuDay;
 
     public String getStuUuid() {
         return stuUuid;
@@ -33,11 +39,35 @@ public class MfStudentDetail {
         this.stuAddress = stuAddress == null ? null : stuAddress.trim();
     }
 
-    public Integer getStuPhoneNum() {
+    public String getStuPhoneNum() {
         return stuPhoneNum;
     }
 
-    public void setStuPhoneNum(Integer stuPhoneNum) {
-        this.stuPhoneNum = stuPhoneNum;
+    public void setStuPhoneNum(String stuPhoneNum) {
+        this.stuPhoneNum = stuPhoneNum == null ? null : stuPhoneNum.trim();
+    }
+
+    public Integer getStuYear() {
+        return stuYear;
+    }
+
+    public void setStuYear(Integer stuYear) {
+        this.stuYear = stuYear;
+    }
+
+    public Integer getStuMonth() {
+        return stuMonth;
+    }
+
+    public void setStuMonth(Integer stuMonth) {
+        this.stuMonth = stuMonth;
+    }
+
+    public Integer getStuDay() {
+        return stuDay;
+    }
+
+    public void setStuDay(Integer stuDay) {
+        this.stuDay = stuDay;
     }
 }

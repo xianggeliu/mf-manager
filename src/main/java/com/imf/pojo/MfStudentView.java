@@ -30,7 +30,13 @@ public class MfStudentView implements Serializable {
 
     private String stuAddress;
 
-    private Integer stuPhoneNum;
+    private String stuPhoneNum;
+
+    private Integer stuYear;
+
+    private Integer stuMonth;
+
+    private Integer stuDay;
 
     public Integer getId() {
         return id;
@@ -120,11 +126,35 @@ public class MfStudentView implements Serializable {
         this.stuAddress = stuAddress;
     }
 
-    public Integer getStuPhoneNum() {
+    public String getStuPhoneNum() {
         return stuPhoneNum;
     }
 
-    public void setStuPhoneNum(Integer stuPhoneNum) {
+    public void setStuPhoneNum(String stuPhoneNum) {
         this.stuPhoneNum = stuPhoneNum;
+    }
+
+    public Integer getStuYear() {
+        return stuYear;
+    }
+
+    public void setStuYear(Integer stuYear) {
+        this.stuYear = stuYear;
+    }
+
+    public Integer getStuMonth() {
+        return stuMonth;
+    }
+
+    public void setStuMonth(Integer stuMonth) {
+        this.stuMonth = stuMonth;
+    }
+
+    public Integer getStuDay() {
+        return stuDay;
+    }
+
+    public void setStuDay(Integer stuDay) {
+        this.stuDay = stuDay;
     }
 }

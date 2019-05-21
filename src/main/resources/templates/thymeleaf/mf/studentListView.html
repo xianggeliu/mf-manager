@@ -569,7 +569,7 @@
                                 <!-- <p class="form-control-static">英雄</p> -->
                             </div>
 
-                            <label class="col-sm-2 control-label" for="">性别:</label>
+                            <label class="col-sm-2 control-label" for="">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别:</label>
                             <div class="col-sm-3">
                                 <select name="" id="genderOption" class="form-control">
                                     <option value="1">男</option>
@@ -578,7 +578,7 @@
                             </div>
                         </div>
                         <div class="form-group has-warning">
-                            <label class="col-sm-3 control-label" for="">年龄:</label>
+                            <label class="col-sm-3 control-label" for="">年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;龄:</label>
                             <div class="col-sm-3">
                                 <input type="text" name="" class="form-control" id="fage" value="" placeholder="如:6">
                             </div>
@@ -661,6 +661,10 @@
 
 </body>
 <script>
+
+    var currentPage;
+    var pageSize;
+
     s = 0;
     v = 2;
     sobj = setInterval(function () {
@@ -738,13 +742,33 @@
         }
     }
 
+    function loadStudentList(){
+        $.ajax({
+            url: "/student/get",
+            type: 'POST',
+            data: form,
+            success: function (data) {
+                if (data.status == 200){
+                    swal("学生信息保存成功！");
+                    $('#addStudent').modal("hide");
+                    clearAddTable();
+                    return ;
+                }
+                swal(data.msg);
+            },
+            error: function (data) {
+                swal('添加学生信息异常，请联系管理员~！');
+            }
+        });
+    }
+
     $('#pageLimit').bootstrapPaginator({
         currentPage: 1,
-        totalPages: 10,
+        totalPages: 2,
         size: "normal",
         bootstrapMajorVersion: 3,
         alignment: "right",
-        numberOfPages: 5,
+        numberOfPages: 10,
         itemTexts: function (type, page, current) {
             switch (type) {
                 case "first":
@@ -775,8 +799,10 @@
         var guardian = $('#fguardian').val();
         var phone = $('#fPhone').val();
         var address = $('#fAddress').val();
-        var options =$("#genderOption option:selected");
-        var gender = options.val();
+        var gender =$("#genderOption option:selected").val();
+        var year =$("#yearOption option:selected").val();
+        var month =$("#monthOption option:selected").val();
+        var day =$("#dayOption option:selected").val();
         if (stuName == ''){
             swal('姓名不能为空');
             return;
@@ -809,7 +835,9 @@
         mfStudent.stuParentName = guardian;
         mfStudent.stuAddress = address;
         mfStudent.stuPhoneNum = phone;
-        var formData = new FormData($("#studentAddForm")[0]);
+        mfStudent.stuYear = year;
+        mfStudent.stuMonth = month;
+        mfStudent.stuDay = day;
         var docObj=document.getElementById("file");
         var fileObj = docObj.files[0];
         var form = new FormData();//form 对象
@@ -829,33 +857,25 @@
                 if (data.status == 200){
                     swal("学生信息保存成功！");
                     $('#addStudent').modal("hide");
+                    clearAddTable();
                     return ;
                 }
-                swal(dat.msg);
-                console.log("成功");
+                swal(data.msg);
             },
             error: function (data) {
-                console.log("失败");
+                swal('添加学生信息异常，请联系管理员~！');
             }
         });
 
-//        var formData = new FormData($("#form1")[0]);
-//        $.ajax({
-//            url: '',
-//            type: 'POST',
-//            data: formData,
-//            async: false,
-//            cache: false,
-//            contentType: false,
-//            processData: false,
-//            success: function(data) {
-//            },
-//            error: function(data) {
-//            }
-//        });
+    }
 
-
-
+    function clearAddTable() {
+        var stuName = $('#fStuName').val("");
+        var age = $('#fage').val("");
+        var guardian = $('#fguardian').val("");
+        var phone = $('#fPhone').val("");
+        var address = $('#fAddress').val("");
+        $('#addImg').attr("src","/static/dist/img/11.png");
     }
 </script>
 </html>

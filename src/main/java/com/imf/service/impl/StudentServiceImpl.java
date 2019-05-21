@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -37,7 +38,15 @@ public class StudentServiceImpl implements StudentService {
     @Autowired
     private UserLoginMapper userLoginMapper;
 
+    /**
+     * 添加学生信息
+     * @param imgUrl
+     * @param info
+     * @return
+     * @throws Exception
+     */
     @Override
+    @Transactional
     public MFJSONResult saveStudentInfo(String imgUrl, String info) throws Exception {
         //把json转换成map
         MfStudentView mfStudentView = JsonUtils.jsonToPojo(info , MfStudentView.class);
@@ -60,6 +69,9 @@ public class StudentServiceImpl implements StudentService {
             studentDetail.setStuAddress(mfStudentView.getStuAddress());
             studentDetail.setStuParentName(mfStudentView.getStuParentName());
             studentDetail.setStuPhoneNum(mfStudentView.getStuPhoneNum());
+            studentDetail.setStuYear(mfStudentView.getStuYear());
+            studentDetail.setStuMonth(mfStudentView.getStuMonth());
+            studentDetail.setStuDay(mfStudentView.getStuDay());
             int insertState = studentDetailMapper.insert(studentDetail);
             if (insertState == 1){
                 return MFJSONResult.ok();

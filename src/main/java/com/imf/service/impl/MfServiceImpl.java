@@ -6,6 +6,7 @@ import com.imf.utils.MinioUtil;
 import org.apache.log4j.Logger;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -36,7 +37,7 @@ public class MfServiceImpl implements MfService {
         String contentType = data.getContentType();
         //创建临时文件夹
         File tempFile = new File(path);
-        if (!tempFile.exists()){
+        if (!tempFile.exists()) {
             tempFile.mkdirs();
         }
         //拼接新的名称
@@ -50,14 +51,8 @@ public class MfServiceImpl implements MfService {
         String newImgFile = imgsb.toString();
         data.transferTo(new File(newImgFile));
         JSONObject jsonObject;
-        try {
-            jsonObject = MinioUtil.uploadImages(newImgFile, contentType , path , type);
-            CommonUtil.delFolder(path);
-            return jsonObject == null ? "" : jsonObject.getString("imgUrlz");
-        } catch (Exception e) {
-            logger.error("上传图片异常！图片路径 = " + path);
-            e.printStackTrace();
-        }
-        return "";
+        jsonObject = MinioUtil.uploadImages(newImgFile, contentType, path, type);
+        CommonUtil.delFolder(path);
+        return jsonObject == null ? "" : jsonObject.getString("imgUrlz");
     }
 }

@@ -324,53 +324,243 @@ public class MfStudentDetailExample {
             return (Criteria) this;
         }
 
-        public Criteria andStuPhoneNumEqualTo(Integer value) {
+        public Criteria andStuPhoneNumEqualTo(String value) {
             addCriterion("stu_phone_num =", value, "stuPhoneNum");
             return (Criteria) this;
         }
 
-        public Criteria andStuPhoneNumNotEqualTo(Integer value) {
+        public Criteria andStuPhoneNumNotEqualTo(String value) {
             addCriterion("stu_phone_num <>", value, "stuPhoneNum");
             return (Criteria) this;
         }
 
-        public Criteria andStuPhoneNumGreaterThan(Integer value) {
+        public Criteria andStuPhoneNumGreaterThan(String value) {
             addCriterion("stu_phone_num >", value, "stuPhoneNum");
             return (Criteria) this;
         }
 
-        public Criteria andStuPhoneNumGreaterThanOrEqualTo(Integer value) {
+        public Criteria andStuPhoneNumGreaterThanOrEqualTo(String value) {
             addCriterion("stu_phone_num >=", value, "stuPhoneNum");
             return (Criteria) this;
         }
 
-        public Criteria andStuPhoneNumLessThan(Integer value) {
+        public Criteria andStuPhoneNumLessThan(String value) {
             addCriterion("stu_phone_num <", value, "stuPhoneNum");
             return (Criteria) this;
         }
 
-        public Criteria andStuPhoneNumLessThanOrEqualTo(Integer value) {
+        public Criteria andStuPhoneNumLessThanOrEqualTo(String value) {
             addCriterion("stu_phone_num <=", value, "stuPhoneNum");
             return (Criteria) this;
         }
 
-        public Criteria andStuPhoneNumIn(List<Integer> values) {
+        public Criteria andStuPhoneNumLike(String value) {
+            addCriterion("stu_phone_num like", value, "stuPhoneNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andStuPhoneNumNotLike(String value) {
+            addCriterion("stu_phone_num not like", value, "stuPhoneNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andStuPhoneNumIn(List<String> values) {
             addCriterion("stu_phone_num in", values, "stuPhoneNum");
             return (Criteria) this;
         }
 
-        public Criteria andStuPhoneNumNotIn(List<Integer> values) {
+        public Criteria andStuPhoneNumNotIn(List<String> values) {
             addCriterion("stu_phone_num not in", values, "stuPhoneNum");
             return (Criteria) this;
         }
 
-        public Criteria andStuPhoneNumBetween(Integer value1, Integer value2) {
+        public Criteria andStuPhoneNumBetween(String value1, String value2) {
             addCriterion("stu_phone_num between", value1, value2, "stuPhoneNum");
             return (Criteria) this;
         }
 
-        public Criteria andStuPhoneNumNotBetween(Integer value1, Integer value2) {
+        public Criteria andStuPhoneNumNotBetween(String value1, String value2) {
             addCriterion("stu_phone_num not between", value1, value2, "stuPhoneNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andStuYearIsNull() {
+            addCriterion("stu_year is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStuYearIsNotNull() {
+            addCriterion("stu_year is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStuYearEqualTo(Integer value) {
+            addCriterion("stu_year =", value, "stuYear");
+            return (Criteria) this;
+        }
+
+        public Criteria andStuYearNotEqualTo(Integer value) {
+            addCriterion("stu_year <>", value, "stuYear");
+            return (Criteria) this;
+        }
+
+        public Criteria andStuYearGreaterThan(Integer value) {
+            addCriterion("stu_year >", value, "stuYear");
+            return (Criteria) this;
+        }
+
+        public Criteria andStuYearGreaterThanOrEqualTo(Integer value) {
+            addCriterion("stu_year >=", value, "stuYear");
+            return (Criteria) this;
+        }
+
+        public Criteria andStuYearLessThan(Integer value) {
+            addCriterion("stu_year <", value, "stuYear");
+            return (Criteria) this;
+        }
+
+        public Criteria andStuYearLessThanOrEqualTo(Integer value) {
+            addCriterion("stu_year <=", value, "stuYear");
+            return (Criteria) this;
+        }
+
+        public Criteria andStuYearIn(List<Integer> values) {
+            addCriterion("stu_year in", values, "stuYear");
+            return (Criteria) this;
+        }
+
+        public Criteria andStuYearNotIn(List<Integer> values) {
+            addCriterion("stu_year not in", values, "stuYear");
+            return (Criteria) this;
+        }
+
+        public Criteria andStuYearBetween(Integer value1, Integer value2) {
+            addCriterion("stu_year between", value1, value2, "stuYear");
+            return (Criteria) this;
+        }
+
+        public Criteria andStuYearNotBetween(Integer value1, Integer value2) {
+            addCriterion("stu_year not between", value1, value2, "stuYear");
+            return (Criteria) this;
+        }
+
+        public Criteria andStuMonthIsNull() {
+            addCriterion("stu_month is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStuMonthIsNotNull() {
+            addCriterion("stu_month is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStuMonthEqualTo(Integer value) {
+            addCriterion("stu_month =", value, "stuMonth");
+            return (Criteria) this;
+        }
+
+        public Criteria andStuMonthNotEqualTo(Integer value) {
+            addCriterion("stu_month <>", value, "stuMonth");
+            return (Criteria) this;
+        }
+
+        public Criteria andStuMonthGreaterThan(Integer value) {
+            addCriterion("stu_month >", value, "stuMonth");
+            return (Criteria) this;
+        }
+
+        public Criteria andStuMonthGreaterThanOrEqualTo(Integer value) {
+            addCriterion("stu_month >=", value, "stuMonth");
+            return (Criteria) this;
+        }
+
+        public Criteria andStuMonthLessThan(Integer value) {
+            addCriterion("stu_month <", value, "stuMonth");
+            return (Criteria) this;
+        }
+
+        public Criteria andStuMonthLessThanOrEqualTo(Integer value) {
+            addCriterion("stu_month <=", value, "stuMonth");
+            return (Criteria) this;
+        }
+
+        public Criteria andStuMonthIn(List<Integer> values) {
+            addCriterion("stu_month in", values, "stuMonth");
+            return (Criteria) this;
+        }
+
+        public Criteria andStuMonthNotIn(List<Integer> values) {
+            addCriterion("stu_month not in", values, "stuMonth");
+            return (Criteria) this;
+        }
+
+        public Criteria andStuMonthBetween(Integer value1, Integer value2) {
+            addCriterion("stu_month between", value1, value2, "stuMonth");
+            return (Criteria) this;
+        }
+
+        public Criteria andStuMonthNotBetween(Integer value1, Integer value2) {
+            addCriterion("stu_month not between", value1, value2, "stuMonth");
+            return (Criteria) this;
+        }
+
+        public Criteria andStuDayIsNull() {
+            addCriterion("stu_day is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStuDayIsNotNull() {
+            addCriterion("stu_day is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStuDayEqualTo(Integer value) {
+            addCriterion("stu_day =", value, "stuDay");
+            return (Criteria) this;
+        }
+
+        public Criteria andStuDayNotEqualTo(Integer value) {
+            addCriterion("stu_day <>", value, "stuDay");
+            return (Criteria) this;
+        }
+
+        public Criteria andStuDayGreaterThan(Integer value) {
+            addCriterion("stu_day >", value, "stuDay");
+            return (Criteria) this;
+        }
+
+        public Criteria andStuDayGreaterThanOrEqualTo(Integer value) {
+            addCriterion("stu_day >=", value, "stuDay");
+            return (Criteria) this;
+        }
+
+        public Criteria andStuDayLessThan(Integer value) {
+            addCriterion("stu_day <", value, "stuDay");
+            return (Criteria) this;
+        }
+
+        public Criteria andStuDayLessThanOrEqualTo(Integer value) {
+            addCriterion("stu_day <=", value, "stuDay");
+            return (Criteria) this;
+        }
+
+        public Criteria andStuDayIn(List<Integer> values) {
+            addCriterion("stu_day in", values, "stuDay");
+            return (Criteria) this;
+        }
+
+        public Criteria andStuDayNotIn(List<Integer> values) {
+            addCriterion("stu_day not in", values, "stuDay");
+            return (Criteria) this;
+        }
+
+        public Criteria andStuDayBetween(Integer value1, Integer value2) {
+            addCriterion("stu_day between", value1, value2, "stuDay");
+            return (Criteria) this;
+        }
+
+        public Criteria andStuDayNotBetween(Integer value1, Integer value2) {
+            addCriterion("stu_day not between", value1, value2, "stuDay");
             return (Criteria) this;
         }
     }
