@@ -1,10 +1,9 @@
 package com.imf.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.imf.mapper.*;
-import com.imf.pojo.MFJSONResult;
-import com.imf.pojo.MfStudent;
-import com.imf.pojo.MfStudentDetail;
-import com.imf.pojo.MfStudentView;
+import com.imf.pojo.*;
 import com.imf.service.StudentService;
 import com.imf.utils.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -78,5 +78,21 @@ public class StudentServiceImpl implements StudentService {
             }
         }
         return MFJSONResult.errorMsg("添加学生信息失败！");
+    }
+
+
+    /**
+     * 获取学生信息
+     * @param pageNum
+     * @param pageSize
+     * @param param
+     * @return
+     */
+    @Override
+    public List<MfStudent> getStudentList(Integer pageNum, Integer pageSize, String param) {
+
+        PageHelper.startPage(pageNum,pageSize);
+        MfStudentExample mse = new MfStudentExample();
+        return studentMapper.selectByExample(mse);
     }
 }

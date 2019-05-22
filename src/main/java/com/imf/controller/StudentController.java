@@ -2,13 +2,12 @@ package com.imf.controller;
 
 import com.imf.pojo.MFJSONResult;
 import com.imf.pojo.MfStudent;
+import com.imf.service.StudentService;
 import com.imf.utils.JsonUtils;
-import com.imf.utils.MinioUtil;
 import org.apache.commons.io.IOUtils;
-import org.springframework.boot.configurationprocessor.json.JSONObject;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,16 +17,25 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.util.List;
 
 @ResponseBody
 @RequestMapping("/student")
 public class StudentController {
+    private static  final Logger logger = Logger.getLogger(StudentController.class);
 
+    @Autowired
+    private StudentService stuService;
 
     @RequestMapping("/getStudentList")
     public MFJSONResult getStudentList(@RequestParam(value="pageNum", defaultValue="1")Integer pageNum ,
                                        @RequestParam(value="pageSize", defaultValue="10")Integer pageSize , String param){
-        //从数据库查询出所有学生的信息，展示到前台页面
+        try {
+            //从数据库查询出所有学生的信息，展示到前台页面
+            List<MfStudent> students = stuService.getStudentList(pageNum,pageSize , param);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return null;
     }

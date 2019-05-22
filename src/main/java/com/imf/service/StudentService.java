@@ -1,7 +1,10 @@
 package com.imf.service;
 
 import com.imf.pojo.MFJSONResult;
+import com.imf.pojo.MfStudent;
 import org.springframework.boot.configurationprocessor.json.JSONException;
+
+import java.util.List;
 
 /**
  * Created by JiXiang on 2019/5/19 16:34
@@ -11,4 +14,6 @@ import org.springframework.boot.configurationprocessor.json.JSONException;
  */
 public interface StudentService {
     MFJSONResult saveStudentInfo(String imgUrl, String info) throws Exception;
+
+    List<MfStudent> getStudentList(Integer pageNum, Integer pageSize, String param);
 }
