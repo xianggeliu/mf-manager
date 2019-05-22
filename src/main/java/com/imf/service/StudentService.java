@@ -2,6 +2,7 @@ package com.imf.service;
 
 import com.imf.pojo.MFJSONResult;
 import com.imf.pojo.MfStudent;
+import com.imf.utils.Pager;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 
 import java.util.List;
@@ -15,5 +16,5 @@ import java.util.List;
 public interface StudentService {
     MFJSONResult saveStudentInfo(String imgUrl, String info) throws Exception;
 
-    List<MfStudent> getStudentList(Integer pageNum, Integer pageSize, String param);
+    Pager<MfStudent> getStudentList(Integer pageNum, Integer pageSize, String param);
 }

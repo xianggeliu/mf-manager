@@ -75,7 +75,7 @@
 </div>
 <script src="/static/login/js/jquery.js"></script>
 <script src="/static/login/js/agree.js"></script>
-<script src="/static/login/js/login.js"></script>
+<!--<script src="/static/login/js/login.js"></script>-->
 
 <script>
     function logincheck() {
@@ -93,7 +93,7 @@
         //
 
         $.ajax({
-             async: false,
+             // async: false,
             type: "GET",
             data:{username:num , password:pass},
             url: "/login/dologin",
@@ -101,9 +101,9 @@
             },
             success: function (result) {
                 swal(result.msg );
-                if(result.status == 200){
-                    window.location.href= "/mf/view";
-                }
+                // if(result.status == 200){
+                //     window.location.href= location.protocol  + "/mf/view";
+                // }
             },
             error: function () {
             }

@@ -1,21 +1,18 @@
 package com.imf.service.impl;
 
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.imf.mapper.*;
 import com.imf.pojo.*;
 import com.imf.service.StudentService;
 import com.imf.utils.JsonUtils;
+import com.imf.utils.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.configurationprocessor.json.JSONException;
-import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by JiXiang on 2019/5/19 16:40
@@ -89,10 +86,21 @@ public class StudentServiceImpl implements StudentService {
      * @return
      */
     @Override
-    public List<MfStudent> getStudentList(Integer pageNum, Integer pageSize, String param) {
-
+    public Pager<MfStudent> getStudentList(Integer pageNum, Integer pageSize, String param) {
+        //使用分页插件获取分页参数
         PageHelper.startPage(pageNum,pageSize);
         MfStudentExample mse = new MfStudentExample();
-        return studentMapper.selectByExample(mse);
+        //获取查询结果
+        List<MfStudent> mfStudents = studentMapper.selectByExample(mse);
+        //封装结果
+        PageInfo<MfStudent> pageInfo = new PageInfo<>(mfStudents);
+        Pager<MfStudent> pager = new Pager<>();
+        pager.setCurrentPage(pageNum);
+        pager.setContent(mfStudents);
+        pager.setFirstPage(pageInfo.getFirstPage());
+        pager.setLastPage(pageInfo.getLastPage());
+        pager.setRecordTotal(pageInfo.getSize());
+        pager.setRecordTotal((int) pageInfo.getTotal());
+        return pager;
     }
 }

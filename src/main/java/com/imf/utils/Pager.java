@@ -1,5 +1,7 @@
 package com.imf.utils;
 
+import com.imf.pojo.MfStudent;
+
 import java.io.Serializable;
 import java.util.List;
 

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
@@ -36,15 +37,22 @@ public class LoginController {
     }
 
     @RequestMapping("/dologin")
-    @ResponseBody
-    public MFJSONResult loginView(String username , String password , HttpServletResponse response){
+    public ModelAndView loginView(String username , String password , HttpServletResponse response){
         try {
-            return loginService.doLogin(username,password ,response);
+            MFJSONResult mfjsonResult = loginService.doLogin(username, password, response);
+            if (mfjsonResult.getStatus() == 200){
+                ModelAndView mv = new ModelAndView();
+
+                //手动显式指定使用转发，此时springmvc.xml配置文件中的视图解析器将会失效
+                mv.setViewName("forward:/mf/view");
+                return  mv;
+//                return "redirect:/mf/view";
+            }
         } catch (UnsupportedEncodingException e) {
             logger.error("login/dologin 登录方法失败" + e.getMessage());
             e.printStackTrace();
-            return MFJSONResult.errorMsg("登录异常，请联系管理员！");
         }
+        return null;
     }
 
 }

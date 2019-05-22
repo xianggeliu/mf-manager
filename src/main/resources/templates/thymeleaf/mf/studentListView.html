@@ -683,6 +683,7 @@
         //动态加载年月日；
         loadBorth();
         // alert("第二种方法。");
+        loadStudentList();
     });
 
 
@@ -744,9 +745,11 @@
 
     function loadStudentList(){
         $.ajax({
-            url: "/student/get",
-            type: 'POST',
-            data: form,
+            url: location.protocol  + "/student/getStudentList",
+            // type: 'POST',
+            type: "GET",
+            // data: {"pageNum":currentPage,"pageSize":pageSize,"param" :""},
+            data: {},
             success: function (data) {
                 if (data.status == 200){
                     swal("学生信息保存成功！");
