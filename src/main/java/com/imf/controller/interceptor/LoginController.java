@@ -82,6 +82,30 @@ public class LoginController {
 
     }
 
+    @RequestMapping("/takesExpress")
+    @ResponseBody
+    public MFJSONResult takesExpress(@RequestParam(value="expressNum")String expressNum){
+        try {
+                return   expressService.takesExpress(expressNum);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return MFJSONResult.errorMsg("添加快递信息异常，请重试！");
+        }
+
+    }
+
+    @RequestMapping("/getExpress")
+    @ResponseBody
+    public MFJSONResult getExpress(@RequestParam(value="expressNum")String expressNum){
+        try {
+                return   expressService.getExpress(expressNum);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return MFJSONResult.errorMsg("添加快递信息异常，请重试！");
+        }
+
+    }
+
     @RequestMapping("/dologin")
 
     public ModelAndView loginView(String username , String password , HttpServletResponse response){

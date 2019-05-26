@@ -92,4 +92,28 @@ public class ExpressServiceImpl implements ExpressService {
         }
         return MFJSONResult.errorMsg("添加快递信息失败，请联系祥哥！");
     }
+
+    @Override
+    public MFJSONResult takesExpress(String expressNum) {
+        MfExpress mfExpress = meMapper.selectByExpressNum(expressNum);
+        if (mfExpress == null){
+            return MFJSONResult.errorMsg("该快递不存在，是否录入？");
+        }
+        mfExpress.seteState(0);
+        mfExpress.setGetTime(System.currentTimeMillis());
+        int state = meMapper.updateByPrimaryKey(mfExpress);
+        if (state ==1 ){
+            return MFJSONResult.ok();
+        }
+        return MFJSONResult.errorMsg("更新快递状态失败，请联系祥哥！");
+    }
+
+    @Override
+    public MFJSONResult getExpress(String expressNum) {
+        MfExpress mfExpress = meMapper.selectByExpressNum(expressNum);
+        if (mfExpress != null){
+            return MFJSONResult.ok(mfExpress);
+        }
+        return MFJSONResult.errorMsg("快递不存在,请确认该快递单号是否正确!");
+    }
 }

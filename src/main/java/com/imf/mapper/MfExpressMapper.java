@@ -28,4 +28,6 @@ public interface MfExpressMapper {
     int updateByPrimaryKeySelective(MfExpress record);
 
     int updateByPrimaryKey(MfExpress record);
+
+    MfExpress selectByExpressNum(String expressNum);
 }

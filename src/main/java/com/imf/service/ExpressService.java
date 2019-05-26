@@ -13,4 +13,8 @@ public interface ExpressService {
     MFJSONResult insertExpressInfoNotCompany(String expressNum) throws Exception;
 
     MFJSONResult insertExpressInfo(String expressNum, String companyCode);
+
+    MFJSONResult takesExpress(String expressNum);
+
+    MFJSONResult getExpress(String expressNum);
 }
