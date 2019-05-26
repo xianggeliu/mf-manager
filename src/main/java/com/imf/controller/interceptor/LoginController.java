@@ -1,12 +1,14 @@
 package com.imf.controller.interceptor;
 
 import com.imf.pojo.MFJSONResult;
+import com.imf.service.ExpressService;
 import com.imf.service.LoginService;
-import com.imf.service.impl.LoginServiceImpl;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -20,6 +22,9 @@ public class LoginController {
 
     @Autowired
     private LoginService loginService;
+
+    @Autowired
+    private ExpressService expressService;
 
     @RequestMapping("/index")
     public String login(){
@@ -36,7 +41,49 @@ public class LoginController {
         return "thymeleaf/mf/getpass";
     }
 
+    @RequestMapping("/express")
+    public String express(){
+        return "thymeleaf/mf/expressage/express";
+    }
+
+    @RequestMapping("/expressInto")
+    public String expressInto(){
+        return "thymeleaf/mf/expressage/expressInto";
+    }
+
+    @RequestMapping("/expressOut")
+    public String expressOut(){
+        return "thymeleaf/mf/expressage/expressOut";
+    }
+
+    @RequestMapping("/expressSearch")
+    public String expressSearch(){
+        return "thymeleaf/mf/expressage/expressSearch";
+    }
+
+    @RequestMapping("/expressShow")
+    public String expressShow(){
+        return "thymeleaf/mf/expressage/expressShow";
+    }
+
+    @RequestMapping("/postExpress")
+    @ResponseBody
+    public MFJSONResult postExpress(@RequestParam(value="expressNum")String expressNum , @RequestParam(value="companyCode")String companyCode){
+        try {
+            if (StringUtils.isEmpty(companyCode)){
+                return   expressService.insertExpressInfoNotCompany(expressNum);
+            }else {
+                return   expressService.insertExpressInfo(expressNum , companyCode);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return MFJSONResult.errorMsg("添加快递信息异常，请重试！");
+        }
+
+    }
+
     @RequestMapping("/dologin")
+
     public ModelAndView loginView(String username , String password , HttpServletResponse response){
         try {
             MFJSONResult mfjsonResult = loginService.doLogin(username, password, response);

@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="">
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <title>MFIndex</title>
+        <link rel="stylesheet" href="/static/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="/static/plugins/sweetalert2/sweet-alert.css">
+        <!--<link rel="stylesheet" href="/static/login/css/reg.css">-->
+        <link rel="author" href="/static/humans.txt">
+        <script src="/static/dist/jquery/jquery-1.9.1.min.js"></script>
+        <script src="/static/dist/js/bootstrap.min.js"></script>
+        <script src="/static/plugins/sweetalert2/sweet-alert.js" type="text/javascript" charset="UTF-8"></script>
+        <script src="/static/plugins/sweetalert2/es6-promise.min.js"></script>
+
+        <style type="text/css" media="screen">
+
+            .table th, .table td {
+                text-align: center;
+                height:38px;
+                }
+
+            body{
+                background:url(/static/login/img/bj.jpg) no-repeat center fixed;
+                background-size:cover;
+            }
+            /*.wrap{*/
+                /*box-sizing: border-box;*/
+                /*height: 100vh;*/
+                /*background: url("static/login/img/bj.jpg") no-repeat center;*/
+                /*background-size: auto 100vh;*/
+                /*position:  relative;*/
+            /*}*/
+        </style>
+    </head>
+    <body >
+        <div class="container ">
+            <div   style="height:60px; margin-top: -20px; " >
+                <h1 class=" text-center" style="background: #328DDC;  padding-top: 10px; height:60px" > <p class="text">沐风快递管理系统</p></h1>
+            </div>
+
+            <nav class="navbar navbar-default" >
+
+                <div class="navber-header">
+
+                    <a href="#" class="navbar-brand"><img src="/static/dist/img/wind.png" height="100%"alt=""></a>
+                    <button type="button" class="navbar-toggle collapsed" data-toggle='collapse' data-target='#myNavbar' aria-expanded="false">
+
+                        <span class="sr-only"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+
+                    </button>
+                </div>
+                <div id="myNavbar" class="collapse navbar-collapse" style="top: 100px;">
+                    <ul class="nav navbar-nav">
+                        <li  ><a href="/login/express">首页</a></li>
+                        <li ><a href="/login/expressInto">快递单号录入</a></li>
+                        <li  class="active" ><a href="/login/expressOut">快递取件</a></li>
+                        <li><a href="/login/expressSearch">快递查询</a></li>
+                        <li  ><a href="/login/expressShow">快递单号展示</a></li>
+                    </ul>
+                 <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#" class="">英雄攻略</a></li>
+
+                </ul>
+                <form action="导航栏_submit" class="navbar-form navbar-right" method="get" accept-charset="utf-8">
+                    <div class="form-group">
+                        <input type="text" name="" class="form-control" value="" placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <button type="" class="btn btn-default">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+            </nav>
+            <div class="jumbotron" style="margin-top: -18px;">
+                <h2>沐风管理系统</h2>
+                <p>最好的自己，在前方等你！</p>
+                <img src="/static/dist/img/ch.jpg" alt="" width="100%">
+            </div>
+
+        </div>
+    </body>
+    <script >
+        $('#imgs').mouseenter(function() {
+            $(this).addClass('active');
+            $('#imgs').not($(this)).removeClass("active");
+            idx = $(this).index('li');
+            $('.navs').eq(idx).stop().show(100);
+            $('.navs').not($('.navs').eq(idx)).stop().hide(100);
+        });
+
+        $('.navs').eq(0).show(100);
+
+
+
+    </script>
+</html>
