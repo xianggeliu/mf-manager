@@ -748,8 +748,8 @@
             url: location.protocol  + "/student/getStudentList",
             // type: 'POST',
             type: "GET",
-            // data: {"pageNum":currentPage,"pageSize":pageSize,"param" :""},
-            data: {},
+             data: {"pageNum":currentPage,"pageSize":pageSize,"param" :""},
+//            data: {},
             success: function (data) {
                 if (data.status == 200){
                     swal("学生信息保存成功！");

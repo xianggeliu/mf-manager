@@ -6,9 +6,9 @@
     <result column="express_number" property="expressNumber" jdbcType="VARCHAR" />
     <result column="e_company" property="eCompany" jdbcType="VARCHAR" />
     <result column="e_company_code" property="eCompanyCode" jdbcType="INTEGER" />
-    <result column="entering_time" property="enteringTime" jdbcType="BIGINT" />
-    <result column="get_time" property="getTime" jdbcType="BIGINT" />
-    <result column="e_phone" property="ePhone" jdbcType="BIGINT" />
+    <result column="entering_time" property="enteringTime" jdbcType="TIMESTAMP" />
+    <result column="get_time" property="getTime" jdbcType="TIMESTAMP" />
+    <result column="e_phone" property="ePhone" jdbcType="VARCHAR" />
     <result column="e_name" property="eName" jdbcType="VARCHAR" />
     <result column="e_mark" property="eMark" jdbcType="INTEGER" />
     <result column="e_state" property="eState" jdbcType="INTEGER" />
@@ -118,8 +118,8 @@
       e_phone, e_name, e_mark, e_state
       )
     values (#{id,jdbcType=INTEGER}, #{expressNumber,jdbcType=VARCHAR}, #{eCompany,jdbcType=VARCHAR}, 
-      #{eCompanyCode,jdbcType=INTEGER}, #{enteringTime,jdbcType=BIGINT}, #{getTime,jdbcType=BIGINT}, 
-      #{ePhone,jdbcType=BIGINT}, #{eName,jdbcType=VARCHAR}, #{eMark,jdbcType=INTEGER}, #{eState,jdbcType=INTEGER}
+      #{eCompanyCode,jdbcType=INTEGER}, #{enteringTime,jdbcType=enteringTime}, #{getTime,jdbcType=enteringTime},
+      #{ePhone,jdbcType=VARCHAR}, #{eName,jdbcType=VARCHAR}, #{eMark,jdbcType=INTEGER}, #{eState,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.imf.pojo.MfExpress" >
@@ -170,13 +170,13 @@
         #{eCompanyCode,jdbcType=INTEGER},
       </if>
       <if test="enteringTime != null" >
-        #{enteringTime,jdbcType=BIGINT},
+        #{enteringTime,jdbcType=enteringTime},
       </if>
       <if test="getTime != null" >
-        #{getTime,jdbcType=BIGINT},
+        #{getTime,jdbcType=enteringTime},
       </if>
       <if test="ePhone != null" >
-        #{ePhone,jdbcType=BIGINT},
+        #{ePhone,jdbcType=VARCHAR},
       </if>
       <if test="eName != null" >
         #{eName,jdbcType=VARCHAR},
@@ -211,13 +211,13 @@
         e_company_code = #{record.eCompanyCode,jdbcType=INTEGER},
       </if>
       <if test="record.enteringTime != null" >
-        entering_time = #{record.enteringTime,jdbcType=BIGINT},
+        entering_time = #{record.enteringTime,jdbcType=enteringTime},
       </if>
       <if test="record.getTime != null" >
-        get_time = #{record.getTime,jdbcType=BIGINT},
+        get_time = #{record.getTime,jdbcType=enteringTime},
       </if>
       <if test="record.ePhone != null" >
-        e_phone = #{record.ePhone,jdbcType=BIGINT},
+        e_phone = #{record.ePhone,jdbcType=VARCHAR},
       </if>
       <if test="record.eName != null" >
         e_name = #{record.eName,jdbcType=VARCHAR},
@@ -241,7 +241,7 @@
       e_company_code = #{record.eCompanyCode,jdbcType=INTEGER},
       entering_time = #{record.enteringTime,jdbcType=BIGINT},
       get_time = #{record.getTime,jdbcType=BIGINT},
-      e_phone = #{record.ePhone,jdbcType=BIGINT},
+      e_phone = #{record.ePhone,jdbcType=VARCHAR},
       e_name = #{record.eName,jdbcType=VARCHAR},
       e_mark = #{record.eMark,jdbcType=INTEGER},
       e_state = #{record.eState,jdbcType=INTEGER}
@@ -268,7 +268,7 @@
         get_time = #{getTime,jdbcType=BIGINT},
       </if>
       <if test="ePhone != null" >
-        e_phone = #{ePhone,jdbcType=BIGINT},
+        e_phone = #{ePhone,jdbcType=VARCHAR},
       </if>
       <if test="eName != null" >
         e_name = #{eName,jdbcType=VARCHAR},
@@ -289,7 +289,7 @@
       e_company_code = #{eCompanyCode,jdbcType=INTEGER},
       entering_time = #{enteringTime,jdbcType=BIGINT},
       get_time = #{getTime,jdbcType=BIGINT},
-      e_phone = #{ePhone,jdbcType=BIGINT},
+      e_phone = #{ePhone,jdbcType=VARCHAR},
       e_name = #{eName,jdbcType=VARCHAR},
       e_mark = #{eMark,jdbcType=INTEGER},
       e_state = #{eState,jdbcType=INTEGER}

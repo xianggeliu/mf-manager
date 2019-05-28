@@ -1,6 +1,7 @@
 package com.imf.pojo;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class MfExpressExample {
@@ -374,113 +375,53 @@ public class MfExpressExample {
             return (Criteria) this;
         }
 
-        public Criteria andEnteringTimeEqualTo(Long value) {
+        public Criteria andEnteringTimeEqualTo(Date value) {
             addCriterion("entering_time =", value, "enteringTime");
             return (Criteria) this;
         }
 
-        public Criteria andEnteringTimeNotEqualTo(Long value) {
+        public Criteria andEnteringTimeNotEqualTo(Date value) {
             addCriterion("entering_time <>", value, "enteringTime");
             return (Criteria) this;
         }
 
-        public Criteria andEnteringTimeGreaterThan(Long value) {
+        public Criteria andEnteringTimeGreaterThan(Date value) {
             addCriterion("entering_time >", value, "enteringTime");
             return (Criteria) this;
         }
 
-        public Criteria andEnteringTimeGreaterThanOrEqualTo(Long value) {
+        public Criteria andEnteringTimeGreaterThanOrEqualTo(Date value) {
             addCriterion("entering_time >=", value, "enteringTime");
             return (Criteria) this;
         }
 
-        public Criteria andEnteringTimeLessThan(Long value) {
+        public Criteria andEnteringTimeLessThan(Date value) {
             addCriterion("entering_time <", value, "enteringTime");
             return (Criteria) this;
         }
 
-        public Criteria andEnteringTimeLessThanOrEqualTo(Long value) {
+        public Criteria andEnteringTimeLessThanOrEqualTo(Date value) {
             addCriterion("entering_time <=", value, "enteringTime");
             return (Criteria) this;
         }
 
-        public Criteria andEnteringTimeIn(List<Long> values) {
+        public Criteria andEnteringTimeIn(List<Date> values) {
             addCriterion("entering_time in", values, "enteringTime");
             return (Criteria) this;
         }
 
-        public Criteria andEnteringTimeNotIn(List<Long> values) {
+        public Criteria andEnteringTimeNotIn(List<Date> values) {
             addCriterion("entering_time not in", values, "enteringTime");
             return (Criteria) this;
         }
 
-        public Criteria andEnteringTimeBetween(Long value1, Long value2) {
+        public Criteria andEnteringTimeBetween(Date value1, Date value2) {
             addCriterion("entering_time between", value1, value2, "enteringTime");
             return (Criteria) this;
         }
 
-        public Criteria andEnteringTimeNotBetween(Long value1, Long value2) {
+        public Criteria andEnteringTimeNotBetween(Date value1, Date value2) {
             addCriterion("entering_time not between", value1, value2, "enteringTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andGetTimeIsNull() {
-            addCriterion("get_time is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andGetTimeIsNotNull() {
-            addCriterion("get_time is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andGetTimeEqualTo(Long value) {
-            addCriterion("get_time =", value, "getTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andGetTimeNotEqualTo(Long value) {
-            addCriterion("get_time <>", value, "getTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andGetTimeGreaterThan(Long value) {
-            addCriterion("get_time >", value, "getTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andGetTimeGreaterThanOrEqualTo(Long value) {
-            addCriterion("get_time >=", value, "getTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andGetTimeLessThan(Long value) {
-            addCriterion("get_time <", value, "getTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andGetTimeLessThanOrEqualTo(Long value) {
-            addCriterion("get_time <=", value, "getTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andGetTimeIn(List<Long> values) {
-            addCriterion("get_time in", values, "getTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andGetTimeNotIn(List<Long> values) {
-            addCriterion("get_time not in", values, "getTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andGetTimeBetween(Long value1, Long value2) {
-            addCriterion("get_time between", value1, value2, "getTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andGetTimeNotBetween(Long value1, Long value2) {
-            addCriterion("get_time not between", value1, value2, "getTime");
             return (Criteria) this;
         }
 
@@ -494,53 +435,123 @@ public class MfExpressExample {
             return (Criteria) this;
         }
 
-        public Criteria andEPhoneEqualTo(Long value) {
+        public Criteria andEPhoneEqualTo(String value) {
             addCriterion("e_phone =", value, "ePhone");
             return (Criteria) this;
         }
 
-        public Criteria andEPhoneNotEqualTo(Long value) {
+        public Criteria andEPhoneNotEqualTo(String value) {
             addCriterion("e_phone <>", value, "ePhone");
             return (Criteria) this;
         }
 
-        public Criteria andEPhoneGreaterThan(Long value) {
+        public Criteria andEPhoneGreaterThan(String value) {
             addCriterion("e_phone >", value, "ePhone");
             return (Criteria) this;
         }
 
-        public Criteria andEPhoneGreaterThanOrEqualTo(Long value) {
+        public Criteria andEPhoneGreaterThanOrEqualTo(String value) {
             addCriterion("e_phone >=", value, "ePhone");
             return (Criteria) this;
         }
 
-        public Criteria andEPhoneLessThan(Long value) {
+        public Criteria andEPhoneLessThan(String value) {
             addCriterion("e_phone <", value, "ePhone");
             return (Criteria) this;
         }
 
-        public Criteria andEPhoneLessThanOrEqualTo(Long value) {
+        public Criteria andEPhoneLessThanOrEqualTo(String value) {
             addCriterion("e_phone <=", value, "ePhone");
             return (Criteria) this;
         }
 
-        public Criteria andEPhoneIn(List<Long> values) {
+        public Criteria andEPhoneLike(String value) {
+            addCriterion("e_phone like", value, "ePhone");
+            return (Criteria) this;
+        }
+
+        public Criteria andEPhoneNotLike(String value) {
+            addCriterion("e_phone not like", value, "ePhone");
+            return (Criteria) this;
+        }
+
+        public Criteria andEPhoneIn(List<String> values) {
             addCriterion("e_phone in", values, "ePhone");
             return (Criteria) this;
         }
 
-        public Criteria andEPhoneNotIn(List<Long> values) {
+        public Criteria andEPhoneNotIn(List<String> values) {
             addCriterion("e_phone not in", values, "ePhone");
             return (Criteria) this;
         }
 
-        public Criteria andEPhoneBetween(Long value1, Long value2) {
+        public Criteria andEPhoneBetween(String value1, String value2) {
             addCriterion("e_phone between", value1, value2, "ePhone");
             return (Criteria) this;
         }
 
-        public Criteria andEPhoneNotBetween(Long value1, Long value2) {
+        public Criteria andEPhoneNotBetween(String value1, String value2) {
             addCriterion("e_phone not between", value1, value2, "ePhone");
+            return (Criteria) this;
+        }
+
+        public Criteria andGetTimeIsNull() {
+            addCriterion("get_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andGetTimeIsNotNull() {
+            addCriterion("get_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andGetTimeEqualTo(Date value) {
+            addCriterion("get_time =", value, "getTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andGetTimeNotEqualTo(Date value) {
+            addCriterion("get_time <>", value, "getTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andGetTimeGreaterThan(Date value) {
+            addCriterion("get_time >", value, "getTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andGetTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("get_time >=", value, "getTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andGetTimeLessThan(Date value) {
+            addCriterion("get_time <", value, "getTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andGetTimeLessThanOrEqualTo(Date value) {
+            addCriterion("get_time <=", value, "getTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andGetTimeIn(List<Date> values) {
+            addCriterion("get_time in", values, "getTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andGetTimeNotIn(List<Date> values) {
+            addCriterion("get_time not in", values, "getTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andGetTimeBetween(Date value1, Date value2) {
+            addCriterion("get_time between", value1, value2, "getTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andGetTimeNotBetween(Date value1, Date value2) {
+            addCriterion("get_time not between", value1, value2, "getTime");
             return (Criteria) this;
         }
 

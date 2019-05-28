@@ -10,10 +10,13 @@ import com.imf.pojo.Shippers;
 import com.imf.service.ExpressService;
 import com.imf.utils.JsonUtils;
 import com.imf.utils.KdAPI;
+import com.imf.utils.RedisOperator;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,6 +38,9 @@ public class ExpressServiceImpl implements ExpressService {
     @Autowired
     private MfECompanyMapper mecMapper;
 
+    @Autowired
+    private RedisOperator redis;
+
     @Override
     @Transactional
     public MFJSONResult insertExpressInfoNotCompany(String expressNum) throws Exception {
@@ -54,10 +60,16 @@ public class ExpressServiceImpl implements ExpressService {
         mfExpress.setExpressNumber(expressNum);
         int companyId = getCompanyId(shippers.getShipperName(), shippers.getShipperCode());
         mfExpress.seteCompanyCode(companyId);
-        mfExpress.setEnteringTime(System.currentTimeMillis());
+        mfExpress.setEnteringTime(new Date());
+        if (StringUtils.isEmpty(redis.get("MF:express:expressCount"))){
+            redis.set("MF:express:expressCount","1");
+        }
+        String redisKey = redis.get("MF:express:expressCount");
+        mfExpress.seteMark(Integer.parseInt(redisKey));
         mfExpress.seteState(1);
-        int insert = meMapper.insert(mfExpress);
-        if (insert == 1){
+        int insertState = meMapper.insert(mfExpress);
+        if (insertState == 1){
+            redis.incr("MF:express:expressCount",1);
             return MFJSONResult.ok();
         }
         return MFJSONResult.errorMsg("添加快递信息异常！");
@@ -77,17 +89,26 @@ public class ExpressServiceImpl implements ExpressService {
     }
 
     @Override
-    public MFJSONResult insertExpressInfo(String expressNum, String companyCode) {
+    public MFJSONResult insertExpressInfo(String expressNum, String companyCode, String phone) {
         //添加信息
         MfECompany mfECompany = mecMapper.selectByPrimaryKey(Integer.parseInt(companyCode));
         MfExpress mfExpress = new MfExpress();
         mfExpress.seteCompany(mfECompany.geteCompanyName());
         mfExpress.setExpressNumber(expressNum);
         mfExpress.seteCompanyCode(mfECompany.getId());
-        mfExpress.setEnteringTime(System.currentTimeMillis());
+        mfExpress.setePhone(phone);
+        mfExpress.setEnteringTime(new Date());
+        if (StringUtils.isEmpty(redis.get("MF:express:expressCount"))){
+            redis.set("MF:express:expressCount","1");
+        }
+        String redisKey = redis.get("MF:express:expressCount");
+        mfExpress.seteMark(Integer.parseInt(redisKey));
         mfExpress.seteState(1);
         int insert = meMapper.insert(mfExpress);
         if (insert == 1){
+            //调用短信接口发送短信
+            redis.incr("MF:express:expressCount",1);
+
             return MFJSONResult.ok();
         }
         return MFJSONResult.errorMsg("添加快递信息失败，请联系祥哥！");
@@ -100,7 +121,7 @@ public class ExpressServiceImpl implements ExpressService {
             return MFJSONResult.errorMsg("该快递不存在，是否录入？");
         }
         mfExpress.seteState(0);
-        mfExpress.setGetTime(System.currentTimeMillis());
+        mfExpress.setGetTime(new Date());
         int state = meMapper.updateByPrimaryKey(mfExpress);
         if (state ==1 ){
             return MFJSONResult.ok();
@@ -115,5 +136,23 @@ public class ExpressServiceImpl implements ExpressService {
             return MFJSONResult.ok(mfExpress);
         }
         return MFJSONResult.errorMsg("快递不存在,请确认该快递单号是否正确!");
+    }
+
+    /**
+     * 获取快递公司信息
+     * @param expressNum
+     * @return
+     */
+    @Override
+    public MFJSONResult getExpressInfo(String expressNum) throws Exception {
+        String kdJson = kdAPI.getOrderTracesByJson(expressNum);
+        KdEntity kdEntity = JsonUtils.jsonToPojo(kdJson, KdEntity.class);
+        if (kdEntity == null ||kdEntity.getShippers() == null ){
+            return MFJSONResult.ok();
+        }
+        Shippers shippers = kdEntity.getShippers().get(0);
+        int companyId = getCompanyId(shippers.getShipperName(), shippers.getShipperCode());
+        shippers.setShipperCode(companyId + "");
+        return MFJSONResult.ok(shippers);
     }
 }

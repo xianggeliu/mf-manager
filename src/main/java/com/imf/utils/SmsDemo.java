@@ -1,5 +1,6 @@
 package com.imf.utils;
 
+import com.alibaba.druid.support.json.JSONUtils;
 import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.IAcsClient;
 import com.aliyuncs.dysmsapi.model.v20170525.QuerySendDetailsRequest;
@@ -12,10 +13,13 @@ import com.aliyuncs.http.FormatType;
 import com.aliyuncs.http.HttpResponse;
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
+import org.apache.commons.lang3.StringUtils;
 
 import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -37,8 +41,8 @@ public class SmsDemo {
     static final String domain = "dysmsapi.aliyuncs.com";
 
     // TODO 此处需要替换成开发者自己的AK(在阿里云访问控制台寻找)
-    static final String accessKeyId = "yourAccessKeyId";
-    static final String accessKeySecret = "yourAccessKeySecret";
+    static final String accessKeyId = "";
+    static final String accessKeySecret = "";
 
     public static SendSmsResponse sendSms() throws ClientException {
 
@@ -54,13 +58,16 @@ public class SmsDemo {
         //组装请求对象-具体描述见控制台-文档部分内容
         SendSmsRequest request = new SendSmsRequest();
         //必填:待发送手机号
-        request.setPhoneNumbers("15000000000");
+        request.setPhoneNumbers("13353645390");
         //必填:短信签名-可在短信控制台中找到
-        request.setSignName("云通信");
+        request.setSignName("沐风快递");
         //必填:短信模板-可在短信控制台中找到
-        request.setTemplateCode("SMS_1000000");
+        request.setTemplateCode("SMS_166487225");
+        Map map = new HashMap();
+        map.put("date", new Date());
+        map.put("code",123456);
         //可选:模板中的变量替换JSON串,如模板内容为"亲爱的${name},您的验证码为${code}"时,此处的值为
-        request.setTemplateParam("{\"name\":\"Tom\", \"code\":\"123\"}");
+        request.setTemplateParam(JSONUtils.toJSONString(map));
 
         //选填-上行短信扩展码(无特殊需求用户请忽略此字段)
         //request.setSmsUpExtendCode("90997");

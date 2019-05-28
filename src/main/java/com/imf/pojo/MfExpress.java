@@ -1,5 +1,7 @@
 package com.imf.pojo;
 
+import java.util.Date;
+
 public class MfExpress {
     private Integer id;
 
@@ -9,11 +11,11 @@ public class MfExpress {
 
     private Integer eCompanyCode;
 
-    private Long enteringTime;
+    private Date enteringTime;
 
-    private Long getTime;
+    private String ePhone;
 
-    private Long ePhone;
+    private Date getTime;
 
     private String eName;
 
@@ -53,28 +55,28 @@ public class MfExpress {
         this.eCompanyCode = eCompanyCode;
     }
 
-    public Long getEnteringTime() {
+    public Date getEnteringTime() {
         return enteringTime;
     }
 
-    public void setEnteringTime(Long enteringTime) {
+    public void setEnteringTime(Date enteringTime) {
         this.enteringTime = enteringTime;
     }
 
-    public Long getGetTime() {
-        return getTime;
-    }
-
-    public void setGetTime(Long getTime) {
-        this.getTime = getTime;
-    }
-
-    public Long getePhone() {
+    public String getePhone() {
         return ePhone;
     }
 
-    public void setePhone(Long ePhone) {
-        this.ePhone = ePhone;
+    public void setePhone(String ePhone) {
+        this.ePhone = ePhone == null ? null : ePhone.trim();
+    }
+
+    public Date getGetTime() {
+        return getTime;
+    }
+
+    public void setGetTime(Date getTime) {
+        this.getTime = getTime;
     }
 
     public String geteName() {

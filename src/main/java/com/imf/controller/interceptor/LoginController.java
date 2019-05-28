@@ -27,54 +27,62 @@ public class LoginController {
     private ExpressService expressService;
 
     @RequestMapping("/index")
-    public String login(){
+    public String login() {
         return "thymeleaf/mf/index";
     }
 
     @RequestMapping("/reg")
-    public String reg(){
+    public String reg() {
         return "thymeleaf/mf/reg";
     }
 
     @RequestMapping("/getpass")
-    public String getpass(){
+    public String getpass() {
         return "thymeleaf/mf/getpass";
     }
 
     @RequestMapping("/express")
-    public String express(){
+    public String express() {
         return "thymeleaf/mf/expressage/express";
     }
 
     @RequestMapping("/expressInto")
-    public String expressInto(){
+    public String expressInto() {
         return "thymeleaf/mf/expressage/expressInto";
     }
 
     @RequestMapping("/expressOut")
-    public String expressOut(){
+    public String expressOut() {
         return "thymeleaf/mf/expressage/expressOut";
     }
 
     @RequestMapping("/expressSearch")
-    public String expressSearch(){
+    public String expressSearch() {
         return "thymeleaf/mf/expressage/expressSearch";
     }
 
     @RequestMapping("/expressShow")
-    public String expressShow(){
+    public String expressShow() {
         return "thymeleaf/mf/expressage/expressShow";
     }
 
     @RequestMapping("/postExpress")
     @ResponseBody
-    public MFJSONResult postExpress(@RequestParam(value="expressNum")String expressNum , @RequestParam(value="companyCode")String companyCode){
+    public MFJSONResult postExpress(@RequestParam(value = "expressNum") String expressNum, @RequestParam(value = "companyCode") String companyCode, String phone) {
         try {
-            if (StringUtils.isEmpty(companyCode)){
-                return   expressService.insertExpressInfoNotCompany(expressNum);
-            }else {
-                return   expressService.insertExpressInfo(expressNum , companyCode);
-            }
+            return expressService.insertExpressInfo(expressNum, companyCode , phone);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return MFJSONResult.errorMsg("添加快递信息异常，请重试！");
+        }
+
+    }
+
+    @RequestMapping("/getExpressInfo")
+    @ResponseBody
+    public MFJSONResult getExpressInfo(@RequestParam(value = "expressNum") String expressNum) {
+        try {
+            return expressService.getExpressInfo(expressNum);
         } catch (Exception e) {
             e.printStackTrace();
             return MFJSONResult.errorMsg("添加快递信息异常，请重试！");
@@ -84,9 +92,9 @@ public class LoginController {
 
     @RequestMapping("/takesExpress")
     @ResponseBody
-    public MFJSONResult takesExpress(@RequestParam(value="expressNum")String expressNum){
+    public MFJSONResult takesExpress(@RequestParam(value = "expressNum") String expressNum) {
         try {
-                return   expressService.takesExpress(expressNum);
+            return expressService.takesExpress(expressNum);
         } catch (Exception e) {
             e.printStackTrace();
             return MFJSONResult.errorMsg("添加快递信息异常，请重试！");
@@ -96,9 +104,9 @@ public class LoginController {
 
     @RequestMapping("/getExpress")
     @ResponseBody
-    public MFJSONResult getExpress(@RequestParam(value="expressNum")String expressNum){
+    public MFJSONResult getExpress(@RequestParam(value = "expressNum") String expressNum) {
         try {
-                return   expressService.getExpress(expressNum);
+            return expressService.getExpress(expressNum);
         } catch (Exception e) {
             e.printStackTrace();
             return MFJSONResult.errorMsg("添加快递信息异常，请重试！");
@@ -108,15 +116,15 @@ public class LoginController {
 
     @RequestMapping("/dologin")
 
-    public ModelAndView loginView(String username , String password , HttpServletResponse response){
+    public ModelAndView loginView(String username, String password, HttpServletResponse response) {
         try {
             MFJSONResult mfjsonResult = loginService.doLogin(username, password, response);
-            if (mfjsonResult.getStatus() == 200){
+            if (mfjsonResult.getStatus() == 200) {
                 ModelAndView mv = new ModelAndView();
 
                 //手动显式指定使用转发，此时springmvc.xml配置文件中的视图解析器将会失效
                 mv.setViewName("forward:/mf/view");
-                return  mv;
+                return mv;
 //                return "redirect:/mf/view";
             }
         } catch (UnsupportedEncodingException e) {

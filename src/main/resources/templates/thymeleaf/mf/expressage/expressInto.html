@@ -126,9 +126,9 @@
                                 <div class="col-sm-3">
                                     <select name="" id="companyOption" class="form-control">
                                         <option value="1">韵达快递</option>
-                                        <option value="2">中通</option>
-                                        <option value="3">申通</option>
-                                        <option value="4">圆通</option>
+                                        <option value="2">品骏</option>
+                                        <option value="3">顺丰快递</option>
+                                        <option value="4">中通速递</option>
                                         <option value="5">京东</option>
                                         <option value="6">天猫</option>
                                         <option value="7">唯品会</option>
@@ -147,7 +147,7 @@
                             <div class="form-group has-warning">
                                 <label class="col-sm-3 control-label" for="">收件人姓名:</label>
                                 <div class="col-sm-8">
-                                    <input type="text" name="" class="form-control" id="fPhone" value="" placeholder="13300000330">
+                                    <input type="text" name="" class="form-control" id="fName" value="" placeholder="13300000330">
                                 </div>
                             </div>
                         </div>
@@ -201,11 +201,19 @@
     function saveExpressInfo() {
         //获取参数信息
         var companyCode =$("#companyOption option:selected").val();
+        var phone = $('#fPhone').val();
+        if (phone == ''){
+            swal("手机号码不能为空！")
+            return;
+        }
         $.ajax({
             url: location.protocol + "/login/postExpress",
             type: 'POST',
             // type: "GET",
-            data: {"expressNum":num,"companyCode":companyCode},
+            data: { "expressNum":num,
+                    "companyCode":companyCode,
+                    "phone":phone
+            },
             success: function (data) {
                 if (data.status == 200) {
                     swal({
@@ -240,27 +248,23 @@
             return;
         }
         $.ajax({
-            url: location.protocol + "/login/postExpress",
-            type: 'POST',
+            url: location.protocol + "/login/getExpressInfo",
+            type: 'GET',
             // type: "GET",
             data: {"expressNum":numb,"companyCode":""},
             success: function (data) {
-                num = numb;
-                if (data.status == 200) {
-                    swal({
-                        title: "快递信息保存成功！",
-                        confirmButtonText: "确定"
-                    }, function (isConfirm) {
-                        location.reload()
-                        return;
-                    })
-                    return;
-                }else if (data.status == 501){
+                if (data.status == 200){
+                    num = numb;
                     $('#eNumb').val(numb);
+                    if (data.data != null){
+                        var shipperCode = data.data.ShipperCode;
+                        selectOptions(shipperCode);
+                    }
                     $('#addExpress').modal();
-                }else {
-                    swal(data.msg);
+                    return;
                 }
+                   swal(data.msg);
+
             },
             error: function (data) {
                 swal('添加快递信息异常，请联系祥哥~！');
@@ -269,5 +273,15 @@
 
     }
 
+    function selectOptions(status) {
+        var options = document.getElementById('companyOption');
+        var lengths = options.options.length;//下拉项的长度
+        for(var i=0;i<lengths;i++){
+            if(status == options.options[i].value){
+                options.options[i].selected=true;
+                return ;
+            }
+        }
+    }
 </script>
 </html>
