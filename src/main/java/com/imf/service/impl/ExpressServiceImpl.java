@@ -90,7 +90,7 @@ public class ExpressServiceImpl implements ExpressService {
     }
 
     @Override
-    public MFJSONResult insertExpressInfo(String expressNum, String companyCode, String phone) {
+    public MFJSONResult insertExpressInfo(String expressNum, String companyCode, String phone) throws Exception {
         //添加信息
         MfECompany mfECompany = mecMapper.selectByPrimaryKey(Integer.parseInt(companyCode));
         MfExpress mfExpress = new MfExpress();
@@ -110,12 +110,11 @@ public class ExpressServiceImpl implements ExpressService {
             //调用短信接口发送短信
             //短信接口返回成功后 redis 加1
             String sendState = SmsSample.sendMsg(phone, expressCount);
+            redis.incr("MF:express:expressCount",1);
             if ("0".equals(sendState)){
-                redis.incr("MF:express:expressCount",1);
-
                 return MFJSONResult.ok("快递录入成功，取件号是：" + expressCount);
             }else {
-                return MFJSONResult.ok("发送短信异常 ： " + msgJudge(sendState) + ";请手动发送短信！");
+                return MFJSONResult.ok("发送短信异常 ： " + msgJudge(sendState) + ";请手动发送短信！取件号是：" + expressCount);
             }
 
         }

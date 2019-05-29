@@ -12,7 +12,7 @@ import com.imf.pojo.MFJSONResult;
 public interface ExpressService {
     MFJSONResult insertExpressInfoNotCompany(String expressNum) throws Exception;
 
-    MFJSONResult insertExpressInfo(String expressNum, String companyCode, String phone);
+    MFJSONResult insertExpressInfo(String expressNum, String companyCode, String phone) throws Exception;
 
     MFJSONResult takesExpress(String expressNum);
 
