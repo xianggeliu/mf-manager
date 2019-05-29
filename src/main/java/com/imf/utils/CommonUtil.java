@@ -56,7 +56,6 @@ public class CommonUtil {
     /**
      * 位数不够补0的方法
      */
-
     public static String autoGenericCode(int code, int num) {
         String result = "";
         // num:数字位数
@@ -253,29 +252,9 @@ public class CommonUtil {
     }
 
 
-    public String switchString(String str){
-        str = str.replace("＆ldquo;", "“");
-        str = str.replace("＆ldquo;", "“");
-        str = str.replace("＆rdquo;", "”");
-        str = str.replace("＆rdquo;", "”");
-        str = str.replace("＆nbsp;", " ");
-        str = str.replace("＆quot;", "\"");
-        str = str.replace("＆amp;", "＆");
-        str = str.replace("＆middot;", "·");
-        str = str.replace("＆lsquo;", "‘");
-        str = str.replace("＆#39;", "'");
-        str = str.replace("＆rsquo;", "’");
-        str = str.replace("＆mdash;", "—");
-        str = str.replace("＆ndash;", "–");
-        str = str.replace("＆ndash;", "–");
-        str = str.replace("＆hellip;", "……");
-        str = str.replace("&hellip;", "……");
-        str = str.replace("＆acute;", "´");
-        str = str.replace("＆minus;", "−");
-        str = str.replace("＆bull;", "•");
-        str = str.replace("＆times;", "×");
-        str = str.replace("＆＃39;", "'");
-        return str;
+
+    public static String formatDate(String str){
+        return new SimpleDateFormat(str).format(new Date());
 
     }
 

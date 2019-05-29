@@ -1,13 +1,16 @@
 package com.imf.service.impl;
 
 import com.imf.mapper.MfECompanyMapper;
+import com.imf.mapper.MfExpressDayTotalMapper;
 import com.imf.mapper.MfExpressMapper;
 import com.imf.pojo.KdEntity;
 import com.imf.pojo.MFJSONResult;
 import com.imf.pojo.MfECompany;
 import com.imf.pojo.MfExpress;
+import com.imf.pojo.MfExpressDayTotal;
 import com.imf.pojo.Shippers;
 import com.imf.service.ExpressService;
+import com.imf.utils.CommonUtil;
 import com.imf.utils.JsonUtils;
 import com.imf.utils.KdAPI;
 import com.imf.utils.RedisOperator;
@@ -41,6 +44,9 @@ public class ExpressServiceImpl implements ExpressService {
 
     @Autowired
     private RedisOperator redis;
+
+    @Autowired
+    private MfExpressDayTotalMapper medtMapper;
 
     @Override
     @Transactional
@@ -167,6 +173,10 @@ public class ExpressServiceImpl implements ExpressService {
         mfExpress.setGetTime(new Date());
         int state = meMapper.updateByPrimaryKey(mfExpress);
         if (state ==1 ){
+            if (StringUtils.isEmpty(redis.get("MF:express:expressOutCount"))){
+                redis.set("MF:express:expressOutCount","1");
+            }
+           redis.incr("MF:express:expressOutCount" , 1);
             return MFJSONResult.ok();
         }
         return MFJSONResult.errorMsg("更新快递状态失败，请联系祥哥！");
@@ -197,5 +207,46 @@ public class ExpressServiceImpl implements ExpressService {
         int companyId = getCompanyId(shippers.getShipperName(), shippers.getShipperCode());
         shippers.setShipperCode(companyId + "");
         return MFJSONResult.ok(shippers);
+    }
+
+    /**
+     * 保存出入库总数
+     * @param state 1 是保存入库   0 是保存出库
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public MFJSONResult saveExpressInTotal(int state) throws Exception {
+        int day = Integer.parseInt(CommonUtil.formatDate("yyyyMMdd"));
+        MfExpressDayTotal mfExpressDayTotal = medtMapper.selectByPrimaryKey(day);
+        if (state ==1){
+            String inCount = redis.get("MF:express:expressCount");
+            int inTotal = Integer.parseInt(inCount) - 1;
+            if (mfExpressDayTotal == null){
+                mfExpressDayTotal = new MfExpressDayTotal();
+                mfExpressDayTotal.setId(day);
+                mfExpressDayTotal.setIntoTotal(inTotal);
+                medtMapper.insert(mfExpressDayTotal);
+            }
+            mfExpressDayTotal.setIntoTotal(inTotal);
+            medtMapper.updateByPrimaryKey(mfExpressDayTotal);
+            redis.set("MF:express:expressCount","1");
+            return MFJSONResult.ok("入库完成：" + day + "一共入库了：" + inTotal + "件快递！");
+        }else if (state == 0){
+            String outCount = redis.get("MF:express:expressOutCount");
+            int outTotal = Integer.parseInt(outCount) - 1;
+
+            if (mfExpressDayTotal == null){
+                mfExpressDayTotal = new MfExpressDayTotal();
+                mfExpressDayTotal.setId(day);
+                mfExpressDayTotal.setOutTotal(outTotal);
+                medtMapper.insert(mfExpressDayTotal);
+            }
+            mfExpressDayTotal.setIntoTotal(outTotal);
+            medtMapper.updateByPrimaryKey(mfExpressDayTotal);
+            redis.set("MF:express:expressOutCount","1");
+            return MFJSONResult.ok("入库完成：" + day + "一共出库了：" + outTotal + "件快递！");
+        }
+        return MFJSONResult.errorMap("您的操作不存在，请联系管理员！");
     }
 }

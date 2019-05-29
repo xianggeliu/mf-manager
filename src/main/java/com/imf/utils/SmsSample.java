@@ -18,8 +18,6 @@ public class SmsSample {
 		String testUsername = "xianggeliu"; //在短信宝注册的用户名
 		String testPassword = ""; //在短信宝注册的密码
 		String testPhone = "13353645390";
-		String date = new SimpleDateFormat("yyyyMMdd").format(new Date());
-
 		String testContent = "【快递综合服务】您好，请凭取件码：123，至取件东街东大路向北150米路东。快件暂存两日，若有问题请咨询18201128350。"; // 注意测试时，也请带上公司简称或网站签名，发送正规内容短信。千万不要发送无意义的内容：例如 测一下、您好。否则可能会收不到
 
 		String httpUrl = "http://api.smsbao.com/sms";
@@ -39,7 +37,7 @@ public class SmsSample {
         String testUsername = "xianggeliu"; //在短信宝注册的用户名
         String testPassword = ""; //在短信宝注册的密码
 		StringBuilder contentSb = new StringBuilder("【快递综合服务】");
-		String date = new SimpleDateFormat("MM月dd日").format(new Date());
+        String date = CommonUtil.formatDate("MM月dd日");
 		contentSb.append(date).append("快递已到，暂放两日，如需拒收，联系18201128350地址：东街东大路向北150米路东。取件号：").append(number);
 
         String httpUrl = "http://api.smsbao.com/sms";

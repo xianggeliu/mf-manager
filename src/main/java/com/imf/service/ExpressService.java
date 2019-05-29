@@ -14,9 +14,11 @@ public interface ExpressService {
 
     MFJSONResult insertExpressInfo(String expressNum, String companyCode, String phone) throws Exception;
 
-    MFJSONResult takesExpress(String expressNum);
+    MFJSONResult takesExpress(String expressNum)throws Exception;
 
-    MFJSONResult getExpress(String expressNum);
+    MFJSONResult getExpress(String expressNum)throws Exception;
 
     MFJSONResult getExpressInfo(String expressNum) throws Exception;
+
+    MFJSONResult saveExpressInTotal(int state)throws Exception;
 }

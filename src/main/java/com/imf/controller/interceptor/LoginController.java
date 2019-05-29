@@ -114,6 +114,18 @@ public class LoginController {
 
     }
 
+    @RequestMapping("/saveExpressInTotal")
+    @ResponseBody
+    public MFJSONResult saveExpressTotal(int state) {
+        try {
+            return expressService.saveExpressInTotal(state);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return MFJSONResult.errorMsg("添加快递信息异常，请重试！");
+        }
+
+    }
+
     @RequestMapping("/dologin")
 
     public ModelAndView loginView(String username, String password, HttpServletResponse response) {
