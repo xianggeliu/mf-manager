@@ -25,9 +25,27 @@ public class SmsSample {
 		httpArg.append("m=").append(testPhone).append("&");
 		httpArg.append("c=").append(encodeUrlString(testContent, "UTF-8"));
 
-		String result = request(httpUrl, httpArg.toString());
+		String result =request(httpUrl, httpArg.toString());
 		System.out.println(result);
 	}
+
+
+	public static String sendMsg(String phnoe , String number){
+        String testUsername = "xianggeliu"; //在短信宝注册的用户名
+        String testPassword = ""; //在短信宝注册的密码
+        String testPhone = "13353645390";
+        String testContent = "【快递综合服务】您好，请凭取件码：" + number + "，至取件东街东大路向北150米路东。快件暂存两日，若有问题请咨询18201128350。"; // 注意测试时，也请带上公司简称或网站签名，发送正规内容短信。千万不要发送无意义的内容：例如 测一下、您好。否则可能会收不到
+
+        String httpUrl = "http://api.smsbao.com/sms";
+
+        StringBuffer httpArg = new StringBuffer();
+        httpArg.append("u=").append(testUsername).append("&");
+        httpArg.append("p=").append(md5(testPassword)).append("&");
+        httpArg.append("m=").append(testPhone).append("&");
+        httpArg.append("c=").append(encodeUrlString(testContent, "UTF-8"));
+        return "41" ;
+//	    return request(httpUrl, httpArg.toString());
+    }
 
 	public static String request(String httpUrl, String httpArg) {
 		BufferedReader reader = null;

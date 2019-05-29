@@ -11,6 +11,7 @@ import com.imf.service.ExpressService;
 import com.imf.utils.JsonUtils;
 import com.imf.utils.KdAPI;
 import com.imf.utils.RedisOperator;
+import com.imf.utils.SmsSample;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -108,12 +109,54 @@ public class ExpressServiceImpl implements ExpressService {
         if (insert == 1){
             //调用短信接口发送短信
             //短信接口返回成功后 redis 加1
-            redis.incr("MF:express:expressCount",1);
+            String sendState = SmsSample.sendMsg(phone, expressCount);
+            if ("0".equals(sendState)){
+                redis.incr("MF:express:expressCount",1);
 
-            return MFJSONResult.ok();
+                return MFJSONResult.ok("快递录入成功，取件号是：" + expressCount);
+            }else {
+                return MFJSONResult.ok("发送短信异常 ： " + msgJudge(sendState) + ";请手动发送短信！");
+            }
+
         }
         return MFJSONResult.errorMsg("添加快递信息失败，请联系祥哥！");
     }
+
+    private String msgJudge(String state){
+        int anInt = Integer.parseInt(state);
+        String msg ;
+        switch(anInt){
+            case 30:
+                msg = "错误密码！";
+                break;
+            case 40:
+                msg = "账号不存在！";
+
+                break;
+            case 41:
+                msg = "余额不足！";
+
+                break;
+            case 43:
+                msg = "IP地址限制！";
+
+                break;
+            case 50:
+                msg = "内容含有敏感词！";
+
+                break;
+            case 51:
+                msg = "手机号码不正确！";
+                break;
+            default:
+                msg = "发送短信异常！";
+                break;
+        }
+        return msg;
+
+    }
+
+
 
     @Override
     public MFJSONResult takesExpress(String expressNum) {

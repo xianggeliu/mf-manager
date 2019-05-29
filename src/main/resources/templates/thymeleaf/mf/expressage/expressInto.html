@@ -217,7 +217,7 @@
             success: function (data) {
                 if (data.status == 200) {
                     swal({
-                        title: "快递信息保存成功！",
+                        title: data.data,
                         confirmButtonText: "确定"
                     }, function (isConfirm) {
                         location.reload()
