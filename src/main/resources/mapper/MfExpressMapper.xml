@@ -118,7 +118,7 @@
       e_phone, e_name, e_mark, e_state
       )
     values (#{id,jdbcType=INTEGER}, #{expressNumber,jdbcType=VARCHAR}, #{eCompany,jdbcType=VARCHAR}, 
-      #{eCompanyCode,jdbcType=INTEGER}, #{enteringTime,jdbcType=enteringTime}, #{getTime,jdbcType=enteringTime},
+      #{eCompanyCode,jdbcType=INTEGER}, #{enteringTime,jdbcType=TIMESTAMP}, #{getTime,jdbcType=TIMESTAMP},
       #{ePhone,jdbcType=VARCHAR}, #{eName,jdbcType=VARCHAR}, #{eMark,jdbcType=INTEGER}, #{eState,jdbcType=INTEGER}
       )
   </insert>
@@ -170,10 +170,10 @@
         #{eCompanyCode,jdbcType=INTEGER},
       </if>
       <if test="enteringTime != null" >
-        #{enteringTime,jdbcType=enteringTime},
+        #{enteringTime,jdbcType=TIMESTAMP},
       </if>
       <if test="getTime != null" >
-        #{getTime,jdbcType=enteringTime},
+        #{getTime,jdbcType=TIMESTAMP},
       </if>
       <if test="ePhone != null" >
         #{ePhone,jdbcType=VARCHAR},
@@ -211,10 +211,10 @@
         e_company_code = #{record.eCompanyCode,jdbcType=INTEGER},
       </if>
       <if test="record.enteringTime != null" >
-        entering_time = #{record.enteringTime,jdbcType=enteringTime},
+        entering_time = #{record.enteringTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.getTime != null" >
-        get_time = #{record.getTime,jdbcType=enteringTime},
+        get_time = #{record.getTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.ePhone != null" >
         e_phone = #{record.ePhone,jdbcType=VARCHAR},
@@ -239,8 +239,8 @@
       express_number = #{record.expressNumber,jdbcType=VARCHAR},
       e_company = #{record.eCompany,jdbcType=VARCHAR},
       e_company_code = #{record.eCompanyCode,jdbcType=INTEGER},
-      entering_time = #{record.enteringTime,jdbcType=BIGINT},
-      get_time = #{record.getTime,jdbcType=BIGINT},
+      entering_time = #{record.enteringTime,jdbcType=TIMESTAMP},
+      get_time = #{record.getTime,jdbcType=TIMESTAMP},
       e_phone = #{record.ePhone,jdbcType=VARCHAR},
       e_name = #{record.eName,jdbcType=VARCHAR},
       e_mark = #{record.eMark,jdbcType=INTEGER},
@@ -262,10 +262,10 @@
         e_company_code = #{eCompanyCode,jdbcType=INTEGER},
       </if>
       <if test="enteringTime != null" >
-        entering_time = #{enteringTime,jdbcType=BIGINT},
+        entering_time = #{enteringTime,jdbcType=TIMESTAMP},
       </if>
       <if test="getTime != null" >
-        get_time = #{getTime,jdbcType=BIGINT},
+        get_time = #{getTime,jdbcType=TIMESTAMP},
       </if>
       <if test="ePhone != null" >
         e_phone = #{ePhone,jdbcType=VARCHAR},
@@ -287,7 +287,7 @@
     set express_number = #{expressNumber,jdbcType=VARCHAR},
       e_company = #{eCompany,jdbcType=VARCHAR},
       e_company_code = #{eCompanyCode,jdbcType=INTEGER},
-      entering_time = #{enteringTime,jdbcType=BIGINT},
+      entering_time = #{enteringTime,jdbcType=TIMESTAMP},
       get_time = #{getTime,jdbcType=BIGINT},
       e_phone = #{ePhone,jdbcType=VARCHAR},
       e_name = #{eName,jdbcType=VARCHAR},

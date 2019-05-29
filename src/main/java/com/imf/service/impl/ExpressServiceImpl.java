@@ -101,12 +101,13 @@ public class ExpressServiceImpl implements ExpressService {
         if (StringUtils.isEmpty(redis.get("MF:express:expressCount"))){
             redis.set("MF:express:expressCount","1");
         }
-        String redisKey = redis.get("MF:express:expressCount");
-        mfExpress.seteMark(Integer.parseInt(redisKey));
+        String expressCount = redis.get("MF:express:expressCount");
+        mfExpress.seteMark(Integer.parseInt(expressCount));
         mfExpress.seteState(1);
         int insert = meMapper.insert(mfExpress);
         if (insert == 1){
             //调用短信接口发送短信
+            //短信接口返回成功后 redis 加1
             redis.incr("MF:express:expressCount",1);
 
             return MFJSONResult.ok();
