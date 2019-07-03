@@ -166,7 +166,7 @@
     </tr>
     <tr>
         <td>是否使用代理 ：</td>
-        <td></td>
+        <td><span id="proxyId"></span></td>
     </tr>
 
     <tr>
@@ -186,8 +186,8 @@
         // $('#ipId').text(returnCitySN2);
         var returnCitySN3 = returnCitySN["cname"];
         // $('#cityId').text(returnCitySN3);
-        var dent = mybroswer.browser + " :" + mybroswer.version;
-        $('#clientId').text(dent);
+        // var dent = mybroswer.browser + " :" + mybroswer.version;
+        // $('#clientId').text(dent);
         NetPing(1);
         NetPing(2);
         demo();
@@ -198,7 +198,7 @@
 
         window.onload=function(){
             var xhr=getXhr();
-            xhr.open('get','www.baidu.com');
+            xhr.open('get','isProxy');
             xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
             xhr.send();
             xhr.onreadystatechange=function(){
@@ -206,9 +206,12 @@
                 {
                     var text=xhr.responseText;
                     if(text=='true'){
-                        alert("你使用了代理IP，本站禁止访问");
-                        window.location.href="http://www.xdcity.cn";
+                        $('#proxyId').text("你使用了代理IP，本站禁止访问");
+                        // alert("你使用了代理IP，本站禁止访问");
+                        // window.location.href="http://www.xdcity.cn";
                     }else{
+                        $('#proxyId').text("你是良民哦!");
+
                         console.log("你是良民哦！")
                     }
                 }
@@ -232,7 +235,7 @@
         $.ajax({
             type: 'POST',
             url: 'http://www.google.com',
-            data: formData,
+            data: "",
             success: function (data, textStatus, request) {
                 var s1 = request.getResponseHeader('X-Forwarded-For');
                 if (request.getResponseHeader('X-Forwarded-For') != undefined) {

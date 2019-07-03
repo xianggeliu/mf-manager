@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/login")
@@ -74,6 +77,32 @@ public class LoginController {
     @RequestMapping("/ipAddress")
     public String ipAddress() {
         return "thymeleaf/mf/url";
+    }
+
+    @RequestMapping("/isProxy")
+    @ResponseBody
+    public Object isProxy(HttpServletRequest request) {
+        String ip = request.getHeader("x-forwarded-for");
+        String via = request.getHeader("http-via");
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("Proxy-Client-IP");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("WL-Proxy-Client-IP");
+        }
+//        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+//            ip = request.getRemoteAddr();
+//        }
+        Map map = new HashMap();
+        map.put("status" , "200");
+
+        if (ip != null || via != null){
+            map.put("responseText" , "true");
+        }else {
+            map.put("responseText" , "false");
+        }
+
+        return map;
     }
 
     @RequestMapping("/postExpress")
