@@ -281,5 +281,25 @@
             }
         }
     }
+    
+    function overPutIn() {
+        $.ajax({
+            url: location.protocol + "/login/saveExpressTotal",
+            type: 'GET',
+            // type: "GET",
+            data: {"state":1},
+            success: function (data) {
+                if (data.status == 200){
+                    swal(data.data);
+                    return;
+                }
+                swal(data.msg);
+
+            },
+            error: function (data) {
+                swal('添加快递信息异常，请联系祥哥~！');
+            }
+        });
+    }
 </script>
 </html>

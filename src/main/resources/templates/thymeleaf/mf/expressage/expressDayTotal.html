@@ -70,6 +70,7 @@
                 <li ><a href="/login/expressInto">快递单号录入</a></li>
                 <li ><a href="/login/expressOut">快递取件</a></li>
                 <li><a href="/login/expressSearch">快递查询</a></li>
+                <li class="active" ><a href="/login/expressDayTotal">每日总计</a></li>
                 <li class="active" ><a href="/login/expressShow">快递单号展示</a></li>
             </ul>
 
@@ -137,7 +138,7 @@
             </tr>
         </thead>
             <tr>
-                <td><span id="ip"></span></td>
+                <td>001</td>
                 <td>黎明明</td>
                 <td>男</td>
                 <td>6</td>
@@ -593,17 +594,7 @@
         </div>
     </div>
 </div>
-<script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
-<script type="text/javascript">
-    // document.write(returnCitySN["cip"]+','+returnCitySN["cname"])
 
-    $(document).ready(function() {
-        var returnCitySN2 = returnCitySN["cip"];
-        $('#ip').text(returnCitySN2);
-        var returnCitySN3 = returnCitySN["cname"];
-        // $('#cityId').val(returnCitySN3);
-    });
-</script>
 </body>
 <script>
 

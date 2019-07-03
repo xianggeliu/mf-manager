@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>URL有效性检测</title>
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <!--[if IE 8]>
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
+    <![endif]-->
+    <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
+
+    <script type="text/javascript">
+
+        function isBroswer() {//检测浏览器内核--返回的是两个key，name：浏览器内核的名称---version：浏览器的版本号
+            var _broswer = {};
+            var sUserAgent = navigator.userAgent;
+            var isOpera = sUserAgent.indexOf("Opera") > -1;
+            if (isOpera) {
+                //首先检测Opera是否进行了伪装
+                if (navigator.appName == 'Opera') {
+                    //如果没有进行伪装，则直接后去版本号
+                    _broswer.version = parseFloat(navigator.appVersion);
+                } else {
+                    var reOperaVersion = new RegExp("Opera (\\d+.\\d+)");
+                    //使用正则表达式的test方法测试并将版本号保存在RegExp.$1中
+                    reOperaVersion.test(sUserAgent);
+                    _broswer.version = parseFloat(RegExp['$1']);
+                }
+                _broswer.opera = true;
+                _broswer.name = 'opera';
+            }
+            var isChrome = sUserAgent.indexOf("Chrome") > -1;
+            if (isChrome) {
+                var reChorme = new RegExp("Chrome/(\\d+\\.\\d+(?:\\.\\d+\\.\\d+))?");
+                reChorme.test(sUserAgent);
+                _broswer.version = parseFloat(RegExp['$1']);
+                _broswer.chrome = true;
+                _broswer.name = 'chrome';
+            }
+            //排除Chrome信息，因为在Chrome的user-agent字符串中会出现Konqueror/Safari的关键字
+            var isKHTML = (sUserAgent.indexOf("KHTML") > -1
+                || sUserAgent.indexOf("Konqueror") > -1 || sUserAgent
+                    .indexOf("AppleWebKit") > -1)
+                && !isChrome;
+            if (isKHTML) {//判断是否基于KHTML，如果时的话在继续判断属于何种KHTML浏览器
+                var isSafari = sUserAgent.indexOf("AppleWebKit") > -1;
+                var isKonq = sUserAgent.indexOf("Konqueror") > -1;
+                if (isSafari) {
+                    var reAppleWebKit = new RegExp("Version/(\\d+(?:\\.\\d*)?)");
+                    reAppleWebKit.test(sUserAgent);
+                    var fAppleWebKitVersion = parseFloat(RegExp["$1"]);
+                    _broswer.version = parseFloat(RegExp['$1']);
+                    _broswer.safari = true;
+                    _broswer.name = 'safari';
+                } else if (isKonq) {
+                    var reKong = new RegExp(
+                        "Konqueror/(\\d+(?:\\.\\d+(?\\.\\d)?)?)");
+                    reKong.test(sUserAgent);
+                    _broswer.version = parseFloat(RegExp['$1']);
+                    _broswer.konqueror = true;
+                    _broswer.name = 'konqueror';
+                }
+            }
+            // !isOpera 避免是由Opera伪装成的IE
+            var isIE = sUserAgent.indexOf("compatible") > -1
+                && sUserAgent.indexOf("MSIE") > -1 && !isOpera;
+            if (isIE) {
+                var reIE = new RegExp("MSIE (\\d+\\.\\d+);");
+                reIE.test(sUserAgent);
+                _broswer.version = parseFloat(RegExp['$1']);
+                _broswer.msie = true;
+                _broswer.name = 'msie';
+            }
+            // 排除Chrome 及 Konqueror/Safari 的伪装
+            var isMoz = sUserAgent.indexOf("Gecko") > -1 && !isChrome && !isKHTML;
+            if (isMoz) {
+                var reMoz = new RegExp("rv:(\\d+\\.\\d+(?:\\.\\d+)?)");
+                reMoz.test(sUserAgent);
+                _broswer.version = parseFloat(RegExp['$1']);
+                _broswer.mozilla = true;
+                _broswer.name = 'mozilla';
+            }
+            return _broswer;
+        }
+
+        // 调用
+        /**返回的是两个key，name：浏览器内核的名称---version：浏览器的版本号*/
+        function getbroswerinfo() {
+            var browser;
+            var version;
+            var _broswer = {};
+            var userAgent = navigator.userAgent,
+                rMsie = /(msie\s|trident.*rv:)([\w.]+)/,
+                rFirefox = /(firefox)\/([\w.]+)/,
+                rOpera = /(opera).+version\/([\w.]+)/,
+                rChrome = /(chrome)\/([\w.]+)/,
+                rSafari = /version\/([\w.]+).*(safari)/;
+
+            var ua = userAgent.toLowerCase();
+
+            function uaMatch(ua) {
+                var match = rMsie.exec(ua);
+                if (match != null) {
+                    return {browser: "IE", version: match[2] || "0"};
+                }
+                var match = rFirefox.exec(ua);
+                if (match != null) {
+                    return {browser: match[1] || "", version: match[2] || "0"};
+                }
+                var match = rOpera.exec(ua);
+                if (match != null) {
+                    return {browser: match[1] || "", version: match[2] || "0"};
+                }
+                var match = rChrome.exec(ua);
+                if (match != null) {
+                    return {browser: match[1] || "", version: match[2] || "0"};
+                }
+                var match = rSafari.exec(ua);
+                if (match != null) {
+                    return {browser: match[2] || "", version: match[1] || "0"};
+                }
+                if (match != null) {
+                    return {browser: "", version: "0"};
+                }
+            }
+
+            var browserMatch = uaMatch(userAgent.toLowerCase());
+            if (browserMatch.browser) {
+                browser = browserMatch.browser;
+                version = browserMatch.version;
+                _broswer.version = version;
+                _broswer.browser = browser;
+            }
+            return _broswer;
+        }
+
+    </script>
+</head>
+
+<body>
+<h1>URL有效性检测</h1>
+
+
+
+<table border="1">
+    <tr>
+        <td>IP地址 ：</td>
+        <!--<td><span id="ipId"></span></td>-->
+        <td><script>document.write( returnCitySN["cip"]);</script></td>
+    </tr>
+    <!--<tr>-->
+    <!--<td>归属城市： </td>-->
+    <!--<td ><span id="cityId">returnCitySN["cip"]</span></td>-->
+    <!--</tr>-->
+    <tr>
+        <td>浏览器：</td>
+        <!--<td><span id="clientId"></span></td>-->
+        <td>
+            <script>
+                var mybroswer = getbroswerinfo();
+                document.write( mybroswer.browser + " :" + mybroswer.version);
+        </script></td>
+
+    </tr>
+    <tr>
+        <td>是否使用代理 ：</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td><input type="text" id="urlForValidate1" style="border: none" value="https://www.baidu.com"/>
+        </td>
+        <td><span id="url1"></span></td>
+    </tr>
+    <tr>
+        <td><input type="text" id="urlForValidate2" style="border: none" value="https://www.niudada.com"/></td>
+        <td><span id="url2"></span></td>
+    </tr>
+</table>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        // var returnCitySN2 = returnCitySN["cip"];
+        // $('#ipId').text(returnCitySN2);
+        var returnCitySN3 = returnCitySN["cname"];
+        // $('#cityId').text(returnCitySN3);
+        var dent = mybroswer.browser + " :" + mybroswer.version;
+        $('#clientId').text(dent);
+        NetPing(1);
+        NetPing(2);
+        demo();
+        // $('#url1').text(b);
+        // $('#url2').text(NetPing("https://www.hao123.com"));
+    });
+
+
+        window.onload=function(){
+            var xhr=getXhr();
+            xhr.open('get','www.baidu.com');
+            xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+            xhr.send();
+            xhr.onreadystatechange=function(){
+                if (xhr.readyState==4&&xhr.status==200)
+                {
+                    var text=xhr.responseText;
+                    if(text=='true'){
+                        alert("你使用了代理IP，本站禁止访问");
+                        window.location.href="http://www.xdcity.cn";
+                    }else{
+                        console.log("你是良民哦！")
+                    }
+                }
+            }
+        }
+    function getXhr(){
+        // 1 定义一个空对象
+        var xhr = null;
+        // 2 判断当前浏览器是否支持该核心对象
+        if(window.XMLHttpRequest){
+            // 当前浏览器支持该对象:其它浏览器
+            xhr = new XMLHttpRequest();
+        }else{
+            // 当前浏览器不支持该对象:IE浏览器
+            xhr = new ActiveXObject('Microsoft.XMLHttp');
+        }
+        return xhr;
+    }
+
+    function demo() {
+        $.ajax({
+            type: 'POST',
+            url: 'http://www.google.com',
+            data: formData,
+            success: function (data, textStatus, request) {
+                var s1 = request.getResponseHeader('X-Forwarded-For');
+                if (request.getResponseHeader('X-Forwarded-For') != undefined) {
+                    alert("Proxy detected !");
+
+                }
+            }
+        });
+    }
+
+
+    function NetPing(state) {
+        var urlForValid;
+        if (state == 1) {
+            urlForValid = $("#urlForValidate1").val();
+        } else {
+            urlForValid = $("#urlForValidate2").val();
+
+        }
+        // var urlForValid = $("#urlForValidate").val();
+        if (urlForValid.indexOf('http') < 0) {
+            alert("URL必须以http:// 或 https://开头！");
+            return false;
+        }
+        var result;
+        $.ajax({
+            url: urlForValid,
+            type: "GET",
+            timeout: 3000,
+            dataType: "jsonp",
+            complete: function (response, textStatus) {
+                if (response.status == 404) {
+                    if (state == 1) {
+                        $('#url1').text("失败");
+                    } else {
+                        $('#url2').text("失败");
+                    }
+                } else if (response.status == 200) {
+                    if (state == 1) {
+                        $('#url1').text("成功");
+                    } else {
+                        $('#url2').text("成功");
+                    }
+                    // alert("响应状态码：" + response.status + "\n响应信息： " + textStatus + "\nURL状态正常！");
+                } else {
+                    if (state == 1) {
+                        $('#url1').text("失败");
+                    } else {
+                        $('#url2').text("失败");
+                    }
+                    // alert("响应状态码：" + response.status + "\n响应信息： " + textStatus + "\nURL 可能失效了！");
+                }
+            }
+        });
+
+
+    }
+
+</script>
+
+<script type="text/javascript">
+    var mybroswer = getbroswerinfo();
+    $("#mybroswerinfo").text("浏览器：" + mybroswer.browser + " :" + mybroswer.version);
+    // function NetPing() {
+    // 	var urlForValid = $("#urlForValidate").val();
+    // 	if(urlForValid.indexOf('http')<0){alert("URL必须以http:// 或 https://开头！");return false;}
+    // 	$.ajax({
+    // 		url: urlForValid,
+    // 		type: "GET",
+    // 		timeout:3000,
+    // 		dataType: "jsonp",
+    // 		complete: function(response, textStatus) {
+    // 			if(response.status == 404) {
+    // 				alert("URL请求失败！");
+    // 			}else if(response.status == 200){
+    // 				alert("响应状态码：" + response.status + "\n响应信息： " + textStatus + "\nURL状态正常！");
+    // 			}else {
+    // 				alert("响应状态码：" + response.status + "\n响应信息： " + textStatus + "\nURL 可能失效了！");
+    // 			}
+    // 		}
+    // 	});
+    // }
+</script>
+</body>

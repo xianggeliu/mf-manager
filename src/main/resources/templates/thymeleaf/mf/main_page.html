@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>js获取本机mac地址，IP地址，计算机名</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta content="MSHTML 6.00.2800.1106" name="GENERATOR">
+    <script src="/static/dist/jquery/jquery-1.9.1.min.js"></script>
+    <link rel="stylesheet" href="/static/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/plugins/sweetalert2/sweet-alert.css">
+    <!--<link rel="stylesheet" href="/static/login/css/reg.css">-->
+    <link rel="author" href="/static/humans.txt">
+    <script src="/static/dist/js/bootstrap.min.js"></script>
+    <script src="/static/plugins/sweetalert2/sweet-alert.js" type="text/javascript" charset="UTF-8"></script>
+    <script src="/static/plugins/sweetalert2/es6-promise.min.js"></script>
+</head>
+    
+<body> 
+<object id=locator classid=CLSID:76A64158-CB41-11D1-8B02-00600806D9B6 VIEWASTEXT></object> 
+<object id=foo classid=CLSID:75718C9A-F029-11d1-A1AC-00C04FB6C223></object> 
+<script language="JScript"> 
+</script>
+<script language="JScript" event="OnCompleted(hResult,pErrorObject, pAsyncContext)" for="foo"> 
+</script>
+<script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
+
+<table border="1">
+    <tr>
+        <td>IP地址 ：</td>
+        <td ><span id="ipId"></span></td>
+    </tr>
+    <tr>
+        <td>归属城市： </td>
+        <td ><span id="cityId">returnCitySN["cip"]</span></td>
+    </tr>
+    <tr>
+        <td>是否使用代理 ： </td>
+        <td>是</td>
+    </tr>
+
+    <tr>
+        <td>https://www.hao123.com ： </td>
+        <td><span id="url1"></span></td>
+    </tr>
+    <tr>
+        <td>https://www.niudada.com： </td>
+        <td><span id="url2"></span></td>
+    </tr>
+</table>
+<script type="text/javascript">
+$(document).ready(function() {
+    var returnCitySN2 = returnCitySN["cip"];
+    $('#ipId').text(returnCitySN2);
+    var returnCitySN3 = returnCitySN["cname"];
+    $('#cityId').text(returnCitySN3);
+    // $('#url1').text(NetPing("https://www.hao123.com"));
+    // $('#url2').text(NetPing("https://www.hao123.com"));
+});
+
+    function NetPing( urlForValid) {
+        // var urlForValid = $("#urlForValidate").val();
+        if(urlForValid.indexOf('http')<0){alert("URL必须以http:// 或 https://开头！");return false;}
+
+        $.ajax({
+            url: urlForValid,
+            type: "GET",
+            timeout:3000,
+            dataType: "jsonp",
+            complete: function(response, textStatus) {
+                if(response.status == 404) {
+                    // alert("URL请求失败！");
+                    return false;
+                }else if(response.status == 200){
+                    // alert("响应状态码：" + response.status + "\n响应信息： " + textStatus + "\nURL状态正常！");
+                    return true;
+                }else {
+                    return false;
+                    // alert("响应状态码：" + response.status + "\n响应信息： " + textStatus + "\nURL 可能失效了！");
+                }
+            }
+        });
+    }
+
+</script>
+</body>
+</html>

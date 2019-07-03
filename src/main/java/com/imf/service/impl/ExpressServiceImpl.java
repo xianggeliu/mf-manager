@@ -227,9 +227,13 @@ public class ExpressServiceImpl implements ExpressService {
                 mfExpressDayTotal.setId(day);
                 mfExpressDayTotal.setIntoTotal(inTotal);
                 medtMapper.insert(mfExpressDayTotal);
+            }else {
+                if (mfExpressDayTotal.getIntoTotal() != null){
+                    return MFJSONResult.ok("当天入库已完成，不能重复入库!");
+                }
+                mfExpressDayTotal.setIntoTotal(inTotal);
+                medtMapper.updateByPrimaryKey(mfExpressDayTotal);
             }
-            mfExpressDayTotal.setIntoTotal(inTotal);
-            medtMapper.updateByPrimaryKey(mfExpressDayTotal);
             redis.set("MF:express:expressCount","1");
             return MFJSONResult.ok("入库完成：" + day + "一共入库了：" + inTotal + "件快递！");
         }else if (state == 0){
@@ -241,11 +245,16 @@ public class ExpressServiceImpl implements ExpressService {
                 mfExpressDayTotal.setId(day);
                 mfExpressDayTotal.setOutTotal(outTotal);
                 medtMapper.insert(mfExpressDayTotal);
+            }else {
+                if (mfExpressDayTotal.getOutTotal() != null){
+                    return MFJSONResult.ok("当天出库已完成，不能重复出库!");
+                }
+                mfExpressDayTotal.setOutTotal(outTotal);
+                medtMapper.updateByPrimaryKey(mfExpressDayTotal);
             }
-            mfExpressDayTotal.setIntoTotal(outTotal);
-            medtMapper.updateByPrimaryKey(mfExpressDayTotal);
+
             redis.set("MF:express:expressOutCount","1");
-            return MFJSONResult.ok("入库完成：" + day + "一共出库了：" + outTotal + "件快递！");
+            return MFJSONResult.ok("出库完成：" + day + "一共出库了：" + outTotal + "件快递！");
         }
         return MFJSONResult.errorMap("您的操作不存在，请联系管理员！");
     }

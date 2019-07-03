@@ -216,24 +216,20 @@
             swal("快递单号不能为空~！");
             return;
         }
-        if (num == numb) {
-            return;
-        }
         $.ajax({
             url: location.protocol + "/login/getExpress",
             type: 'POST',
             // type: "GET",
             data: {"expressNum": numb},
             success: function (result) {
-                num = numb;
                 if (result.status == 200) {
                     var express = result.data;
                     $('#name').text(express.eName == null ? "" : express.eName);
                     $('#company').text(express.eCompany);
                     $('#expressNumb').text(express.expressNumber);
-                    $('#phone').text(express.phone == null ? "" : express.phone);
-                    $('#intoTime').text(formatDate(express.enteringTime));
-                    $('#outTime').text(express.getTime == null ? "" : formatDate(express.getTime));
+                    $('#phone').text(express.ePhone == null ? "" : express.ePhone);
+                    $('#intoTime').text(express.enteringTime);
+                    $('#outTime').text(express.getTime == null ? "" : express.getTime);
                     $('#state').text(express.eState == 1 ? "未取件" : "已取件");
                     $('#addExpress').modal();
                     // swal({

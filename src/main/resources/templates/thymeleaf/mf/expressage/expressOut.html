@@ -95,7 +95,7 @@
         <button style="margin-left: 54%; margin-top: -87px;" type="" class="btn btn-primary" onclick="takesExpress()">
             <span class="glyphicon glyphicon-send"></span>
         </button>
-        <button  style="margin-right: 1.5%; float: right; margin-top: -80px;" class="btn btn-success btn-lg" onclick="overPutIn()" >出库完成</button>
+        <button  style="margin-right: 1.5%; float: right; margin-top: -80px;" class="btn btn-success btn-lg" onclick="overPutOut()" >出库完成</button>
         <!--</div>-->
     </div>
     <!-----------------------------表单开始 ------------------------------------------>
@@ -231,6 +231,27 @@
             }
         });
 
+    }
+
+
+    function overPutOut() {
+        $.ajax({
+            url: location.protocol + "/login/saveExpressTotal",
+            type: 'GET',
+            // type: "GET",
+            data: {"state":0},
+            success: function (data) {
+                if (data.status == 200){
+                    swal(data.data);
+                    return;
+                }
+                swal(data.msg);
+
+            },
+            error: function (data) {
+                swal('添加快递信息异常，请联系祥哥~！');
+            }
+        });
     }
 
 </script>

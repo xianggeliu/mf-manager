@@ -1,5 +1,7 @@
 package com.imf.pojo;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 public class MfExpress {
@@ -10,11 +12,11 @@ public class MfExpress {
     private String eCompany;
 
     private Integer eCompanyCode;
-
+//    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date enteringTime;
 
     private String ePhone;
-
+//    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date getTime;
 
     private String eName;

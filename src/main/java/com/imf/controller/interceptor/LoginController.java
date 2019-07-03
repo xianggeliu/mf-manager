@@ -66,6 +66,16 @@ public class LoginController {
         return "thymeleaf/mf/expressage/expressShow";
     }
 
+    @RequestMapping("/expressDayTotal")
+    public String expressDayTotal() {
+        return "thymeleaf/mf/expressage/expressDayTotal";
+    }
+
+    @RequestMapping("/ipAddress")
+    public String ipAddress() {
+        return "thymeleaf/mf/url";
+    }
+
     @RequestMapping("/postExpress")
     @ResponseBody
     public MFJSONResult postExpress(@RequestParam(value = "expressNum") String expressNum, @RequestParam(value = "companyCode") String companyCode, String phone) {
@@ -114,7 +124,7 @@ public class LoginController {
 
     }
 
-    @RequestMapping("/saveExpressInTotal")
+    @RequestMapping("/saveExpressTotal")
     @ResponseBody
     public MFJSONResult saveExpressTotal(int state) {
         try {
