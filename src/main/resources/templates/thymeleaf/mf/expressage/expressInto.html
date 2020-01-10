@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/static/dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/static/plugins/sweetalert2/sweet-alert.css">
     <!--<link rel="stylesheet" href="/static/login/css/reg.css">-->
+    <script src="/static/js/common.js"></script>
     <link rel="author" href="/static/humans.txt">
     <script src="/static/dist/jquery/jquery-1.9.1.min.js"></script>
     <script src="/static/dist/js/bootstrap.min.js"></script>
@@ -26,6 +27,9 @@
             background-size: cover;
         }
 
+        .modal-content {
+            background: #53A7F0;
+        }
         /*.modal-content {*/
             /*background: #53A7F0;*/
         /*}*/
@@ -41,11 +45,9 @@
 </head>
 <body>
 <div class="container ">
-    <div style="height:60px; margin-top: -20px; ">
-        <h1 class=" text-center" style="background: #328DDC;  padding-top: 10px; height:60px"><p class="text">
-            沐风快递管理系统</p></h1>
-    </div>
-
+        <p class="h2 text-center" >
+            沐风快递管理系统
+        </p>
     <nav class="navbar navbar-default">
 
         <div class="navber-header">
@@ -68,6 +70,7 @@
                 <li><a href="/login/expressOut">快递取件</a></li>
                 <li><a href="/login/expressSearch">快递查询</a></li>
                 <li><a href="/login/expressShow">快递单号展示</a></li>
+                <li ><a href="setting">配置</a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
@@ -88,9 +91,9 @@
     </nav>
     <div class="container" style="margin-top: -18px; height: 500px;">
         <!--<form  class="navbar-form navbar-center"  style="margin-left: 35%" method="get" accept-charset="utf-8">-->
-        <div id="intoTable" class="form-group">
+        <div id="intoTable" class="form-group text-center">
             <input type="text" name="" id="expressNum" style="width: 200px ; margin-left: 36% ; margin-top: 50px;"
-                   autofocus="autofocus" class="form-control" value="" placeholder="">
+                   autofocus="autofocus" class="form-control" value="" placeholder="请输入入库单号">
         </div>
         <!--</form>-->
         <!--<div class="form-group">-->
@@ -126,13 +129,6 @@
                                 <label class="col-sm-3 control-label" for="">快递公司名称:</label>
                                 <div class="col-sm-3">
                                     <select name="" id="companyOption" class="form-control">
-                                        <option value="1">韵达快递</option>
-                                        <option value="2">品骏</option>
-                                        <option value="3">顺丰快递</option>
-                                        <option value="4">中通速递</option>
-                                        <option value="5">京东</option>
-                                        <option value="6">天猫</option>
-                                        <option value="7">唯品会</option>
                                     </select>
                                 </div>
                             </div>
@@ -140,7 +136,7 @@
                             <div class="form-group has-warning">
                                 <label class="col-sm-3 control-label" for="">联系电话:</label>
                                 <div class="col-sm-8">
-                                    <input type="text" name="" class="form-control" id="fPhone" value="" placeholder="13300000330">
+                                    <input type="text" name="" class="form-control" id="fPhone" value="" onblur="loadUserName()" placeholder="13300000330">
                                 </div>
                             </div>
 
@@ -156,7 +152,7 @@
                 </div>
                 <div class="modal-footer ">
                     <div class="col-md-6 col-md-offset-2">
-                        <button  class="btn btn-success btn-lg" onclick="saveExpressInfo()" >确定</button>
+                        <button  class="btn btn-success btn-lg" onclick="saveExpressInfo(1)" >确定</button>
                         <button type="" class="btn btn-warning btn-lg" data-dismiss='modal'>取消</button>
                     </div>
                 </div>
@@ -199,52 +195,13 @@
         }
     };
     var num;
-    function saveExpressInfo() {
-        //获取参数信息
-        var companyCode =$("#companyOption option:selected").val();
-        var phone = $('#fPhone').val();
-        if (phone == ''){
-            swal("手机号码不能为空！")
-            return;
-        }
-        $.ajax({
-            url: location.protocol + "/login/postExpress",
-            type: 'POST',
-            // type: "GET",
-            data: { "expressNum":num,
-                    "companyCode":companyCode,
-                    "phone":phone
-            },
-            success: function (data) {
-                if (data.status == 200) {
-                    swal({
-                        title: data.data,
-                        confirmButtonText: "确定"
-                    }, function (isConfirm) {
-                        location.reload()
-                        return;
-                    })
-                    return;
-                }else if (data.status == 501){
-                    $('#eNumb').val(numb);
-                    $('#addExpress').modal();
-                }else {
-                    swal(data.msg);
-                }
-            },
-            error: function (data) {
-                swal('添加快递信息异常，请联系祥哥~！');
-            }
-        });
-
-    }
-
     function getExpress() {
         var numb = $('#expressNum').val();
         if (numb == '') {
             swal("快递单号不能为空~！");
             return;
         }
+        laodCompany();
         $.ajax({
             url: location.protocol + "/login/getExpressInfo",
             type: 'GET',
@@ -281,7 +238,7 @@
             }
         }
     }
-    
+
     function overPutIn() {
         $.ajax({
             url: location.protocol + "/login/saveExpressTotal",
@@ -301,5 +258,10 @@
             }
         });
     }
+    // $(document).ready(function () {
+    //     laodCompany();
+    //     // $('#cityId').val(returnCitySN3);
+    // });
+
 </script>
 </html>

@@ -34,20 +34,21 @@ public class MFInterceptor implements HandlerInterceptor  {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
 			Object object) throws Exception {
-		HttpSession session=request.getSession();
-//		String token = "MFTOKEN";
-		String token = cv.getCookieToken();
-		String cookie = CookieUtil.findCookie(request, token);
-		if (StringUtils.isNotEmpty(cookie)){
-			CookieUtil.addCookie(token,cookie,response);
-			redis.expire(cookie,1800);
-			return  true;
-		}
-		session.setAttribute("preurl",request.getRequestURI());
-		StringBuffer url = request.getRequestURL();
-		String tempContextUrl = url.delete(url.length() - request.getRequestURI().length(), url.length()).append(request.getServletContext().getContextPath()).append("/login/index").toString() ;
-		response.sendRedirect(tempContextUrl);
-		return false;
+		return  true;
+//		HttpSession session=request.getSession();
+////		String token = "MFTOKEN";
+//		String token = cv.getCookieToken();
+//		String cookie = CookieUtil.findCookie(request, token);
+//		if (StringUtils.isNotEmpty(cookie)){
+//			CookieUtil.addCookie(token,cookie,response);
+//			redis.expire(cookie,1800);
+//			return  true;
+//		}
+//		session.setAttribute("preurl",request.getRequestURI());
+//		StringBuffer url = request.getRequestURL();
+//		String tempContextUrl = url.delete(url.length() - request.getRequestURI().length(), url.length()).append(request.getServletContext().getContextPath()).append("/login/index").toString() ;
+//		response.sendRedirect(tempContextUrl);
+//		return false;
 	}
 	
 	/**

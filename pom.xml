@@ -53,7 +53,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.56</version>
+            <version>1.2.41</version>
         </dependency>
 
         <!-- 下面这货帮我解决了错误 -->
@@ -125,6 +125,11 @@
             <groupId>net.coobird</groupId>
             <artifactId>thumbnailator</artifactId>
             <version>0.4.8</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
         </dependency>
 
         <!-- 热部署 -->

@@ -1,0 +1,196 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>学生信息管理</title>
+    <link rel="stylesheet" href="/static/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/plugins/sweetalert2/sweet-alert.css">
+    <!--<link rel="stylesheet" href="/static/login/css/reg.css">-->
+    <link rel="author" href="/static/humans.txt">
+    <script src="/static/dist/jquery/jquery-1.9.1.min.js"></script>
+    <script src="/static/dist/js/bootstrap.min.js"></script>
+    <script src="/static/plugins/sweetalert2/sweet-alert.js" type="text/javascript" charset="UTF-8"></script>
+    <script src="/static/plugins/sweetalert2/es6-promise.min.js"></script>
+    <style type="text/css" media="screen">
+
+        .table th, .table td {
+            text-align: center;
+            height: 38px;
+        }
+
+        body {
+            background: url(/static/login/img/bj.jpg) no-repeat center fixed;
+            background-size: cover;
+        }
+
+        /*.modal-content {*/
+        /*background: #53A7F0;*/
+        /*}*/
+
+        /*.wrap{*/
+        /*box-sizing: border-box;*/
+        /*height: 100vh;*/
+        /*background: url("static/login/img/bj.jpg") no-repeat center;*/
+        /*background-size: auto 100vh;*/
+        /*position:  relative;*/
+        /*}*/
+
+        textarea {
+            resize: none;
+        }
+    </style>
+</head>
+<body style="">
+<div class="container">
+    <p class="h2 text-center">
+        沐风快递管理系统
+    </p>
+    <nav class="navbar navbar-default">
+
+        <div class="navber-header">
+
+            <a href="#" class="navbar-brand"><img src="/static/dist/img/wind.png" height="100%" alt=""></a>
+            <button type="button" class="navbar-toggle collapsed" data-toggle='collapse' data-target='#myNavbar'
+                    aria-expanded="false">
+
+                <span class="sr-only"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+
+            </button>
+        </div>
+        <div id="myNavbar" class="collapse navbar-collapse" style="top: 100px;">
+            <ul class="nav navbar-nav">
+                <li><a href="/login/express">首页</a></li>
+                <li><a href="/login/expressInto">快递单号录入</a></li>
+                <li><a href="/login/expressOut">快递取件</a></li>
+                <li><a href="/login/expressSearch">快递查询</a></li>
+                <li><a href="/login/expressShow">快递单号展示</a></li>
+                <li class="active"><a href="setting">配置</a></li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#" class="">英雄攻略</a></li>
+
+            </ul>
+            <form action="导航栏_submit" class="navbar-form navbar-right" method="get" accept-charset="utf-8">
+                <div class="form-group">
+                    <input type="text" name="" class="form-control" value="" placeholder="">
+                </div>
+                <div class="form-group">
+                    <button type="" class="btn btn-default">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </nav>
+    <!--<div class="table-responsive bs-example" style="margin-top: 15px; background: #F5F5F5; height: 500px;">-->
+    <div class="jumbotron" style=" height: 510px; margin-top: -15px">
+
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#tab1" data-toggle="tab">短信设置</a></li>
+            <li><a href="#tab2" data-toggle="tab">其他设置</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active " id="tab1">
+                <div class="text-center">
+                    <p class="h4"><strong>短信模板</strong>
+                    </p>
+                    <div class="col-sm-3 text-right text-danger">
+                        <em>date ： 代表日期</em> <br>
+                        <em>code ： 代表取件号</em>
+                    </div>
+                    <div class="col-sm-6">
+                        <textarea class="form-control" id="msg" rows="10" maxlength='70'
+                                  placeholder="不要超过70字！"></textarea>
+                        <div style="margin-top: 10px">
+                            <button class="btn btn-large  btn-success" onclick="saveMessage()" type="button">保存</button>
+                            <button class="btn btn-large  btn-danger" onclick="cancelMessage()" type="button">取消</button>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 text-left text-warning">
+                        <h4 class="text-primary">举个栗子: </h4>
+                        <em>【快递综合服务】</em>date <em>快递已到，暂放两日，如需拒收，联系18201128350地址：东街东大路向北150米路东。取件号：</em>code
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane" id="tab2">
+                <p class="text-center text-primary">功能开发中，尽请期待.....</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+<script>
+
+    // var currentPage;
+    // var pageSize;
+
+    s = 0;
+    v = 2;
+    sobj = setInterval(function () {
+        s += v;
+        if (s >= 100) {
+            clearInterval(sobj);
+        }
+        ;
+        $("#prgressBar").html(s + '%').css({
+            'width': s + '%'
+        });
+    }, 100);
+
+    //保存短信模板
+    function saveMessage() {
+        var content = $('#msg').val();
+        if (content == "") {
+            swal("模板内容不能为空！");
+        }
+        $.ajax({
+            url: location.protocol + "/express/saveMessage",
+            type: 'POST',
+            // type: "GET",
+            data: {"content": content},
+            success: function (result) {
+                swal(result.msg);
+            },
+            error: function (data) {
+                swal('获取快递信息异常，请联系祥哥~！');
+            }
+        });
+    }
+
+    $(function () {
+        loadMessage();
+    });
+
+    function loadMessage() {
+        $.ajax({
+            url: location.protocol + "/express/getMessage",
+            type: 'GET',
+            success: function (result) {
+                if (result.status == 200) {
+                    // swal(result.data.content);
+                    $('#msg').val(result.data.content);
+                } else {
+                    swal(result.msg);
+                }
+            },
+            error: function (data) {
+                swal('获取快递信息异常，请联系祥哥~！');
+            }
+        });
+    }
+    
+    function cancelMessage() {
+        $('#msg').val("");
+        loadMessage();
+    }
+
+</script>
+</html>

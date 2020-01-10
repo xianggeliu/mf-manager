@@ -1,5 +1,7 @@
 package com.imf.utils;
 
+import com.imf.pojo.MfMsg;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -33,22 +35,19 @@ public class SmsSample {
 	}
 
 
-	public static String sendMsg(String phnoe , String number)throws Exception{
-        String testUsername = "xianggeliu"; //在短信宝注册的用户名
-        String testPassword = "xiang123"; //在短信宝注册的密码
-		StringBuilder contentSb = new StringBuilder("【快递综合服务】");
-        String date = CommonUtil.formatDate("MM月dd日");
-		contentSb.append(date).append("快递已到，暂放两日，如需拒收，联系18201128350地址：东街东大路向北150米路东。取件号：").append(number);
-
+	public static String sendMsg(String phnoe, String content, MfMsg mfMsg)throws Exception{
+//        String testUsername = "xianggeliu"; //在短信宝注册的用户名
+        String testUsername = mfMsg.getUsername(); //在短信宝注册的用户名
+//        String testPassword = "xiang123"; //在短信宝注册的密码
+        String testPassword = mfMsg.getPassword(); //在短信宝注册的密码
         String httpUrl = "http://api.smsbao.com/sms";
-
         StringBuffer httpArg = new StringBuffer();
         httpArg.append("u=").append(testUsername).append("&");
         httpArg.append("p=").append(md5(testPassword)).append("&");
         httpArg.append("m=").append(phnoe).append("&");
-        httpArg.append("c=").append(encodeUrlString(contentSb.toString(), "UTF-8"));
-//        return "0" ;
-	    return request(httpUrl, httpArg.toString());
+        httpArg.append("c=").append(encodeUrlString(content.toString(), "UTF-8"));
+        return "0" ;
+//	    return request(httpUrl, httpArg.toString());
     }
 
 	public static String request(String httpUrl, String httpArg) {

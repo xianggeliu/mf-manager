@@ -50,6 +50,7 @@ public class MFJSONResult {
     }
 
     public static MFJSONResult ok() {
+
         return new MFJSONResult(null);
     }
     
@@ -85,7 +86,7 @@ public class MFJSONResult {
 
     public MFJSONResult(Object data) {
         this.status = 200;
-        this.msg = "OK";
+        this.msg = "success";
         this.data = data;
     }
 

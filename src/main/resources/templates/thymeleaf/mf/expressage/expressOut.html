@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/static/dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/static/plugins/sweetalert2/sweet-alert.css">
     <!--<link rel="stylesheet" href="/static/login/css/reg.css">-->
+    <script src="/static/js/common.js"></script>
     <link rel="author" href="/static/humans.txt">
     <script src="/static/dist/jquery/jquery-1.9.1.min.js"></script>
     <script src="/static/dist/js/bootstrap.min.js"></script>
@@ -39,11 +40,9 @@
 </head>
 <body>
 <div class="container ">
-    <div style="height:60px; margin-top: -20px; ">
-        <h1 class=" text-center" style="background: #328DDC;  padding-top: 10px; height:60px"><p class="text">
-            沐风快递管理系统</p></h1>
-    </div>
-
+        <p class="h2 text-center">
+            沐风快递管理系统
+        </p>
     <nav class="navbar navbar-default">
 
         <div class="navber-header">
@@ -66,6 +65,7 @@
                 <li class="active"><a href="/login/expressOut">快递取件</a></li>
                 <li><a href="/login/expressSearch">快递查询</a></li>
                 <li><a href="/login/expressShow">快递单号展示</a></li>
+                <li ><a href="setting">配置</a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
@@ -88,7 +88,7 @@
         <!--<form  class="navbar-form navbar-center"  style="margin-left: 35%" method="get" accept-charset="utf-8">-->
         <div id="intoTable" class="form-group">
             <input type="text" name="" id="expressNum" style="width: 200px ; margin-left: 36% ; margin-top: 50px;"
-                   autofocus="autofocus" class="form-control" value="" placeholder="">
+                   autofocus="autofocus" class="form-control" value="" placeholder="请输入出库单号">
         </div>
         <!--</form>-->
         <!--<div class="form-group">-->
@@ -106,10 +106,9 @@
                     <div class="close" data-dismiss='modal'>&times;
                     </div>
                     <span id="fTitle"><h3>添加快递单号信息</h3></span>
-
                 </div>
 
-                <div class="modal-body " style="height:450px;">
+                <div class="modal-body " style="height:300px;">
                     <form class="form-horizontal" action="setStudentInfo" id="studentAddForm" method="post" enctype="multipart/form-data"
                           accept-charset="utf-8">
                         <div class="col-md-12">
@@ -124,13 +123,6 @@
                                 <label class="col-sm-3 control-label" for="">快递公司名称:</label>
                                 <div class="col-sm-3">
                                     <select name="" id="companyOption" class="form-control">
-                                        <option value="1">韵达快递</option>
-                                        <option value="2">中通</option>
-                                        <option value="3">申通</option>
-                                        <option value="4">圆通</option>
-                                        <option value="5">京东</option>
-                                        <option value="6">天猫</option>
-                                        <option value="7">唯品会</option>
                                     </select>
                                 </div>
                             </div>
@@ -138,7 +130,7 @@
                             <div class="form-group has-warning">
                                 <label class="col-sm-3 control-label" for="">联系电话:</label>
                                 <div class="col-sm-8">
-                                    <input type="text" name="" class="form-control" id="fPhone" value="" placeholder="13300000330">
+                                    <input type="text" name="" class="form-control" id="fPhone" value="" onblur="loadUserName()" placeholder="13300000330">
                                 </div>
                             </div>
 
@@ -146,7 +138,7 @@
                             <div class="form-group has-warning">
                                 <label class="col-sm-3 control-label" for="">收件人姓名:</label>
                                 <div class="col-sm-8">
-                                    <input type="text" name="" class="form-control" id="fPhone" value="" placeholder="13300000330">
+                                    <input type="text" name="" class="form-control" id="fName" value="" placeholder="小三">
                                 </div>
                             </div>
                         </div>
@@ -154,7 +146,7 @@
                 </div>
                 <div class="modal-footer ">
                     <div class="col-md-6 col-md-offset-2">
-                        <button  class="btn btn-success btn-lg" onclick="saveExpressInfo()" >确定</button>
+                        <button  class="btn btn-success btn-lg" onclick="saveExpressInfo(0)" >确定</button>
                         <button type="" class="btn btn-warning btn-lg" data-dismiss='modal'>取消</button>
                     </div>
                 </div>
@@ -219,12 +211,32 @@
                         title: "快递出库成功！",
                         confirmButtonText: "确定"
                     }, function (isConfirm) {
-                        location.reload()
+                        location.reload();
                         return;
                     })
-                    return;
+                }else if (data.status == 502) {
+                    swal({
+                        title: data.msg,
+                        confirmButtonText: "确定"
+                    }, function (isConfirm) {
+                        location.reload();
+                        return;
+                    })
+                }else{
+                    swal({
+                                 title: data.msg,
+                                 showCancelButton: true,
+                                 confirmButtonText: "确定",
+                                 cancelButtonText: "取消",
+                                 // closeOnConfirm: false
+                             }, function (isConfirm) {
+                                 if (isConfirm) {
+                                     getExpress();
+                                 } else {
+                                     location.reload();
+                                 }
+                             })
                 }
-                swal(data.msg);
             },
             error: function (data) {
                 swal('添加快递信息异常，请联系祥哥~！');
@@ -253,6 +265,55 @@
             }
         });
     }
+
+    $(document).ready(function () {
+        laodCompany();
+        // $('#cityId').val(returnCitySN3);
+    });
+
+    function getExpress() {
+        var numb = $('#expressNum').val();
+        if (numb == '') {
+            swal("快递单号不能为空~！");
+            return;
+        }
+        $.ajax({
+            url: location.protocol + "/login/getExpressInfo",
+            type: 'GET',
+            // type: "GET",
+            data: {"expressNum":numb,"companyCode":""},
+            success: function (data) {
+                if (data.status == 200){
+                    num = numb;
+                    $('#eNumb').val(numb);
+                    if (data.data != null){
+                        var shipperCode = data.data.ShipperCode;
+                        selectOptions(shipperCode);
+                    }
+                    $('#addExpress').modal();
+                    return;
+                }
+                swal(data.msg);
+
+            },
+            error: function (data) {
+                swal('添加快递信息异常，请联系祥哥~！');
+            }
+        });
+
+    }
+
+    function selectOptions(status) {
+        var options = document.getElementById('companyOption');
+        var lengths = options.options.length;//下拉项的长度
+        for(var i=0;i<lengths;i++){
+            if(status == options.options[i].value){
+                options.options[i].selected=true;
+                return ;
+            }
+        }
+    }
+
 
 </script>
 </html>

@@ -1,0 +1,31 @@
+启动三个应用放到了：/usr/local/djsigncenter/artifacts，分别对应auth、back、gateway；里面有各自的shell脚本
+启动nacos，现在是单机的：
+cd /usr/local/nacos/nacos/bin
+nohup ./startup.sh -m standalone &
+
+启动sentinel：
+cd /usr/local/sentinel_1.6.1
+nohup ./startSentinel.sh &
+
+
+启动rabbit：
+启动插件
+./rabbitmq-plugins enable rabbitmq_management
+启动服务
+./rabbitmq-server -detached
+
+
+cd /usr/lib/rabbitmq/bin
+
+
+启动项目：
+启动三个服务：
+cd /usr/local/djsigncenter/artifacts/auth
+nohup ./startauth.sh &
+
+
+cd /usr/local/djsigncenter/artifacts/back
+nohup ./startback.sh &
+
+cd /usr/local/djsigncenter/artifacts/gateway
+nohup ./startgateway.sh &

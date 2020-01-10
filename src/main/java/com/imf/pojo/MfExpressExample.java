@@ -315,7 +315,7 @@ public class MfExpressExample {
             return (Criteria) this;
         }
 
-        public Criteria andECompanyCodeEqualTo(Boolean value) {
+        public Criteria andECompanyCodeEqualTo(String value) {
             addCriterion("e_company_code =", value, "eCompanyCode");
             return (Criteria) this;
         }
@@ -696,6 +696,11 @@ public class MfExpressExample {
         }
 
         public Criteria andEStateEqualTo(Boolean value) {
+            addCriterion("e_state =", value, "eState");
+            return (Criteria) this;
+        }
+
+        public Criteria andEStateEqualTo(Integer value) {
             addCriterion("e_state =", value, "eState");
             return (Criteria) this;
         }
